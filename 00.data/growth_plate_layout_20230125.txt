@@ -1,0 +1,17 @@
+Well	Column	Row_num	Plate	Compound	Concentration	Solvent
+A1	1	8	1	DMSO_control	0	DMSO
+B1	1	7	1	DMSO_control	0	DMSO
+C1	1	6	1	DMSO_control	0	DMSO
+D1	1	5	1	DMSO_control	0	DMSO
+E1	1	4	1	DMSO_control	0	DMSO
+F1	1	3	1	DMSO_control	0	DMSO
+G1	1	2	1	DMSO_control	0	DMSO
+H1	1	1	1	DMSO_control	0	DMSO
+E2	2	4	1	PFOA	500	DMSO
+F2	2	3	1	PFOA	500	DMSO
+G2	2	2	1	PFOA	500	DMSO
+H2	2	1	1	PFOA	500	DMSO
+A3	3	8	1	PFNA	250	DMSO
+B3	3	7	1	PFNA	250	DMSO
+C3	3	6	1	PFNA	250	DMSO
+D3	3	5	1	PFNA	250	DMSO
