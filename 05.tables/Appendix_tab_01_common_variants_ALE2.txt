@@ -1,0 +1,337 @@
+Sample_ID	POS	TYPE	REF	ALT	EVIDENCE	FTYPE	STRAND	NT_POS	AA_POS	EFFECT	PRODUCT	Compound	Concentration	Ref	Ref_depth	Alt	Alt_depth	Alt_Num	Ratio	Effect
+A3	1166763	ins	G	GA	GA:324 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GA:324	324	1	1	Non-coding_region_variant
+A3	1602681	ins	A	ATT	ATT:285 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFNA	250	A:0	0	ATT:285	285	1	1	frameshift_variant
+A3	1681625	ins	T	TAA	TAA:263 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TAA:263	263	1	1	Non-coding_region_variant
+A3	1702756	ins	G	GA	GA:316 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GA:316	316	1	1	Non-coding_region_variant
+A3	1931428	ins	C	CTT	CTT:304 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFNA	250	C:0	0	CTT:304	304	1	1	frameshift_variant
+A3	2172090	ins	C	CTT	CTT:250 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CTT:250	250	1	1	Non-coding_region_variant
+A3	3001005	ins	T	TCCCC	TCCCC:221 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TCCCC:221	221	1	1	Non-coding_region_variant
+A3	3119867	ins	C	CA	CA:276 C:3	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFNA	250	C:3	3	CA:276	276	1	0.989247311827957	frameshift_variant
+A3	3131521	ins	T	TA	TA:266 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFNA	250	T:0	0	TA:266	266	1	1	frameshift_variant
+A3	3350432	ins	C	CT	CT:276 C:0	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFNA	250	C:0	0	CT:276	276	1	1	frameshift_variant
+A3	3350941	ins	C	CTT	CTT:160 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFNA	250	C:0	0	CTT:160	160	1	1	frameshift_variant
+A3	3356587	ins	C	CT	CT:300 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFNA	250	C:0	0	CT:300	300	1	1	frameshift_variant
+A3	3587000	ins	C	CT	CT:242 C:2	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFNA	250	C:2	2	CT:242	242	1	0.991803278688525	frameshift_variant
+A3	3630186	ins	C	CT	CT:220 C:1	Non-coding				Non-coding_region_variant		PFNA	250	C:1	1	CT:220	220	1	0.995475113122172	Non-coding_region_variant
+A3	3656109	ins	T	TGGG	TGGG:76 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TGGG:76	76	1	1	Non-coding_region_variant
+A3	3683056	ins	G	GTT	GTT:224 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GTT:224	224	1	1	Non-coding_region_variant
+A3	3879013	ins	A	ATT	ATT:206 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFNA	250	A:0	0	ATT:206	206	1	1	frameshift_variant
+A3	3929680	ins	T	TAA	TAA:259 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFNA	250	T:0	0	TAA:259	259	1	1	frameshift_variant
+A3	3929789	ins	C	CAA	CAA:213 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFNA	250	C:0	0	CAA:213	213	1	1	frameshift_variant
+A3	4065415	ins	A	ATT	ATT:248 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFNA	250	A:0	0	ATT:248	248	1	1	frameshift_variant
+A3	4065949	ins	A	ATT	ATT:305 A:0	Non-coding				Non-coding_region_variant		PFNA	250	A:0	0	ATT:305	305	1	1	Non-coding_region_variant
+A3	4066038	ins	G	GAA	GAA:336 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFNA	250	G:0	0	GAA:336	336	1	1	frameshift_variant
+A3	4067177	ins	G	GA	GA:203 G:1	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFNA	250	G:1	1	GA:203	203	1	0.995098039215686	frameshift_variant
+A3	4114804	ins	A	AT	AT:310 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFNA	250	A:0	0	AT:310	310	1	1	frameshift_variant
+A3	4117035	ins	T	TA	TA:285 T:1	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFNA	250	T:1	1	TA:285	285	1	0.996503496503496	frameshift_variant
+A3	4121915	ins	C	CA	CA:232 C:1	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFNA	250	C:1	1	CA:232	232	1	0.995708154506438	frameshift_variant
+A3	4231006	ins	C	CAA	CAA:266 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CAA:266	266	1	1	Non-coding_region_variant
+A3	4286763	ins	C	CT	CT:216 C:2	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFNA	250	C:2	2	CT:216	216	1	0.990825688073395	frameshift_variant
+B1	1166763	ins	G	GA	GA:368 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GA:368	368	1	1	Non-coding_region_variant
+B1	1602681	ins	A	ATT	ATT:361 A:1	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	DMSO	0	A:1	1	ATT:361	361	1	0.997237569060773	frameshift_variant
+B1	1681625	ins	T	TAA	TAA:329 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TAA:329	329	1	1	Non-coding_region_variant
+B1	1702756	ins	G	GA	GA:345 G:2	Non-coding				Non-coding_region_variant		DMSO	0	G:2	2	GA:345	345	1	0.994236311239193	Non-coding_region_variant
+B1	1931428	ins	C	CTT	CTT:285 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	DMSO	0	C:0	0	CTT:285	285	1	1	frameshift_variant
+B1	2172090	ins	C	CTT	CTT:276 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CTT:276	276	1	1	Non-coding_region_variant
+B1	3001005	ins	T	TCCCC	TCCCC:205 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TCCCC:205	205	1	1	Non-coding_region_variant
+B1	3119867	ins	C	CA	CA:275 C:2	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	DMSO	0	C:2	2	CA:275	275	1	0.992779783393502	frameshift_variant
+B1	3131521	ins	T	TA	TA:274 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	DMSO	0	T:0	0	TA:274	274	1	1	frameshift_variant
+B1	3350432	ins	C	CT	CT:327 C:0	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	DMSO	0	C:0	0	CT:327	327	1	1	frameshift_variant
+B1	3350941	ins	C	CTT	CTT:248 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	DMSO	0	C:0	0	CTT:248	248	1	1	frameshift_variant
+B1	3356587	ins	C	CT	CT:374 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	DMSO	0	C:0	0	CT:374	374	1	1	frameshift_variant
+B1	3587000	ins	C	CT	CT:285 C:1	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	DMSO	0	C:1	1	CT:285	285	1	0.996503496503496	frameshift_variant
+B1	3630186	ins	C	CT	CT:208 C:1	Non-coding				Non-coding_region_variant		DMSO	0	C:1	1	CT:208	208	1	0.995215311004785	Non-coding_region_variant
+B1	3656109	ins	T	TGGG	TGGG:65 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TGGG:65	65	1	1	Non-coding_region_variant
+B1	3683056	ins	G	GTT	GTT:248 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GTT:248	248	1	1	Non-coding_region_variant
+B1	3879013	ins	A	ATT	ATT:228 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	DMSO	0	A:0	0	ATT:228	228	1	1	frameshift_variant
+B1	3929680	ins	T	TAA	TAA:260 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	DMSO	0	T:0	0	TAA:260	260	1	1	frameshift_variant
+B1	3929789	ins	C	CAA	CAA:223 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	DMSO	0	C:0	0	CAA:223	223	1	1	frameshift_variant
+B1	4065415	ins	A	ATT	ATT:220 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	DMSO	0	A:0	0	ATT:220	220	1	1	frameshift_variant
+B1	4065949	ins	A	ATT	ATT:254 A:0	Non-coding				Non-coding_region_variant		DMSO	0	A:0	0	ATT:254	254	1	1	Non-coding_region_variant
+B1	4066038	ins	G	GAA	GAA:282 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	DMSO	0	G:0	0	GAA:282	282	1	1	frameshift_variant
+B1	4067177	ins	G	GA	GA:173 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	DMSO	0	G:0	0	GA:173	173	1	1	frameshift_variant
+B1	4114804	ins	A	AT	AT:291 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	DMSO	0	A:0	0	AT:291	291	1	1	frameshift_variant
+B1	4117035	ins	T	TA	TA:308 T:5	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	DMSO	0	T:5	5	TA:308	308	1	0.984025559105431	frameshift_variant
+B1	4121915	ins	C	CA	CA:267 C:1	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	DMSO	0	C:1	1	CA:267	267	1	0.996268656716418	frameshift_variant
+B1	4231006	ins	C	CAA	CAA:264 C:1	Non-coding				Non-coding_region_variant		DMSO	0	C:1	1	CAA:264	264	1	0.99622641509434	Non-coding_region_variant
+B1	4286763	ins	C	CT	CT:247 C:0	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	DMSO	0	C:0	0	CT:247	247	1	1	frameshift_variant
+B3	1166763	ins	G	GA	GA:314 G:1	Non-coding				Non-coding_region_variant		PFNA	250	G:1	1	GA:314	314	1	0.996825396825397	Non-coding_region_variant
+B3	1602681	ins	A	ATT	ATT:366 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFNA	250	A:0	0	ATT:366	366	1	1	frameshift_variant
+B3	1681625	ins	T	TAA	TAA:321 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TAA:321	321	1	1	Non-coding_region_variant
+B3	1702756	ins	G	GA	GA:343 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GA:343	343	1	1	Non-coding_region_variant
+B3	1931428	ins	C	CTT	CTT:369 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFNA	250	C:0	0	CTT:369	369	1	1	frameshift_variant
+B3	2172090	ins	C	CTT	CTT:293 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CTT:293	293	1	1	Non-coding_region_variant
+B3	3001005	ins	T	TCCCC	TCCCC:230 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TCCCC:230	230	1	1	Non-coding_region_variant
+B3	3119867	ins	C	CA	CA:376 C:3	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFNA	250	C:3	3	CA:376	376	1	0.992084432717678	frameshift_variant
+B3	3131521	ins	T	TA	TA:329 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFNA	250	T:0	0	TA:329	329	1	1	frameshift_variant
+B3	3350432	ins	C	CT	CT:316 C:1	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFNA	250	C:1	1	CT:316	316	1	0.996845425867508	frameshift_variant
+B3	3350941	ins	C	CTT	CTT:232 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFNA	250	C:0	0	CTT:232	232	1	1	frameshift_variant
+B3	3356587	ins	C	CT	CT:332 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFNA	250	C:0	0	CT:332	332	1	1	frameshift_variant
+B3	3587000	ins	C	CT	CT:304 C:1	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFNA	250	C:1	1	CT:304	304	1	0.99672131147541	frameshift_variant
+B3	3630186	ins	C	CT	CT:278 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CT:278	278	1	1	Non-coding_region_variant
+B3	3656109	ins	T	TGGG	TGGG:87 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TGGG:87	87	1	1	Non-coding_region_variant
+B3	3683056	ins	G	GTT	GTT:284 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GTT:284	284	1	1	Non-coding_region_variant
+B3	3879013	ins	A	ATT	ATT:281 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFNA	250	A:0	0	ATT:281	281	1	1	frameshift_variant
+B3	3929680	ins	T	TAA	TAA:264 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFNA	250	T:0	0	TAA:264	264	1	1	frameshift_variant
+B3	3929789	ins	C	CAA	CAA:264 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFNA	250	C:0	0	CAA:264	264	1	1	frameshift_variant
+B3	4065415	ins	A	ATT	ATT:315 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFNA	250	A:0	0	ATT:315	315	1	1	frameshift_variant
+B3	4065949	ins	A	ATT	ATT:326 A:0	Non-coding				Non-coding_region_variant		PFNA	250	A:0	0	ATT:326	326	1	1	Non-coding_region_variant
+B3	4066038	ins	G	GAA	GAA:354 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFNA	250	G:0	0	GAA:354	354	1	1	frameshift_variant
+B3	4067177	ins	G	GA	GA:249 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFNA	250	G:0	0	GA:249	249	1	1	frameshift_variant
+B3	4114804	ins	A	AT	AT:350 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFNA	250	A:0	0	AT:350	350	1	1	frameshift_variant
+B3	4117035	ins	T	TA	TA:371 T:3	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFNA	250	T:3	3	TA:371	371	1	0.991978609625668	frameshift_variant
+B3	4121915	ins	C	CA	CA:312 C:2	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFNA	250	C:2	2	CA:312	312	1	0.993630573248408	frameshift_variant
+B3	4231006	ins	C	CAA	CAA:279 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CAA:279	279	1	1	Non-coding_region_variant
+B3	4286763	ins	C	CT	CT:326 C:1	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFNA	250	C:1	1	CT:326	326	1	0.996941896024465	frameshift_variant
+C3	1166763	ins	G	GA	GA:418 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GA:418	418	1	1	Non-coding_region_variant
+C3	1602681	ins	A	ATT	ATT:382 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFNA	250	A:0	0	ATT:382	382	1	1	frameshift_variant
+C3	1681625	ins	T	TAA	TAA:308 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TAA:308	308	1	1	Non-coding_region_variant
+C3	1702756	ins	G	GA	GA:338 G:1	Non-coding				Non-coding_region_variant		PFNA	250	G:1	1	GA:338	338	1	0.997050147492625	Non-coding_region_variant
+C3	1931428	ins	C	CTT	CTT:364 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFNA	250	C:0	0	CTT:364	364	1	1	frameshift_variant
+C3	2172090	ins	C	CTT	CTT:319 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CTT:319	319	1	1	Non-coding_region_variant
+C3	3001005	ins	T	TCCCC	TCCCC:290 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TCCCC:290	290	1	1	Non-coding_region_variant
+C3	3119867	ins	C	CA	CA:354 C:1	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFNA	250	C:1	1	CA:354	354	1	0.997183098591549	frameshift_variant
+C3	3131521	ins	T	TA	TA:360 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFNA	250	T:0	0	TA:360	360	1	1	frameshift_variant
+C3	3350432	ins	C	CT	CT:356 C:2	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFNA	250	C:2	2	CT:356	356	1	0.994413407821229	frameshift_variant
+C3	3350941	ins	C	CTT	CTT:241 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFNA	250	C:0	0	CTT:241	241	1	1	frameshift_variant
+C3	3356587	ins	C	CT	CT:378 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFNA	250	C:0	0	CT:378	378	1	1	frameshift_variant
+C3	3587000	ins	C	CT	CT:305 C:0	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFNA	250	C:0	0	CT:305	305	1	1	frameshift_variant
+C3	3630186	ins	C	CT	CT:301 C:2	Non-coding				Non-coding_region_variant		PFNA	250	C:2	2	CT:301	301	1	0.993399339933993	Non-coding_region_variant
+C3	3656109	ins	T	TGGG	TGGG:114 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TGGG:114	114	1	1	Non-coding_region_variant
+C3	3683056	ins	G	GTT	GTT:297 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GTT:297	297	1	1	Non-coding_region_variant
+C3	3879013	ins	A	ATT	ATT:276 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFNA	250	A:0	0	ATT:276	276	1	1	frameshift_variant
+C3	3929680	ins	T	TAA	TAA:323 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFNA	250	T:0	0	TAA:323	323	1	1	frameshift_variant
+C3	3929789	ins	C	CAA	CAA:277 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFNA	250	C:0	0	CAA:277	277	1	1	frameshift_variant
+C3	4065415	ins	A	ATT	ATT:321 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFNA	250	A:0	0	ATT:321	321	1	1	frameshift_variant
+C3	4065949	ins	A	ATT	ATT:296 A:1	Non-coding				Non-coding_region_variant		PFNA	250	A:1	1	ATT:296	296	1	0.996632996632997	Non-coding_region_variant
+C3	4066038	ins	G	GAA	GAA:340 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFNA	250	G:0	0	GAA:340	340	1	1	frameshift_variant
+C3	4067177	ins	G	GA	GA:264 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFNA	250	G:0	0	GA:264	264	1	1	frameshift_variant
+C3	4114804	ins	A	AT	AT:355 A:2	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFNA	250	A:2	2	AT:355	355	1	0.994397759103641	frameshift_variant
+C3	4117035	ins	T	TA	TA:369 T:0	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFNA	250	T:0	0	TA:369	369	1	1	frameshift_variant
+C3	4121915	ins	C	CA	CA:331 C:4	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFNA	250	C:4	4	CA:331	331	1	0.988059701492537	frameshift_variant
+C3	4231006	ins	C	CAA	CAA:317 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CAA:317	317	1	1	Non-coding_region_variant
+C3	4286763	ins	C	CT	CT:303 C:1	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFNA	250	C:1	1	CT:303	303	1	0.99671052631579	frameshift_variant
+D1	1166763	ins	G	GA	GA:399 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GA:399	399	1	1	Non-coding_region_variant
+D1	1602681	ins	A	ATT	ATT:340 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	DMSO	0	A:0	0	ATT:340	340	1	1	frameshift_variant
+D1	1681625	ins	T	TAA	TAA:354 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TAA:354	354	1	1	Non-coding_region_variant
+D1	1702756	ins	G	GA	GA:310 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GA:310	310	1	1	Non-coding_region_variant
+D1	1931428	ins	C	CTT	CTT:294 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	DMSO	0	C:0	0	CTT:294	294	1	1	frameshift_variant
+D1	2172090	ins	C	CTT	CTT:270 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CTT:270	270	1	1	Non-coding_region_variant
+D1	3001005	ins	T	TCCCC	TCCCC:237 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TCCCC:237	237	1	1	Non-coding_region_variant
+D1	3119867	ins	C	CA	CA:260 C:3	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	DMSO	0	C:3	3	CA:260	260	1	0.988593155893536	frameshift_variant
+D1	3131521	ins	T	TA	TA:288 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	DMSO	0	T:0	0	TA:288	288	1	1	frameshift_variant
+D1	3350432	ins	C	CT	CT:315 C:2	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	DMSO	0	C:2	2	CT:315	315	1	0.993690851735016	frameshift_variant
+D1	3350941	ins	C	CTT	CTT:239 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	DMSO	0	C:0	0	CTT:239	239	1	1	frameshift_variant
+D1	3356587	ins	C	CT	CT:372 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	DMSO	0	C:0	0	CT:372	372	1	1	frameshift_variant
+D1	3587000	ins	C	CT	CT:277 C:1	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	DMSO	0	C:1	1	CT:277	277	1	0.996402877697842	frameshift_variant
+D1	3630186	ins	C	CT	CT:268 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CT:268	268	1	1	Non-coding_region_variant
+D1	3656109	ins	T	TGGG	TGGG:84 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TGGG:84	84	1	1	Non-coding_region_variant
+D1	3683056	ins	G	GTT	GTT:268 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GTT:268	268	1	1	Non-coding_region_variant
+D1	3879013	ins	A	ATT	ATT:271 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	DMSO	0	A:0	0	ATT:271	271	1	1	frameshift_variant
+D1	3929680	ins	T	TAA	TAA:317 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	DMSO	0	T:0	0	TAA:317	317	1	1	frameshift_variant
+D1	3929789	ins	C	CAA	CAA:255 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	DMSO	0	C:0	0	CAA:255	255	1	1	frameshift_variant
+D1	4065415	ins	A	ATT	ATT:251 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	DMSO	0	A:0	0	ATT:251	251	1	1	frameshift_variant
+D1	4065949	ins	A	ATT	ATT:228 A:1	Non-coding				Non-coding_region_variant		DMSO	0	A:1	1	ATT:228	228	1	0.995633187772926	Non-coding_region_variant
+D1	4066038	ins	G	GAA	GAA:252 G:2	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	DMSO	0	G:2	2	GAA:252	252	1	0.992125984251969	frameshift_variant
+D1	4067177	ins	G	GA	GA:221 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	DMSO	0	G:0	0	GA:221	221	1	1	frameshift_variant
+D1	4114804	ins	A	AT	AT:245 A:1	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	DMSO	0	A:1	1	AT:245	245	1	0.995934959349594	frameshift_variant
+D1	4117035	ins	T	TA	TA:316 T:0	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	DMSO	0	T:0	0	TA:316	316	1	1	frameshift_variant
+D1	4121915	ins	C	CA	CA:316 C:1	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	DMSO	0	C:1	1	CA:316	316	1	0.996845425867508	frameshift_variant
+D1	4231006	ins	C	CAA	CAA:328 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CAA:328	328	1	1	Non-coding_region_variant
+D1	4286763	ins	C	CT	CT:282 C:1	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	DMSO	0	C:1	1	CT:282	282	1	0.996466431095406	frameshift_variant
+D3	1166763	ins	G	GA	GA:355 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GA:355	355	1	1	Non-coding_region_variant
+D3	1602681	ins	A	ATT	ATT:328 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFNA	250	A:0	0	ATT:328	328	1	1	frameshift_variant
+D3	1681625	ins	T	TAA	TAA:288 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TAA:288	288	1	1	Non-coding_region_variant
+D3	1702756	ins	G	GA	GA:347 G:1	Non-coding				Non-coding_region_variant		PFNA	250	G:1	1	GA:347	347	1	0.997126436781609	Non-coding_region_variant
+D3	1931428	ins	C	CTT	CTT:339 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFNA	250	C:0	0	CTT:339	339	1	1	frameshift_variant
+D3	2172090	ins	C	CTT	CTT:295 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CTT:295	295	1	1	Non-coding_region_variant
+D3	3001005	ins	T	TCCCC	TCCCC:226 T:0	Non-coding				Non-coding_region_variant		PFNA	250	T:0	0	TCCCC:226	226	1	1	Non-coding_region_variant
+D3	3119867	ins	C	CA	CA:318 C:7	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFNA	250	C:7	7	CA:318	318	1	0.978461538461538	frameshift_variant
+D3	3131521	ins	T	TA	TA:338 T:1	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFNA	250	T:1	1	TA:338	338	1	0.997050147492625	frameshift_variant
+D3	3350432	ins	C	CT	CT:321 C:4	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFNA	250	C:4	4	CT:321	321	1	0.987692307692308	frameshift_variant
+D3	3350941	ins	C	CTT	CTT:219 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFNA	250	C:0	0	CTT:219	219	1	1	frameshift_variant
+D3	3356587	ins	C	CT	CT:335 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFNA	250	C:0	0	CT:335	335	1	1	frameshift_variant
+D3	3587000	ins	C	CT	CT:264 C:2	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFNA	250	C:2	2	CT:264	264	1	0.992481203007519	frameshift_variant
+D3	3630186	ins	C	CT	CT:259 C:2	Non-coding				Non-coding_region_variant		PFNA	250	C:2	2	CT:259	259	1	0.992337164750958	Non-coding_region_variant
+D3	3656109	ins	T	TGGG	TGGG:77 T:1	Non-coding				Non-coding_region_variant		PFNA	250	T:1	1	TGGG:77	77	1	0.987179487179487	Non-coding_region_variant
+D3	3683056	ins	G	GTT	GTT:304 G:0	Non-coding				Non-coding_region_variant		PFNA	250	G:0	0	GTT:304	304	1	1	Non-coding_region_variant
+D3	3879013	ins	A	ATT	ATT:285 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFNA	250	A:0	0	ATT:285	285	1	1	frameshift_variant
+D3	3929680	ins	T	TAA	TAA:297 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFNA	250	T:0	0	TAA:297	297	1	1	frameshift_variant
+D3	3929789	ins	C	CAA	CAA:229 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFNA	250	C:0	0	CAA:229	229	1	1	frameshift_variant
+D3	4065415	ins	A	ATT	ATT:272 A:1	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFNA	250	A:1	1	ATT:272	272	1	0.996336996336996	frameshift_variant
+D3	4065949	ins	A	ATT	ATT:296 A:0	Non-coding				Non-coding_region_variant		PFNA	250	A:0	0	ATT:296	296	1	1	Non-coding_region_variant
+D3	4066038	ins	G	GAA	GAA:315 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFNA	250	G:0	0	GAA:315	315	1	1	frameshift_variant
+D3	4067177	ins	G	GA	GA:265 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFNA	250	G:0	0	GA:265	265	1	1	frameshift_variant
+D3	4114804	ins	A	AT	AT:313 A:1	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFNA	250	A:1	1	AT:313	313	1	0.996815286624204	frameshift_variant
+D3	4117035	ins	T	TA	TA:396 T:1	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFNA	250	T:1	1	TA:396	396	1	0.997481108312343	frameshift_variant
+D3	4121915	ins	C	CA	CA:284 C:2	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFNA	250	C:2	2	CA:284	284	1	0.993006993006993	frameshift_variant
+D3	4231006	ins	C	CAA	CAA:279 C:0	Non-coding				Non-coding_region_variant		PFNA	250	C:0	0	CAA:279	279	1	1	Non-coding_region_variant
+D3	4286763	ins	C	CT	CT:259 C:3	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFNA	250	C:3	3	CT:259	259	1	0.988549618320611	frameshift_variant
+E2	1166763	ins	G	GA	GA:245 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GA:245	245	1	1	Non-coding_region_variant
+E2	1602681	ins	A	ATT	ATT:220 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFOA	500	A:0	0	ATT:220	220	1	1	frameshift_variant
+E2	1681625	ins	T	TAA	TAA:203 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TAA:203	203	1	1	Non-coding_region_variant
+E2	1702756	ins	G	GA	GA:260 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GA:260	260	1	1	Non-coding_region_variant
+E2	1931428	ins	C	CTT	CTT:220 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFOA	500	C:0	0	CTT:220	220	1	1	frameshift_variant
+E2	2172090	ins	C	CTT	CTT:199 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CTT:199	199	1	1	Non-coding_region_variant
+E2	3001005	ins	T	TCCCC	TCCCC:159 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TCCCC:159	159	1	1	Non-coding_region_variant
+E2	3119867	ins	C	CA	CA:217 C:0	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFOA	500	C:0	0	CA:217	217	1	1	frameshift_variant
+E2	3131521	ins	T	TA	TA:219 T:1	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFOA	500	T:1	1	TA:219	219	1	0.995454545454545	frameshift_variant
+E2	3350432	ins	C	CT	CT:198 C:0	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFOA	500	C:0	0	CT:198	198	1	1	frameshift_variant
+E2	3350941	ins	C	CTT	CTT:154 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFOA	500	C:0	0	CTT:154	154	1	1	frameshift_variant
+E2	3356587	ins	C	CT	CT:207 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFOA	500	C:0	0	CT:207	207	1	1	frameshift_variant
+E2	3587000	ins	C	CT	CT:178 C:1	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFOA	500	C:1	1	CT:178	178	1	0.994413407821229	frameshift_variant
+E2	3630186	ins	C	CT	CT:182 C:1	Non-coding				Non-coding_region_variant		PFOA	500	C:1	1	CT:182	182	1	0.994535519125683	Non-coding_region_variant
+E2	3656109	ins	T	TGGG	TGGG:67 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TGGG:67	67	1	1	Non-coding_region_variant
+E2	3683056	ins	G	GTT	GTT:196 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GTT:196	196	1	1	Non-coding_region_variant
+E2	3879013	ins	A	ATT	ATT:210 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFOA	500	A:0	0	ATT:210	210	1	1	frameshift_variant
+E2	3929680	ins	T	TAA	TAA:210 T:1	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFOA	500	T:1	1	TAA:210	210	1	0.995260663507109	frameshift_variant
+E2	3929789	ins	C	CAA	CAA:187 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFOA	500	C:0	0	CAA:187	187	1	1	frameshift_variant
+E2	4065415	ins	A	ATT	ATT:232 A:1	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFOA	500	A:1	1	ATT:232	232	1	0.995708154506438	frameshift_variant
+E2	4065949	ins	A	ATT	ATT:234 A:1	Non-coding				Non-coding_region_variant		PFOA	500	A:1	1	ATT:234	234	1	0.995744680851064	Non-coding_region_variant
+E2	4066038	ins	G	GAA	GAA:239 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFOA	500	G:0	0	GAA:239	239	1	1	frameshift_variant
+E2	4067177	ins	G	GA	GA:194 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFOA	500	G:0	0	GA:194	194	1	1	frameshift_variant
+E2	4114804	ins	A	AT	AT:227 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFOA	500	A:0	0	AT:227	227	1	1	frameshift_variant
+E2	4117035	ins	T	TA	TA:258 T:0	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFOA	500	T:0	0	TA:258	258	1	1	frameshift_variant
+E2	4121915	ins	C	CA	CA:205 C:3	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFOA	500	C:3	3	CA:205	205	1	0.985576923076923	frameshift_variant
+E2	4231006	ins	C	CAA	CAA:206 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CAA:206	206	1	1	Non-coding_region_variant
+E2	4286763	ins	C	CT	CT:198 C:1	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFOA	500	C:1	1	CT:198	198	1	0.994974874371859	frameshift_variant
+F1	1166763	ins	G	GA	GA:339 G:1	Non-coding				Non-coding_region_variant		DMSO	0	G:1	1	GA:339	339	1	0.997058823529412	Non-coding_region_variant
+F1	1602681	ins	A	ATT	ATT:354 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	DMSO	0	A:0	0	ATT:354	354	1	1	frameshift_variant
+F1	1681625	ins	T	TAA	TAA:273 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TAA:273	273	1	1	Non-coding_region_variant
+F1	1702756	ins	G	GA	GA:349 G:1	Non-coding				Non-coding_region_variant		DMSO	0	G:1	1	GA:349	349	1	0.997142857142857	Non-coding_region_variant
+F1	1931428	ins	C	CTT	CTT:291 C:1	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	DMSO	0	C:1	1	CTT:291	291	1	0.996575342465753	frameshift_variant
+F1	2172090	ins	C	CTT	CTT:254 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CTT:254	254	1	1	Non-coding_region_variant
+F1	3001005	ins	T	TCCCC	TCCCC:231 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TCCCC:231	231	1	1	Non-coding_region_variant
+F1	3119867	ins	C	CA	CA:298 C:2	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	DMSO	0	C:2	2	CA:298	298	1	0.993333333333333	frameshift_variant
+F1	3131521	ins	T	TA	TA:309 T:1	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	DMSO	0	T:1	1	TA:309	309	1	0.996774193548387	frameshift_variant
+F1	3350432	ins	C	CT	CT:300 C:0	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	DMSO	0	C:0	0	CT:300	300	1	1	frameshift_variant
+F1	3350941	ins	C	CTT	CTT:223 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	DMSO	0	C:0	0	CTT:223	223	1	1	frameshift_variant
+F1	3356587	ins	C	CT	CT:325 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	DMSO	0	C:0	0	CT:325	325	1	1	frameshift_variant
+F1	3587000	ins	C	CT	CT:267 C:2	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	DMSO	0	C:2	2	CT:267	267	1	0.992565055762082	frameshift_variant
+F1	3630186	ins	C	CT	CT:228 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CT:228	228	1	1	Non-coding_region_variant
+F1	3656109	ins	T	TGGG	TGGG:91 T:1	Non-coding				Non-coding_region_variant		DMSO	0	T:1	1	TGGG:91	91	1	0.989130434782609	Non-coding_region_variant
+F1	3683056	ins	G	GTT	GTT:246 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GTT:246	246	1	1	Non-coding_region_variant
+F1	3879013	ins	A	ATT	ATT:261 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	DMSO	0	A:0	0	ATT:261	261	1	1	frameshift_variant
+F1	3929680	ins	T	TAA	TAA:273 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	DMSO	0	T:0	0	TAA:273	273	1	1	frameshift_variant
+F1	3929789	ins	C	CAA	CAA:241 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	DMSO	0	C:0	0	CAA:241	241	1	1	frameshift_variant
+F1	4065415	ins	A	ATT	ATT:243 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	DMSO	0	A:0	0	ATT:243	243	1	1	frameshift_variant
+F1	4065949	ins	A	ATT	ATT:242 A:0	Non-coding				Non-coding_region_variant		DMSO	0	A:0	0	ATT:242	242	1	1	Non-coding_region_variant
+F1	4066038	ins	G	GAA	GAA:289 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	DMSO	0	G:0	0	GAA:289	289	1	1	frameshift_variant
+F1	4067177	ins	G	GA	GA:168 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	DMSO	0	G:0	0	GA:168	168	1	1	frameshift_variant
+F1	4114804	ins	A	AT	AT:281 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	DMSO	0	A:0	0	AT:281	281	1	1	frameshift_variant
+F1	4117035	ins	T	TA	TA:276 T:1	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	DMSO	0	T:1	1	TA:276	276	1	0.996389891696751	frameshift_variant
+F1	4121915	ins	C	CA	CA:278 C:1	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	DMSO	0	C:1	1	CA:278	278	1	0.996415770609319	frameshift_variant
+F1	4231006	ins	C	CAA	CAA:293 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CAA:293	293	1	1	Non-coding_region_variant
+F1	4286763	ins	C	CT	CT:265 C:0	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	DMSO	0	C:0	0	CT:265	265	1	1	frameshift_variant
+F2	1166763	ins	G	GA	GA:296 G:1	Non-coding				Non-coding_region_variant		PFOA	500	G:1	1	GA:296	296	1	0.996632996632997	Non-coding_region_variant
+F2	1602681	ins	A	ATT	ATT:281 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFOA	500	A:0	0	ATT:281	281	1	1	frameshift_variant
+F2	1681625	ins	T	TAA	TAA:258 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TAA:258	258	1	1	Non-coding_region_variant
+F2	1702756	ins	G	GA	GA:289 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GA:289	289	1	1	Non-coding_region_variant
+F2	1931428	ins	C	CTT	CTT:271 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFOA	500	C:0	0	CTT:271	271	1	1	frameshift_variant
+F2	2172090	ins	C	CTT	CTT:196 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CTT:196	196	1	1	Non-coding_region_variant
+F2	3001005	ins	T	TCCCC	TCCCC:191 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TCCCC:191	191	1	1	Non-coding_region_variant
+F2	3119867	ins	C	CA	CA:242 C:4	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFOA	500	C:4	4	CA:242	242	1	0.983739837398374	frameshift_variant
+F2	3131521	ins	T	TA	TA:234 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFOA	500	T:0	0	TA:234	234	1	1	frameshift_variant
+F2	3350432	ins	C	CT	CT:223 C:1	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFOA	500	C:1	1	CT:223	223	1	0.995535714285714	frameshift_variant
+F2	3350941	ins	C	CTT	CTT:147 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFOA	500	C:0	0	CTT:147	147	1	1	frameshift_variant
+F2	3356587	ins	C	CT	CT:257 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFOA	500	C:0	0	CT:257	257	1	1	frameshift_variant
+F2	3587000	ins	C	CT	CT:221 C:0	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFOA	500	C:0	0	CT:221	221	1	1	frameshift_variant
+F2	3630186	ins	C	CT	CT:198 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CT:198	198	1	1	Non-coding_region_variant
+F2	3656109	ins	T	TGGG	TGGG:80 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TGGG:80	80	1	1	Non-coding_region_variant
+F2	3683056	ins	G	GTT	GTT:222 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GTT:222	222	1	1	Non-coding_region_variant
+F2	3879013	ins	A	ATT	ATT:415 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFOA	500	A:0	0	ATT:415	415	1	1	frameshift_variant
+F2	3929680	ins	T	TAA	TAA:410 T:1	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFOA	500	T:1	1	TAA:410	410	1	0.997566909975669	frameshift_variant
+F2	3929789	ins	C	CAA	CAA:373 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFOA	500	C:0	0	CAA:373	373	1	1	frameshift_variant
+F2	4065415	ins	A	ATT	ATT:410 A:2	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFOA	500	A:2	2	ATT:410	410	1	0.995145631067961	frameshift_variant
+F2	4065949	ins	A	ATT	ATT:485 A:1	Non-coding				Non-coding_region_variant		PFOA	500	A:1	1	ATT:485	485	1	0.997942386831276	Non-coding_region_variant
+F2	4066038	ins	G	GAA	GAA:500 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFOA	500	G:0	0	GAA:500	500	1	1	frameshift_variant
+F2	4067177	ins	G	GA	GA:380 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFOA	500	G:0	0	GA:380	380	1	1	frameshift_variant
+F2	4114804	ins	A	AT	AT:248 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFOA	500	A:0	0	AT:248	248	1	1	frameshift_variant
+F2	4117035	ins	T	TA	TA:312 T:1	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFOA	500	T:1	1	TA:312	312	1	0.996805111821086	frameshift_variant
+F2	4121915	ins	C	CA	CA:225 C:2	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFOA	500	C:2	2	CA:225	225	1	0.991189427312775	frameshift_variant
+F2	4231006	ins	C	CAA	CAA:245 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CAA:245	245	1	1	Non-coding_region_variant
+F2	4286763	ins	C	CT	CT:196 C:0	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFOA	500	C:0	0	CT:196	196	1	1	frameshift_variant
+G2	1166763	ins	G	GA	GA:304 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GA:304	304	1	1	Non-coding_region_variant
+G2	1602681	ins	A	ATT	ATT:291 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFOA	500	A:0	0	ATT:291	291	1	1	frameshift_variant
+G2	1681625	ins	T	TAA	TAA:248 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TAA:248	248	1	1	Non-coding_region_variant
+G2	1702756	ins	G	GA	GA:300 G:1	Non-coding				Non-coding_region_variant		PFOA	500	G:1	1	GA:300	300	1	0.996677740863787	Non-coding_region_variant
+G2	1931428	ins	C	CTT	CTT:318 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFOA	500	C:0	0	CTT:318	318	1	1	frameshift_variant
+G2	2172090	ins	C	CTT	CTT:275 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CTT:275	275	1	1	Non-coding_region_variant
+G2	3001005	ins	T	TCCCC	TCCCC:216 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TCCCC:216	216	1	1	Non-coding_region_variant
+G2	3119867	ins	C	CA	CA:315 C:2	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFOA	500	C:2	2	CA:315	315	1	0.993690851735016	frameshift_variant
+G2	3131521	ins	T	TA	TA:270 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFOA	500	T:0	0	TA:270	270	1	1	frameshift_variant
+G2	3350432	ins	C	CT	CT:284 C:0	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFOA	500	C:0	0	CT:284	284	1	1	frameshift_variant
+G2	3350941	ins	C	CTT	CTT:194 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFOA	500	C:0	0	CTT:194	194	1	1	frameshift_variant
+G2	3356587	ins	C	CT	CT:316 C:1	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFOA	500	C:1	1	CT:316	316	1	0.996845425867508	frameshift_variant
+G2	3587000	ins	C	CT	CT:210 C:4	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFOA	500	C:4	4	CT:210	210	1	0.981308411214953	frameshift_variant
+G2	3630186	ins	C	CT	CT:242 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CT:242	242	1	1	Non-coding_region_variant
+G2	3656109	ins	T	TGGG	TGGG:83 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TGGG:83	83	1	1	Non-coding_region_variant
+G2	3683056	ins	G	GTT	GTT:258 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GTT:258	258	1	1	Non-coding_region_variant
+G2	3879013	ins	A	ATT	ATT:212 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFOA	500	A:0	0	ATT:212	212	1	1	frameshift_variant
+G2	3929680	ins	T	TAA	TAA:269 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFOA	500	T:0	0	TAA:269	269	1	1	frameshift_variant
+G2	3929789	ins	C	CAA	CAA:216 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFOA	500	C:0	0	CAA:216	216	1	1	frameshift_variant
+G2	4065415	ins	A	ATT	ATT:247 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFOA	500	A:0	0	ATT:247	247	1	1	frameshift_variant
+G2	4065949	ins	A	ATT	ATT:268 A:0	Non-coding				Non-coding_region_variant		PFOA	500	A:0	0	ATT:268	268	1	1	Non-coding_region_variant
+G2	4066038	ins	G	GAA	GAA:259 G:1	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFOA	500	G:1	1	GAA:259	259	1	0.996153846153846	frameshift_variant
+G2	4067177	ins	G	GA	GA:249 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFOA	500	G:0	0	GA:249	249	1	1	frameshift_variant
+G2	4114804	ins	A	AT	AT:295 A:3	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFOA	500	A:3	3	AT:295	295	1	0.98993288590604	frameshift_variant
+G2	4117035	ins	T	TA	TA:318 T:0	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFOA	500	T:0	0	TA:318	318	1	1	frameshift_variant
+G2	4121915	ins	C	CA	CA:255 C:2	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFOA	500	C:2	2	CA:255	255	1	0.992217898832685	frameshift_variant
+G2	4231006	ins	C	CAA	CAA:266 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CAA:266	266	1	1	Non-coding_region_variant
+G2	4286763	ins	C	CT	CT:234 C:1	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFOA	500	C:1	1	CT:234	234	1	0.995744680851064	frameshift_variant
+H1	1166763	ins	G	GA	GA:357 G:1	Non-coding				Non-coding_region_variant		DMSO	0	G:1	1	GA:357	357	1	0.997206703910615	Non-coding_region_variant
+H1	1602681	ins	A	ATT	ATT:355 A:0	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	DMSO	0	A:0	0	ATT:355	355	1	1	frameshift_variant
+H1	1681625	ins	T	TAA	TAA:253 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TAA:253	253	1	1	Non-coding_region_variant
+H1	1702756	ins	G	GA	GA:289 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GA:289	289	1	1	Non-coding_region_variant
+H1	1931428	ins	C	CTT	CTT:255 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	DMSO	0	C:0	0	CTT:255	255	1	1	frameshift_variant
+H1	2172090	ins	C	CTT	CTT:249 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CTT:249	249	1	1	Non-coding_region_variant
+H1	3001005	ins	T	TCCCC	TCCCC:199 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TCCCC:199	199	1	1	Non-coding_region_variant
+H1	3119867	ins	C	CA	CA:266 C:3	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	DMSO	0	C:3	3	CA:266	266	1	0.988847583643123	frameshift_variant
+H1	3131521	ins	T	TA	TA:292 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	DMSO	0	T:0	0	TA:292	292	1	1	frameshift_variant
+H1	3350432	ins	C	CT	CT:308 C:0	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	DMSO	0	C:0	0	CT:308	308	1	1	frameshift_variant
+H1	3350941	ins	C	CTT	CTT:216 C:0	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	DMSO	0	C:0	0	CTT:216	216	1	1	frameshift_variant
+H1	3356587	ins	C	CT	CT:321 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	DMSO	0	C:0	0	CT:321	321	1	1	frameshift_variant
+H1	3587000	ins	C	CT	CT:262 C:0	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	DMSO	0	C:0	0	CT:262	262	1	1	frameshift_variant
+H1	3630186	ins	C	CT	CT:224 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CT:224	224	1	1	Non-coding_region_variant
+H1	3656109	ins	T	TGGG	TGGG:84 T:0	Non-coding				Non-coding_region_variant		DMSO	0	T:0	0	TGGG:84	84	1	1	Non-coding_region_variant
+H1	3683056	ins	G	GTT	GTT:245 G:0	Non-coding				Non-coding_region_variant		DMSO	0	G:0	0	GTT:245	245	1	1	Non-coding_region_variant
+H1	3879013	ins	A	ATT	ATT:228 A:0	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	DMSO	0	A:0	0	ATT:228	228	1	1	frameshift_variant
+H1	3929680	ins	T	TAA	TAA:263 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	DMSO	0	T:0	0	TAA:263	263	1	1	frameshift_variant
+H1	3929789	ins	C	CAA	CAA:259 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	DMSO	0	C:0	0	CAA:259	259	1	1	frameshift_variant
+H1	4065415	ins	A	ATT	ATT:243 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	DMSO	0	A:0	0	ATT:243	243	1	1	frameshift_variant
+H1	4065949	ins	A	ATT	ATT:233 A:0	Non-coding				Non-coding_region_variant		DMSO	0	A:0	0	ATT:233	233	1	1	Non-coding_region_variant
+H1	4066038	ins	G	GAA	GAA:289 G:1	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	DMSO	0	G:1	1	GAA:289	289	1	0.996551724137931	frameshift_variant
+H1	4067177	ins	G	GA	GA:189 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	DMSO	0	G:0	0	GA:189	189	1	1	frameshift_variant
+H1	4114804	ins	A	AT	AT:288 A:1	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	DMSO	0	A:1	1	AT:288	288	1	0.996539792387543	frameshift_variant
+H1	4117035	ins	T	TA	TA:283 T:1	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	DMSO	0	T:1	1	TA:283	283	1	0.996478873239437	frameshift_variant
+H1	4121915	ins	C	CA	CA:250 C:1	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	DMSO	0	C:1	1	CA:250	250	1	0.99601593625498	frameshift_variant
+H1	4231006	ins	C	CAA	CAA:307 C:0	Non-coding				Non-coding_region_variant		DMSO	0	C:0	0	CAA:307	307	1	1	Non-coding_region_variant
+H1	4286763	ins	C	CT	CT:256 C:0	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	DMSO	0	C:0	0	CT:256	256	1	1	frameshift_variant
+H2	1166763	ins	G	GA	GA:288 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GA:288	288	1	1	Non-coding_region_variant
+H2	1602681	ins	A	ATT	ATT:299 A:1	CDS	-	332/387	111/128	frameshift_variant c.331_332dupAA p.Asn111fs	hypothetical protein	PFOA	500	A:1	1	ATT:299	299	1	0.996666666666667	frameshift_variant
+H2	1681625	ins	T	TAA	TAA:269 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TAA:269	269	1	1	Non-coding_region_variant
+H2	1702756	ins	G	GA	GA:321 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GA:321	321	1	1	Non-coding_region_variant
+H2	1931428	ins	C	CTT	CTT:322 C:0	CDS	-	232/333	78/110	frameshift_variant c.231_232dupAA p.Arg78fs	Integrase	PFOA	500	C:0	0	CTT:322	322	1	1	frameshift_variant
+H2	2172090	ins	C	CTT	CTT:282 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CTT:282	282	1	1	Non-coding_region_variant
+H2	3001005	ins	T	TCCCC	TCCCC:240 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TCCCC:240	240	1	1	Non-coding_region_variant
+H2	3119867	ins	C	CA	CA:279 C:4	CDS	+	567/663	189/220	frameshift_variant c.566dupA p.Asn189fs	N-acylneuraminate cytidylyltransferase (EC 2.7.7.43)	PFOA	500	C:4	4	CA:279	279	1	0.985865724381625	frameshift_variant
+H2	3131521	ins	T	TA	TA:291 T:0	CDS	+	502/510	168/169	frameshift_variant c.501dupA p.Ser168fs	Putative glycosyltransferase	PFOA	500	T:0	0	TA:291	291	1	1	frameshift_variant
+H2	3350432	ins	C	CT	CT:302 C:1	CDS	+	346/414	116/137	frameshift_variant c.345dupT p.Gln116fs	hypothetical protein	PFOA	500	C:1	1	CT:302	302	1	0.996699669966997	frameshift_variant
+H2	3350941	ins	C	CTT	CTT:219 C:1	CDS	+	427/528	143/175	frameshift_variant c.425_426dupTT p.Ile143fs	hypothetical protein	PFOA	500	C:1	1	CTT:219	219	1	0.995454545454545	frameshift_variant
+H2	3356587	ins	C	CT	CT:308 C:0	CDS	+	131/162	44/53	frameshift_variant c.130dupT p.Ser44fs	UDP-glucose 4-epimerase (EC 5.1.3.2)	PFOA	500	C:0	0	CT:308	308	1	1	frameshift_variant
+H2	3587000	ins	C	CT	CT:251 C:1	CDS	-	1124/1242	375/413	frameshift_variant c.1124dupA p.Asp376fs	hypothetical protein	PFOA	500	C:1	1	CT:251	251	1	0.996031746031746	frameshift_variant
+H2	3630186	ins	C	CT	CT:224 C:4	Non-coding				Non-coding_region_variant		PFOA	500	C:4	4	CT:224	224	1	0.982456140350877	Non-coding_region_variant
+H2	3656109	ins	T	TGGG	TGGG:77 T:0	Non-coding				Non-coding_region_variant		PFOA	500	T:0	0	TGGG:77	77	1	1	Non-coding_region_variant
+H2	3683056	ins	G	GTT	GTT:262 G:0	Non-coding				Non-coding_region_variant		PFOA	500	G:0	0	GTT:262	262	1	1	Non-coding_region_variant
+H2	3879013	ins	A	ATT	ATT:269 A:1	CDS	-	1175/1212	392/403	frameshift_variant c.1174_1175dupAA p.Asn392fs	CDP-glycerol:poly(glycerophosphate) glycerophosphotransferase (EC 2.7.8.12)	PFOA	500	A:1	1	ATT:269	269	1	0.996296296296296	frameshift_variant
+H2	3929680	ins	T	TAA	TAA:280 T:0	CDS	-	139/183	47/60	frameshift_variant c.138_139dupTT p.Tyr47fs	hypothetical protein	PFOA	500	T:0	0	TAA:280	280	1	1	frameshift_variant
+H2	3929789	ins	C	CAA	CAA:218 C:0	CDS	-	30/183	10/60	frameshift_variant c.29_30dupTT p.Glu11fs	hypothetical protein	PFOA	500	C:0	0	CAA:218	218	1	1	frameshift_variant
+H2	4065415	ins	A	ATT	ATT:248 A:0	CDS	-	455/471	152/156	frameshift_variant c.454_455dupAA p.Asn152fs	FIG00512786: hypothetical protein	PFOA	500	A:0	0	ATT:248	248	1	1	frameshift_variant
+H2	4065949	ins	A	ATT	ATT:278 A:0	Non-coding				Non-coding_region_variant		PFOA	500	A:0	0	ATT:278	278	1	1	Non-coding_region_variant
+H2	4066038	ins	G	GAA	GAA:289 G:0	CDS	-	299/309	100/102	frameshift_variant c.298_299dupTT p.Ile101fs	hypothetical protein	PFOA	500	G:0	0	GAA:289	289	1	1	frameshift_variant
+H2	4067177	ins	G	GA	GA:238 G:0	CDS	-	592/630	198/209	frameshift_variant c.592dupT p.Ser198fs	hypothetical protein	PFOA	500	G:0	0	GA:238	238	1	1	frameshift_variant
+H2	4114804	ins	A	AT	AT:275 A:0	CDS	-	675/690	225/229	frameshift_variant c.675dupA p.Ser226fs	hypothetical protein	PFOA	500	A:0	0	AT:275	275	1	1	frameshift_variant
+H2	4117035	ins	T	TA	TA:341 T:1	CDS	-	333/357	111/118	frameshift_variant c.333dupT p.Met112fs	hypothetical protein	PFOA	500	T:1	1	TA:341	341	1	0.997076023391813	frameshift_variant
+H2	4121915	ins	C	CA	CA:318 C:0	CDS	-	18/1251	6/416	frameshift_variant c.18dupT p.Gly7fs	putative flippase	PFOA	500	C:0	0	CA:318	318	1	1	frameshift_variant
+H2	4231006	ins	C	CAA	CAA:313 C:0	Non-coding				Non-coding_region_variant		PFOA	500	C:0	0	CAA:313	313	1	1	Non-coding_region_variant
+H2	4286763	ins	C	CT	CT:203 C:3	CDS	+	16/714	6/237	frameshift_variant c.15dupT p.Ile6fs	hypothetical protein	PFOA	500	C:3	3	CT:203	203	1	0.985436893203884	frameshift_variant
