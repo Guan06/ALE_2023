@@ -29,7 +29,7 @@ Plate1D2	ALE1	1	D2	2	5	1	Acesulfame_K	25	DMSO	No
 Plate1D4	ALE1	1	D4	4	5	1	Aripiprazole	25	DMSO	No
 Plate1E1	ALE1	1	E1	1	4	1	Acarbose	50	DMSO	No
 Plate1E2	ALE1	1	E2	2	4	1	Acesulfame_K	50	DMSO	No
-Plate1E9	ALE1	1	E9	9	4	1	Metformin	50	DMSO	No
+Plate1E9	ALE1	1	E9	9	4	2	Metformin	50	DMSO	No
 Plate1F1	ALE1	2	F1	1	3	1	Acarbose	50	DMSO	No
 Plate1F11	ALE1	1	F11	11	3	1	Digoxin	50	DMSO	No
 Plate1F2	ALE1	3	F2	2	3	1	Acesulfame_K	50	DMSO	No
@@ -52,7 +52,7 @@ Plate1H5	ALE1	4	H5	5	1	1	Aspartame	50	DMSO	No
 Plate1H6	ALE1	3	H6	6	1	1	Aspirin	50	DMSO	No
 Plate1H7	ALE1	5	H7	7	1	1	Caffeine	50	DMSO	No
 Plate1H8	ALE1	3	H8	8	1	1	Chlorpyrifos	50	DMSO	No
-Plate1H9	ALE1	3	H9	9	1	1	DMSO_control	0	DMSO_control	No
+Plate1H9	ALE1	3	H9	9	1	2	DMSO_control	0	DMSO_control	No
 Plate2A10	ALE1	2	A10	10	8	2	Loperamide	25	DMSO	Yes
 Plate2A11	ALE1	2	A11	11	8	2	Metformin	25	DMSO	Yes
 Plate2A12	ALE1	1	A12	12	8	2	Water_control	0	Water_control	Yes
@@ -122,7 +122,7 @@ Plate3H8	ALE1	5	H8	8	1	3	Roflumilast	50	DMSO	No
 Plate3H9	ALE1	4	H9	9	1	3	Rosiglitazone	50	DMSO	No
 Plate4A1	ALE1	1	A1	1	8	4	Stevioside	25	DMSO	No
 Plate4A4	ALE1	1	A4	4	8	4	Xanthan_gum	25	Water	No
-Plate4A7	ALE1	1	A7	7	8	4	DMSO_control	0	DMSO_control	No
+Plate4A7	ALE1	1	A7	7	8	2	DMSO_control	0	DMSO_control	No
 Plate4B1	ALE1	1	B1	1	7	4	Stevioside	25	DMSO	No
 Plate4B4	ALE1	2	B4	4	7	4	Xanthan_gum	25	Water	No
 Plate4D4	ALE1	1	D4	4	5	4	Xanthan_gum	25	Water	No

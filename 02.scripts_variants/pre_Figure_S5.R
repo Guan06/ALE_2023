@@ -6,6 +6,13 @@ all2 <- readRDS("../00.data/vcf_20230814_all_variants_ALE2.rds")
 des <- read.table("../00.data/vcf_20221003_des.txt", header = T, sep = "\t")
 des <- unique(des[, -2])
 
+### Assign Plate as 2 for Metformin, as it was sequenced in several plates but 
+### during experiment it was in plate 2
+### Assign Plate 2 to DMSO_control that was sequenced in other plates
+des[des$Compound == "Metformin", ]$Plate <- 2
+des[(des$Compound == "DMSO_control" & des$Column == 9), ]$Plate <- 2
+des[(des$Compound == "DMSO_control" & des$Well == "A7"), ]$Plate <- 2
+
 common <- intersect(colnames(all1), colnames(all2))
 all1_sub <- all1[, common]
 all1_sub$Exp <- "ALE1"
@@ -23,6 +30,7 @@ all2_sub <- all2_sub[!(all2_sub$POS %in% com_lst), ]
 
 both <- rbind(all1_sub, all2_sub)
 both <- both[!(both$POS %in% parental_lst), ]
+#### 323 ALE samples (including 2 parental) + 12 ALE2 = 335 samples
 
 rm(all1_sub, all2_sub)
 gc()
@@ -45,6 +53,7 @@ all_other_005 <- merge(all_other,
 
 
 all_005 <- rbind(all_single_005, all_other_005)
+saveRDS(all_005, "../03.results/20231023_all_005.rds")
 
 all_stat2 <- all_005 %>% group_by(Exp, Sample_ID) %>% 
   summarise(Number_of_variants = length(POS))
@@ -82,6 +91,6 @@ all_stat2 <- as.data.frame(all_stat2)
 tab <- merge(all_stat2, des)
 tab$Concentration <- as.character(tab$Concentration)
 tab$Plate <- as.character(tab$Plate)
-tab <- tab[tab$Number_of_variant > 0, ]
+#tab <- tab[tab$Number_of_variant > 0, ]
 write.table(tab, "../03.results/Figure_S5_variant_number_AF_05.txt",
             quote = F, sep = "\t", row.names = F)

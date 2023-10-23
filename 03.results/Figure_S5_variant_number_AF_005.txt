@@ -68,7 +68,7 @@ Plate1E5	ALE1	31	E5	5	4	1	Aspartame	50	DMSO	No
 Plate1E6	ALE1	31	E6	6	4	1	Aspirin	50	DMSO	No
 Plate1E7	ALE1	25	E7	7	4	1	Caffeine	50	DMSO	No
 Plate1E8	ALE1	34	E8	8	4	1	Chlorpyrifos	50	DMSO	No
-Plate1E9	ALE1	36	E9	9	4	1	Metformin	50	DMSO	No
+Plate1E9	ALE1	36	E9	9	4	2	Metformin	50	DMSO	No
 Plate1F1	ALE1	29	F1	1	3	1	Acarbose	50	DMSO	No
 Plate1F10	ALE1	30	F10	10	3	1	Cypermethrin	50	DMSO	No
 Plate1F11	ALE1	20	F11	11	3	1	Digoxin	50	DMSO	No
@@ -80,7 +80,7 @@ Plate1F5	ALE1	36	F5	5	3	1	Aspartame	50	DMSO	No
 Plate1F6	ALE1	19	F6	6	3	1	Aspirin	50	DMSO	No
 Plate1F7	ALE1	32	F7	7	3	1	Caffeine	50	DMSO	No
 Plate1F8	ALE1	44	F8	8	3	1	Chlorpyrifos	50	DMSO	No
-Plate1F9	ALE1	23	F9	9	3	1	DMSO_control	0	DMSO_control	No
+Plate1F9	ALE1	23	F9	9	3	2	DMSO_control	0	DMSO_control	No
 Plate1G1	ALE1	93	G1	1	2	1	Acarbose	50	DMSO	No
 Plate1G10	ALE1	26	G10	10	2	1	Cypermethrin	50	DMSO	No
 Plate1G11	ALE1	18	G11	11	2	1	Digoxin	50	DMSO	No
@@ -92,7 +92,7 @@ Plate1G5	ALE1	50	G5	5	2	1	Aspartame	50	DMSO	No
 Plate1G6	ALE1	18	G6	6	2	1	Aspirin	50	DMSO	No
 Plate1G7	ALE1	20	G7	7	2	1	Caffeine	50	DMSO	No
 Plate1G8	ALE1	35	G8	8	2	1	Chlorpyrifos	50	DMSO	No
-Plate1G9	ALE1	18	G9	9	2	1	Metformin	50	DMSO	No
+Plate1G9	ALE1	18	G9	9	2	2	Metformin	50	DMSO	No
 Plate1H1	ALE1	32	H1	1	1	1	Acarbose	50	DMSO	No
 Plate1H10	ALE1	17	H10	10	1	1	Cypermethrin	50	DMSO	No
 Plate1H11	ALE1	35	H11	11	1	1	Digoxin	50	DMSO	No
@@ -104,7 +104,7 @@ Plate1H5	ALE1	30	H5	5	1	1	Aspartame	50	DMSO	No
 Plate1H6	ALE1	30	H6	6	1	1	Aspirin	50	DMSO	No
 Plate1H7	ALE1	39	H7	7	1	1	Caffeine	50	DMSO	No
 Plate1H8	ALE1	37	H8	8	1	1	Chlorpyrifos	50	DMSO	No
-Plate1H9	ALE1	29	H9	9	1	1	DMSO_control	0	DMSO_control	No
+Plate1H9	ALE1	29	H9	9	1	2	DMSO_control	0	DMSO_control	No
 Plate2A1	ALE1	29	A1	1	8	2	Donepezil	25	DMSO	Yes
 Plate2A10	ALE1	34	A10	10	8	2	Loperamide	25	DMSO	Yes
 Plate2A11	ALE1	27	A11	11	8	2	Metformin	25	DMSO	Yes
@@ -291,14 +291,14 @@ Plate4A3	ALE1	19	A3	3	8	4	Tenofovir	25	DMSO	No
 Plate4A4	ALE1	24	A4	4	8	4	Xanthan_gum	25	Water	No
 Plate4A5	ALE1	45	A5	5	8	4	Water_control	0	Water_control	No
 Plate4A6	ALE1	50	A6	6	8	4	Curcumin	25	DMSO	No
-Plate4A7	ALE1	24	A7	7	8	4	DMSO_control	0	DMSO_control	No
+Plate4A7	ALE1	24	A7	7	8	2	DMSO_control	0	DMSO_control	No
 Plate4B1	ALE1	27	B1	1	7	4	Stevioside	25	DMSO	No
 Plate4B2	ALE1	31	B2	2	7	4	Sulfasalazine	25	DMSO	No
 Plate4B3	ALE1	36	B3	3	7	4	Tenofovir	25	DMSO	No
 Plate4B4	ALE1	29	B4	4	7	4	Xanthan_gum	25	Water	No
 Plate4B5	ALE1	33	B5	5	7	4	Water_control	0	Water_control	No
 Plate4B6	ALE1	44	B6	6	7	4	Curcumin	25	DMSO	No
-Plate4B7	ALE1	17	B7	7	7	4	Metformin	50	DMSO	No
+Plate4B7	ALE1	17	B7	7	7	2	Metformin	50	DMSO	No
 Plate4C1	ALE1	64	C1	1	6	4	Stevioside	25	DMSO	No
 Plate4C2	ALE1	36	C2	2	6	4	Sulfasalazine	25	DMSO	No
 Plate4C3	ALE1	44	C3	3	6	4	Tenofovir	25	DMSO	No
