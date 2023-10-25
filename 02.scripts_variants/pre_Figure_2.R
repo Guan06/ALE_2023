@@ -62,7 +62,6 @@ all[(all$Compound == "DMSO_control" & all$Well == "A7"), ]$Plate <- 2
 parental_sub <- all[all$POS %in% parental_lst1, ]
 parental_sub <- parental_sub[!is.na(parental_sub$Solvent), ]
 
-
 p2_a <- ggplot(parental_sub, 
                aes(interaction(Plate, Compound), fill = Concentration)) + 
     geom_bar(stat = "count", position = position_dodge2(preserve = "single")) + 
@@ -76,8 +75,7 @@ p2_a <- ggplot(parental_sub,
     geom_hline(yintercept = 2, color = "salmon", linetype = "dashed") +
     labs(y = "Number of samples", x = "") +
     theme(legend.position = "top",
-          axis.text.x = element_blank())
-          #axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))  
+          axis.text.x = element_blank()) 
 
 ### Add the sequencing depth below in panel b
 

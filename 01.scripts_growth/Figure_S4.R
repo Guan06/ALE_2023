@@ -16,28 +16,32 @@ p_s4 <- ggplot(lma_dat, aes(interaction(Concentration,Compound, Plate, Passage),
                     auc_l, fill = Compound)) +
   geom_boxplot(aes(color = Compound, alpha = Concentration),
                outlier.shape = NA,
-               position = position_dodge2(preserve = "single")) +
+               position = position_dodge2(preserve = "single"),
+               show_guide = FALSE) +
   geom_point(aes(shape = Plate, color = Compound),
              position = position_jitterdodge()) +
   main_theme +
   scale_alpha_manual(values = c("0" = 0.7,
                                 "25" = 0.1,
                                 "50" = 0.6)) +
-  scale_x_discrete(labels = rep(c("0","4", "7", "10", "14", "17", "20"),
-                                each = 8)) +
+  #scale_x_discrete(labels = rep(c("0","4", "7", "10", "14", "17", "20"),
+  #                              each = 8)) +
   scale_color_manual(values = c("DMSO_control" = "gray",
                                 "Ezetimibe"= "#39b87f",
                                 "Rosuvastatin" = "#b07aa1", 
                                 "Simvastatin"= "#ea8783")) +
-  scale_fill_manual(values = c("DMSO_control" = "gray",
+  scale_fill_manual(values = c("DMSO_control" = "gray99",
                                 "Ezetimibe"= "#39b87f",
                                 "Rosuvastatin" = "#b07aa1", 
-                                "Simvastatin"= "#ea8783")) +
+                                "Simvastatin"= "#ea8783"), guide = "none") +
   scale_shape_manual(values = c(2, 3)) +
-  labs(y = "AUC of logistic curve", x = "Passage") +
-  theme(legend.position = "right")
+  labs(y = "AUC of logistic curve", 
+       x = "Passage 0 -> 4 -> 7 -> 10 -> 14 -> 17 -> 20") +
+  guides(colour = guide_legend(order = 1), 
+         shape = guide_legend(order = 2)) +
+  theme(legend.position = "top", axis.text.x = element_blank())
 
-ggsave("../04.figures/Figure_S4.pdf", p_s4, width = 10, height = 4)
+ggsave("../04.figures/Figure_S4.pdf", p_s4, width = 8, height = 3)
 
 lma_sig <- all_sig[all_sig$Compound %in% lma_lst, ]
 write.table(lma_sig, "../03.results/Figure_S4_sig.txt",

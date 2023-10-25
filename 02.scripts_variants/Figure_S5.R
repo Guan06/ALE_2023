@@ -68,5 +68,6 @@ print(paste("Median of non-parental", median_nt))
 p_s5_bc <- plot_grid(p_s5b, p_s5c, nrow = 1, labels = c('b', 'c'))
 
 p_s5 <- plot_grid(p_s5a, p_s5_bc, nrow = 2, rel_heights = c(2, 0.8),
-                  labels = c('a', ''))
+                  labels = c('a', ''), align = "v", axis = "r")
+
 ggsave("../04.figures/Figure_S5.pdf", p_s5, width = 9, height = 8)

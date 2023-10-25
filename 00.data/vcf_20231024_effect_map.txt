@@ -1,0 +1,15 @@
+Effect	Effect_type	Shape
+missense_variant	Missense	18
+synonymous_variant	Synonymous	2
+frameshift_variant	Frameshift	16
+Non-coding_region_variant	Non_coding_region	1
+stop_gained	Stop_gained	5
+frameshift_variant&stop_lost&splice_region_variant	Frameshift	16
+start_lost	Start_lost	4
+splice_region_variant&stop_retained_variant	Others 	1
+stop_lost&splice_region_variant	Stop_lost	8
+frameshift_variant&stop_gained	Frameshift	16
+initiator_codon_variant	Others 	1
+disruptive_inframe_deletion	Others 	1
+frameshift_variant&start_lost	Frameshift	16
+stop_lost&conservative_inframe_deletion&splice_region_variant	Others 	1

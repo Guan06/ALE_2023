@@ -12,6 +12,8 @@ des <- unique(des[, -2])
 des[des$Compound == "Metformin", ]$Plate <- 2
 des[(des$Compound == "DMSO_control" & des$Column == 9), ]$Plate <- 2
 des[(des$Compound == "DMSO_control" & des$Well == "A7"), ]$Plate <- 2
+write.table(des, "../03.results/20231024_vcf_des_reformat.txt", quote = F,
+            sep = "\t", row.names = F)
 
 common <- intersect(colnames(all1), colnames(all2))
 all1_sub <- all1[, common]
@@ -82,6 +84,7 @@ all_other_05 <- merge(all_other,
 
 
 all_05 <- rbind(all_single_05, all_other_05)
+saveRDS(all_05, "../03.results/20231023_all_05.rds")
 
 all_stat2 <- all_05 %>% group_by(Exp, Sample_ID) %>% 
   summarise(Number_of_variants = length(POS))
