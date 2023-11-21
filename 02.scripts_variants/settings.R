@@ -21,8 +21,13 @@ main_theme <- theme(panel.background = element_blank(),
                     axis.text = element_text(colour = "black", size = 10))
 ################################################################################
 
-## for s3
-concentration_color <- c("0" = "gold", 
-                         "25" = "deepskyblue",
-                         "50" = "navyblue")
+concentration_color<-  c("0" = "gray",
+                              "25" = "#a0cbe8", 
+                              "250" = "navyblue",
+                              "50" = "#1170aa", 
+                              "500" = "navyblue")
+
+c
 effect_shape <- c("non-synonymous" = 16, "synonymous" = 1, "intergenic" = 3)
+
+

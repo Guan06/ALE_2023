@@ -58,17 +58,13 @@ p1_a <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) +
   geom_line(data = all_sig[all_sig$Compound %in% sig_lst, ],
              aes(Passage, Fold_change, 
                  group = Group, color = Compound, linetype = Concentration),
-            alpha = 0.9) +
+            alpha = 0.9, size = 1.5) +
   scale_linetype_manual(values = c("dashed", "solid")) +
   geom_hline(yintercept = 0, linetype = "twodash", 
              color = "gold", size = 0.8) +
   labs(y = "Fold change") +
   scale_color_manual(values = c("#39b87f", "#ba7e45", "#ea8783")) +
-  #scale_color_manual(values = c("#94A323", "#EF8A0C", "#26897E")) +
-  #geom_hline(yintercept = -0.2, linetype = "twodash", 
-  #           color = "gold", size = 0.8) +
-  main_theme #+
-  #theme(legend.position = "top")
+  main_theme
 
 ##############################################################################
 ale1 <- read.table("../03.results/Figure_S3_growth_curve_24h_OD.txt",
