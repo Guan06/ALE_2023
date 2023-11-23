@@ -49,16 +49,17 @@ all_sig$Group <- paste0(all_sig$Compound, "_", all_sig$Concentration)
 all_sig$Passage <- as.integer(all_sig$Passage1)
 
 p1_a <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) + 
-  geom_point(aes(shape = FDR_sig), color = "gray74", size = 3, alpha = 0.6) +
+  geom_point(aes(shape = FDR_sig), color = "gray74", size = 2.4, alpha = 0.6) +
   geom_point(data = all_sig[all_sig$Compound %in% sig_lst, ],
              aes(Passage, Fold_change, shape = FDR_sig, color = Compound),
-             alpha = 0.9, size = 3) +
+             alpha = 0.9, size = 2.4) +
   scale_shape_manual(values = c(1, 16)) +
-  geom_line(aes(linetype = Concentration), color = "gray", alpha = 0.6) + 
+  geom_line(aes(linetype = Concentration), color = "gray", 
+            size = 1.2, alpha = 0.6) + 
   geom_line(data = all_sig[all_sig$Compound %in% sig_lst, ],
              aes(Passage, Fold_change, 
                  group = Group, color = Compound, linetype = Concentration),
-            alpha = 0.9, size = 1.5) +
+            alpha = 0.9, size = 1.2) +
   scale_linetype_manual(values = c("dashed", "solid")) +
   geom_hline(yintercept = 0, linetype = "twodash", 
              color = "gold", size = 0.8) +
