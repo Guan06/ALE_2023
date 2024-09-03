@@ -18,7 +18,9 @@ main_theme <- theme(panel.background = element_blank(),
                     axis.line.x = element_line(color = "black"),
                     axis.line.y = element_line(color = "black"),
                     axis.ticks = element_blank(),
-                    axis.text = element_text(colour = "black", size = 10))
+                    axis.text = element_text(colour = "black", size = 10),
+                    legend.background = element_blank())
+
 ################################################################################
 
 concentration_color<-  c("0" = "gray",
@@ -27,7 +29,6 @@ concentration_color<-  c("0" = "gray",
                               "50" = "#1170aa", 
                               "500" = "navyblue")
 
-c
 effect_shape <- c("non-synonymous" = 16, "synonymous" = 1, "intergenic" = 3)
 
 

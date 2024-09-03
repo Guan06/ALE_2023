@@ -150,7 +150,7 @@ For mutations around gene peg.1246 and peg.1250, as we could see, most of them a
 
 ### Variants around gene peg.1351
 
-Variants before and within the Glutamyl-tRNA synthetase gene (peg.1351) show a low allele frequency in general. Only two missense variants were detected within the coding region (in Montelukast and Acarbose) at very close positions in the end of the protein sequnce (501/502 out of 508 amino acids).
+Variants before and within the Glutamyl-tRNA synthetase gene (peg.1351) show a low allele frequency in general. Only two missense variants were detected within the coding region (in Montelukast and Acarbose) at very close positions in the end of the protein sequence (501/502 out of 508 amino acids).
 
 ```{r peg1351, echo=FALSE, warning=FALSE, fig.width=8, fig.height=6}
   this_gene_ID <- "peg.1351"
@@ -234,6 +234,89 @@ For mutations around gene peg.1416 and peg.1417, both genes are on the + strand,
   
   plot_grid(a, b, ncol = 2, align = "h", axis = "b", rel_widths = c(1.3, 1),
                     labels = c('a', 'b'))
+```
+
+### Variants between 1912 - 1945 kb ()
+
+```{r region_1912_1945, echo=FALSE, warning=FALSE, fig.width=10, fig.height=8}
+  ### get region from peg.1535 to peg.1563
+  region <- all[(all$POS > 1910551) & (all$POS < 1944637), ]
+
+  ## upper panel: ratio of variants and prevalence of variants
+  t1 <- region %>% group_by(POS) %>% summarise(Prevalence =
+                                              length(unique(Sample_ID)),
+                                            Average_AF = mean(Ratio))
+  t1_des <- unique(all[, c("POS", "FTYPE")])
+  t1 <- merge(t1, t1_des)
+  
+  p1_1 <- ggplot(t1, aes(POS, Prevalence)) +
+    geom_point(aes(color = FTYPE, size = Average_AF),
+               alpha = 0.7, shape = 16) + 
+    scale_color_manual(values = c("gold", "gray47")) +
+    xlab("") +
+    scale_size(range = c(0.25, 5)) +
+    theme_minimal_hgrid(color = "gray88", font_size = 10) +
+    theme(legend.position = "none") +
+    main_theme 
+  
+  p1_2 <- ggplot(region, aes(POS)) + 
+    geom_density(aes(color = FTYPE, y = ..scaled..)) +
+    scale_color_manual(values = c("gold", "gray47")) +
+    scale_y_continuous(position = "right") +
+    xlab("") + ylab("Density of variants") +
+    theme_minimal_hgrid(color = "gray88", font_size = 10) +
+    theme(legend.position = "top",
+        legend.justification = c("left", "center")) +
+    main_theme
+  
+  aligned_plots <- align_plots(p1_2, p1_1, align="hv", axis="tblr")
+  p1 <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
+  ggsave("upper.pdf", p1, width = 10, height = 2.5)
+  
+  ### second panel for the gene plot
+  library(gggenes)
+  gene_lst <- paste0("peg.", seq(1535, 1563))
+  region_gff <- gff[gff$Gene_ID %in% gene_lst, ]
+  colnames(region_gff) <- c("start", "end", "strand", "gene", "protein")
+  
+  region_gff$orientation <- ifelse(region_gff$strand == "+", 1, 0)
+  region_gff$molecule <- "Genes"
+  
+  p2 <- ggplot(region_gff, aes(xmin = start, xmax = end,
+                  y = molecule, fill = protein, 
+                  forward = orientation)) +
+    geom_gene_arrow() + labs(y = "") +
+    #facet_wrap(~ molecule, scales = "free", ncol = 1) +
+    scale_fill_brewer(palette = "Set3") +
+    theme_genes() +
+      theme(legend.position = "none")
+  ggsave("middle.pdf", p2, width = 10, height = 3)
+  ## bottom panel, show the AF of each variants from each compounds
+  p3 <- ggplot(region, aes(POS, Ratio)) +
+    geom_point(aes(color = Concentration, shape = Effect,
+                   size = Ratio), alpha = 0.8) +
+    scale_shape_manual(labels = t_shape, values = c_shape) +
+    scale_color_manual(values = c("0" = "gray",
+                                "25" = "#a0cbe8", 
+                                "250" = "navyblue",
+                                "50" = "#1170aa", 
+                                "500" = "navyblue")) +
+    
+    scale_size(range = c(0.25, 5)) +
+    labs(x = "", y = "Allele frequency") +
+    main_theme +
+    theme(legend.position = "bottom", 
+          legend.justification = c("left", "center")) +
+    guides(color = guide_legend(nrow = 2),
+           shape = guide_legend(nrow = 2),
+           size = guide_legend(nrow = 2))
+  
+  ggsave("lower.pdf", p3, width = 10, height = 3.5)
+  p <- plot_grid(p1, p3, nrow = 2, rel_heights = c(1, 1),
+                 align = "v", axis = "lr")
+  
+  #align = "v", axis = "lr",
+  p
 ```
 
 ### Variants around gene peg.1537

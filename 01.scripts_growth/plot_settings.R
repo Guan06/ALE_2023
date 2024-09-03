@@ -22,4 +22,6 @@ main_theme <- theme(panel.background = element_blank(),
                     axis.line.y = element_line(color = "black"),
                     axis.ticks = element_blank(),
                     axis.text = element_text(colour = "black", size = 10),
-                    text = element_text(family="sans"))
+                    text = element_text(family="sans"),
+                    legend.key = element_rect(colour = NA, fill = NA),
+                    legend.background = element_blank())

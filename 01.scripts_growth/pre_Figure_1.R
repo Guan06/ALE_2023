@@ -43,5 +43,35 @@ all_dat$Plate <- as.character(all_dat$Plate)
 all_dat$ID <- paste0(all_dat$sample, "_", all_dat$Plate)
 all_dat <- merge(all_dat, well)
 
+#### Calculate the growth AUC for ALE 2.0, test FC and sig 
+dat2 <- read.table("../00.data/growth_curve_24h/ALE2_20230125_P0_P5_P10_P15_P20.txt",
+                   header = T, sep = "\t")
+well2<- read.table("../00.data/growth_plate_layout_20230125.txt",
+                   header = T, sep = "\t")
+
+### give Plate_5 to differ from ALE 1.0
+well2$Plate <- "Plate_5"
+well2_order <- c("Date", "Passage", "Time", well2$Well)
+
+well2$ID <- paste0(well2$Well, "_", well2$Plate)
+well2 <- well2[, c("ID", "Compound", "Concentration", "Solvent")]
+
+dat2 <- dat2[, match(well2_order, colnames(dat2))]
+
+all_gc2 <- c()
+for (p in unique(dat2$Passage)) {
+  this <- dat2[dat2$Passage == p, ]
+  this <- this[, -c(1, 2)]
+  
+  this_gc <- SummarizeGrowthByPlate(this, plot_fit = F)
+  this_gc$Passage <- p
+  all_gc2 <- rbind(all_gc2, this_gc)
+}
+all_gc2$Plate <- "Plate_5"
+all_gc2$ID <- paste0(all_gc2$sample, "_Plate_5")
+all_gc2 <- merge(all_gc2, well2)
+
+############################ Add ALE 2.0 data
+all_dat <- rbind(all_dat, all_gc2)
 write.table(all_dat, "../03.results/Figure_1a_growth_curve.txt",
             quote = F, sep = "\t", row.names = F)

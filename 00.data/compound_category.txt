@@ -1,0 +1,38 @@
+Compound	Category
+Acarbose	Drugs
+Acesulfame_K 	Food additives
+Acetaminophen	Drugs
+Aripiprazole	Drugs
+Aspartame	Food additives
+Aspirin	Drugs
+Caffeine	Natural food compounds
+Chlorpyrifos	Environmental contaminants
+Curcumin	Natural food compounds
+Cypermethrin	Environmental contaminants
+Digoxin	Drugs
+Donepezil	Drugs
+Duloxetine	Drugs
+Emtricitabine	Drugs
+Ethanol	Natural food compounds
+Ethinyl_estradiol	Drugs
+Ezetimibe	Drugs
+Glyphosate	Environmental contaminants
+Ibuprofen	Drugs
+Levamisole	Drugs
+Loperamide	Drugs
+Metformin	Drugs
+Montelukast	Drugs
+Olaparib	Drugs
+PFOA	Environmental contaminants
+PFNA	Environmental contaminants
+Permethrin	Environmental contaminants
+Progestogen	Drugs
+Ranitidine	Drugs
+Roflumilast	Drugs
+Rosiglitazone	Drugs
+Rosuvastatin	Drugs
+Simvastatin	Drugs
+Stevioside	Food additives
+Sulfasalazine	Drugs
+Tenofovir	Drugs
+Xanthan_gum	Food additives
