@@ -32,3 +32,18 @@ concentration_color<-  c("0" = "gray",
 effect_shape <- c("non-synonymous" = 16, "synonymous" = 1, "intergenic" = 3)
 
 
+###############################################################################
+## Colors and shapes in Figure 3
+cc_color <- c("Parental0" = palette_OkabeIto[1],
+              "Water0" = palette_OkabeIto[6],
+              "Water_control0" = palette_OkabeIto[6],
+              #"Xanthan_gum25" = "slateblue1",
+              #"Xanthan_gum50" = "slateblue4")
+              "Xanthan_gum25" = palette_OkabeIto[2],
+              "Xanthan_gum50" = palette_OkabeIto[5])
+
+cc_shape <- c("Parental" = 1,
+              "Plate4_A4" = 1, "Plate4_A5" = 1, "Plate4_E4" = 1,
+              "Plate4_B4" = 2, "Plate4_B5" = 2, "Plate4_F4" = 2,
+              "Plate4_C4" = 5, "Plate4_C5" = 5, "Plate4_G4" = 5,
+              "Plate4_D4" = 8, "Plate4_D5" = 8, "Plate4_H4" = 8)

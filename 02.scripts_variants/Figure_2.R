@@ -94,8 +94,7 @@ p_b2 <- ggplot(region, aes(POS, Ratio)) +
   theme(legend.position = "top", 
         legend.justification = c("left", "center")) +
   #guides(shape = guide_legend(nrow = 1)) +
-  theme(legend.key = element_rect(fill = "transparent"),
-        legend.background = element_blank())
+  theme(legend.background = element_blank())
 
 p_b <- plot_grid(p_b2, p_b1, nrow = 2, rel_heights = c(4, 1),
           align = "v", axis = "l")
@@ -138,7 +137,7 @@ p1 <- ggplot(this_gene, aes(POS, Ratio)) +
   scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
   theme(legend.position = "top") +
   main_theme +
-  theme(legend.key = element_rect(fill = "transparent"),
+  theme(#legend.key = element_rect(fill = "transparent"),
         legend.background = element_blank())
 
 colnames(this_gff) <- c("start", "end", "strand", "gene", "protein")
@@ -175,14 +174,13 @@ p1 <- ggplot(this_gene, aes(POS, Ratio)) +
   scale_size_manual(values = c("0" = 1,
                                "25" = 1.8, 
                                "50" = 2.4), guide = F) +
-  scale_color_manual(values = c("Xanthan_gum" = "mediumpurple3",
+  scale_color_manual(values = c("Xanthan_gum" = "slateblue3",
                                 "Others" = "gray")) +
   scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
   theme(legend.position = "top") +
   guides(color = guide_legend(nrow = 2)) +
   main_theme +
-  theme(legend.key = element_rect(fill = "transparent"),
-        legend.background = element_blank())
+  theme(legend.background = element_blank())
 
 colnames(this_gff) <- c("start", "end", "strand", "gene", "protein")
 this_gff$orientation <- ifelse(this_gff$strand == "+", 1, 0)
@@ -228,8 +226,7 @@ p1 <- ggplot(this_gene, aes(POS, Ratio)) +
   theme(legend.position = "top") +
   guides(color = guide_legend(nrow = 2)) +
   main_theme +
-  theme(legend.key = element_rect(fill = "transparent"),
-        legend.background = element_blank())
+  theme(legend.background = element_blank())
 
 colnames(this_gff) <- c("start", "end", "strand", "gene", "protein")
 this_gff$orientation <- ifelse(this_gff$strand == "+", 1, 0)

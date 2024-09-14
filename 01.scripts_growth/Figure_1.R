@@ -74,10 +74,17 @@ write.table(all_sig_hit, "../03.results/Figure_1b_hit_gc_cmp.txt", quote = F,
 ###############################################################################
 ###############################################################################
 ### 
-sig_lst <- unique(all_sig_hit$Compound)
+
 all_sig$Group <- paste0(all_sig$Compound, "_", all_sig$Concentration)
 all_sig$Passage <- as.integer(all_sig$Passage1)
 all_sig$Concentration <- as.character(all_sig$Concentration)
+
+all_sig_hit <- all_sig[(abs(all_sig$Fold_change) >= 0.20) &
+                         (all_sig$FDR < 0.05), ]
+sig_lst <- unique(all_sig_hit$Compound)
+
+### not presenting ultra-high concentration PFAS here
+all_sig <- all_sig[all_sig$Concentration %in% c("25", "50"), ]
 
 p1_b <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) + 
   geom_point(aes(shape = FDR_sig), color = "gray74", size = 2.4, alpha = 0.6) +
@@ -86,11 +93,11 @@ p1_b <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) +
              alpha = 0.9, size = 2.4) +
   scale_shape_manual(values = c(1, 16)) +
   geom_line(aes(linetype = Concentration), color = "gray", 
-            size = 1.2, alpha = 0.6) + 
+            size = 1.1, alpha = 0.6) + 
   geom_line(data = all_sig[all_sig$Compound %in% sig_lst, ],
             aes(Passage, Fold_change, 
                 group = Group, color = Compound, linetype = Concentration),
-            alpha = 0.9, size = 1.2) +
+            alpha = 0.9, size = 1.1) +
   scale_linetype_manual(values = c("dashed", "solid", "solid", "solid")) +
   geom_hline(yintercept = 0, linetype = "twodash", 
              color = "gold", size = 0.8) +
@@ -98,8 +105,7 @@ p1_b <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) +
          shape = guide_legend(order = 2, nrow = 2),
          linetype = guide_legend(order = 3, nrow = 2)) +
   labs(y = "Fold change") +
-  scale_color_manual(values = c("#39b87f", "#ba7e45", "lightblue4",
-                                "yellow4", "#ea8783")) +
+  scale_color_manual(values = c("#39b87f", "#ba7e45", "#ea8783")) +
   main_theme + theme(legend.position = "top")
 
 ##############################################################################
@@ -158,7 +164,7 @@ p1_c <- ggplot(ale12_main[ale12_main$Compound == "DMSO_control", ],
           size = rel(1.1), face = "bold")) 
 
 p1_ab <- plot_grid(p1_a, p1_b, nrow = 1, align = "h", axis = "b",
-                rel_widths = c(1, 2.4), labels = c("a", "b"))
+                rel_widths = c(1, 2), labels = c("a", "b"))
 
 p1 <- plot_grid(p1_ab, p1_c, nrow = 2, align = "v", axis = "n",
                 rel_heights = c(1, 1),
