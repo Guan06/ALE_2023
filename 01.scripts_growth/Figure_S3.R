@@ -68,7 +68,7 @@ p_s3a <- ggplot(controls, aes(Group, FC, color = Compound)) +
 source("function_get_sig.R")
 control_sig <- get_sig_control(controls, "Group", "OD_adjust")
 
-write.table(control_sig, "../03.results/Figure_S3a_sig.txt", quote = F,
+write.table(control_sig, "../04.results/Figure_S3a_sig.txt", quote = F,
             row.names = F, sep = "\t")
 
 ############################################################################
@@ -100,7 +100,7 @@ well$ID <- paste0(well$Well, "_Plate_", well$Plate)
 well <- well[, c("ID", "Compound", "Concentration", "Solvent")]
 
 all_dat_meta <- merge(all_dat, well)
-write.table(all_dat_meta, "../03.results/Figure_S3_growth_curve_24h_OD.txt",
+write.table(all_dat_meta, "../04.results/Figure_S3_growth_curve_24h_OD.txt",
             quote = F, sep = "\t", row.names = F)
 
 ############################################################################
@@ -133,6 +133,6 @@ p_s3b <- p_s3b + theme(legend.position = "none")
 p_s3 <- plot_grid(p_s3a, p_s3b, nrow = 2, rel_heights = c(1, 1.5),
                   labels = c('a', 'b'))
 
-ggsave("../04.figures/Figure_S3.pdf", p_s3, width = 10, height = 8)
-ggsave("../04.figures/Figure_S3_legend.pdf", p_s3b_legend,
+ggsave("../05.figures/Figure_S3.pdf", p_s3, width = 10, height = 8)
+ggsave("../05.figures/Figure_S3_legend.pdf", p_s3b_legend,
        width = 2, height = 3)

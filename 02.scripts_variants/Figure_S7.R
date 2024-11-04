@@ -67,7 +67,7 @@ p2 <- ggplot(meta, aes(Country, Copy_number)) +
 p <- plot_grid(p1, p2, nrow = 2, align = "hv", axis = "l", 
                rel_heights = c(1, 1))
 
-ggsave("../04.figures/Figure_S7.pdf", width = 10, height = 8)
+ggsave("../05.figures/Figure_S7.pdf", width = 10, height = 8)
 
 summary(aov(Copy_number ~ Length * Contamination * Genome_type * Country,
             meta))

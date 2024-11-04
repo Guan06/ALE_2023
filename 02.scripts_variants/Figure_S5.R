@@ -1,6 +1,6 @@
 ### Make sure to run/source pre_Figure_S5.R before this scripts
 ### AF > 0.05
-tab1 <- read.table("../03.results/Figure_S5_variant_number_AF_005.txt",
+tab1 <- read.table("../04.results/Figure_S5_variant_number_AF_005.txt",
                   header = T, sep = "\t")
 avg_nt1 <- mean(tab1[tab1$Compound == "NT5002", ]$Number_of_variants)
 print(paste("Average number of variant (AF > 0.05) of parental strain: ",
@@ -8,7 +8,7 @@ print(paste("Average number of variant (AF > 0.05) of parental strain: ",
 tab1$Group <- "AF > 0.05"
 
 ### AF > 0.5
-tab2 <- read.table("../03.results/Figure_S5_variant_number_AF_05.txt",
+tab2 <- read.table("../04.results/Figure_S5_variant_number_AF_05.txt",
                   header = T, sep = "\t")
 avg_nt2 <- mean(tab2[tab2$Compound == "NT5002", ]$Number_of_variants)
 print(paste("Average number of variant (AF > 0.5) of parental strain: ",
@@ -70,4 +70,4 @@ p_s5_bc <- plot_grid(p_s5b, p_s5c, nrow = 1, labels = c('b', 'c'))
 p_s5 <- plot_grid(p_s5a, p_s5_bc, nrow = 2, rel_heights = c(2, 0.8),
                   labels = c('a', ''), align = "v", axis = "r")
 
-ggsave("../04.figures/Figure_S5.pdf", p_s5, width = 9, height = 8)
+ggsave("../05.figures/Figure_S5.pdf", p_s5, width = 9, height = 8)

@@ -12,7 +12,7 @@ des <- unique(des[, -2])
 des[des$Compound == "Metformin", ]$Plate <- 2
 des[(des$Compound == "DMSO_control" & des$Column == 9), ]$Plate <- 2
 des[(des$Compound == "DMSO_control" & des$Well == "A7"), ]$Plate <- 2
-write.table(des, "../03.results/20231024_vcf_des_reformat.txt", quote = F,
+write.table(des, "../04.results/20231024_vcf_des_reformat.txt", quote = F,
             sep = "\t", row.names = F)
 
 common <- intersect(colnames(all1), colnames(all2))
@@ -25,7 +25,7 @@ all2_sub$Exp <- "ALE2"
 ###################### parental variants identified in pre_Figure_2.R
 parental_lst <- c("1166763", "1681625", "1702756", "3356587")
 ###################### common variants identified in pre_Figure_2.R
-com_tab <- read.table("../05.tables/Appendix_tab_01_common_variants_ALE2.txt",
+com_tab <- read.table("../06.tables/Appendix_tab_01_common_variants_ALE2.txt",
                       header = T, sep =  "\t")
 com_lst <- unique(com_tab$POS)
 all2_sub <- all2_sub[!(all2_sub$POS %in% com_lst), ]
@@ -55,7 +55,7 @@ all_other_005 <- merge(all_other,
 
 
 all_005 <- rbind(all_single_005, all_other_005)
-saveRDS(all_005, "../03.results/20231023_all_005.rds")
+saveRDS(all_005, "../04.results/20231023_all_005.rds")
 
 all_stat2 <- all_005 %>% group_by(Exp, Sample_ID) %>% 
   summarise(Number_of_variants = length(POS))
@@ -66,7 +66,7 @@ tab <- merge(all_stat2, des)
 tab$Concentration <- as.character(tab$Concentration)
 tab$Plate <- as.character(tab$Plate)
 tab <- tab[tab$Number_of_variant > 0, ]
-write.table(tab, "../03.results/Figure_S5_variant_number_AF_005.txt",
+write.table(tab, "../04.results/Figure_S5_variant_number_AF_005.txt",
             quote = F, sep = "\t", row.names = F)
 
 ###############################################################################
@@ -84,7 +84,7 @@ all_other_05 <- merge(all_other,
 
 
 all_05 <- rbind(all_single_05, all_other_05)
-saveRDS(all_05, "../03.results/20231023_all_05.rds")
+saveRDS(all_05, "../04.results/20231023_all_05.rds")
 
 all_stat2 <- all_05 %>% group_by(Exp, Sample_ID) %>% 
   summarise(Number_of_variants = length(POS))
@@ -95,5 +95,5 @@ tab <- merge(all_stat2, des)
 tab$Concentration <- as.character(tab$Concentration)
 tab$Plate <- as.character(tab$Plate)
 #tab <- tab[tab$Number_of_variant > 0, ]
-write.table(tab, "../03.results/Figure_S5_variant_number_AF_05.txt",
+write.table(tab, "../04.results/Figure_S5_variant_number_AF_05.txt",
             quote = F, sep = "\t", row.names = F)

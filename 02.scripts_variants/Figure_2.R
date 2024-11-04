@@ -2,7 +2,7 @@ source("settings.R")
 
 ###############################################################################
 # read in all variants detected in ALE 1.0 and ALE 2.0 with AF > 0.05
-all <- readRDS("../03.results/20231023_all_005.rds")
+all <- readRDS("../04.results/20231023_all_005.rds")
 t1 <- all %>% group_by(POS) %>% summarise(Prevalence =
                                             length(unique(Sample_ID)),
                                           Average_AF = mean(Ratio))
@@ -11,6 +11,8 @@ t1 <- merge(t1, t1_des)
 
 map <- read.table("../00.data/vcf_20231024_effect_map.txt", 
                   header = T, sep = "\t")
+map$Effect_type <- as.factor(map$Effect_type)
+#map$Shape <- as.factor(map$Shape)
 
 t1 <- merge(t1, map)
 
@@ -20,22 +22,23 @@ p1_1 <- ggplot(t1, aes(POS, Prevalence)) +
   scale_shape_manual(limits = map$Effect_type,
                      values = map$Shape) +
   scale_color_manual(values = c("gold", "gray47")) +
-  xlim(c(0, 5e+06)) + xlab("") +
+  xlim(c(0, 4.685e+06)) + xlab("") +
   scale_size(range = c(0.25, 5)) +
   theme_minimal_hgrid(color = "gray88", font_size = 10) +
-  guides(colour = guide_legend(order = 1, nrow = 2), 
-         size = guide_legend(order = 2, nrow = 3),
-         shape = guide_legend(order = 3, nrow = 3)) +
-  theme(legend.position = "bottom",
-        legend.justification = c("left", "center")) +
-  main_theme 
+  guides(colour = guide_legend(order = 2, nrow = 1), 
+         size = guide_legend(order = 3, nrow = 1),
+         shape = guide_legend(order = 1, nrow = 1)) +
+  main_theme + theme(legend.position = "top")
+
+legend <- get_plot_component(p1_1, 'guide-box-top', return_all = TRUE)
+p1_1 <- p1_1 + theme(legend.position = "none")
 
 p1_2 <- ggplot(all, aes(POS)) + 
   geom_density(aes(color = FTYPE, y = ..scaled..)) +
   scale_color_manual(values = c("gold", "gray47")) +
   scale_y_continuous(position = "right") +
   xlab("") + ylab("Density of variants") +
-  xlim(c(0, 5e+06)) +
+  xlim(c(0, 4.685e+06)) +
   theme_minimal_hgrid(color = "gray88", font_size = 10) +
   theme(legend.position = "none",
         axis.text.x=element_blank()) +
@@ -43,6 +46,7 @@ p1_2 <- ggplot(all, aes(POS)) +
 
 aligned_plots <- align_plots(p1_2, p1_1, align="hv", axis="tblr")
 p_a <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
+
 ###############################################################################
 #### Panel B, variants between 1912 - 1945 Kb
 ### get region from peg.1535 to peg.1563
@@ -77,8 +81,8 @@ p_b1 <- ggplot(region_gff, aes(xmin = start, xmax = end,
 
 ##AF of each variants from each compounds
 p_b2 <- ggplot(region, aes(POS, Ratio)) +
-  geom_point(aes(color = Concentration, shape = Effect_type,
-                 size = Ratio), alpha = 0.8) +
+  geom_point(aes(color = Concentration, shape = Effect_type), 
+             size = 3, alpha = 0.8) +
   xlim(this_start, this_end) +
   scale_shape_manual(limits = map$Effect_type,
                      values = map$Shape, guide = F) +
@@ -87,20 +91,19 @@ p_b2 <- ggplot(region, aes(POS, Ratio)) +
                                 "250" = "navyblue",
                                 "50" = "#1170aa", 
                                 "500" = "navyblue")) +
-  
-  scale_size(range = c(0.25, 5), guide = F) +
+  #scale_size(range = c(0.25, 5), guide = F) +
   labs(x = "", y = "Allele Frequence (AF)") +
-  main_theme +
+  theme_bw() +
   theme(legend.position = "top", 
         legend.justification = c("left", "center")) +
   #guides(shape = guide_legend(nrow = 1)) +
-  theme(legend.background = element_blank())
+  theme(legend.background = element_blank()) 
 
 p_b <- plot_grid(p_b2, p_b1, nrow = 2, rel_heights = c(4, 1),
           align = "v", axis = "l")
 
 fig2_ab <- plot_grid(p_a, p_b, nrow = 2, align = "v", axis = "l", 
-                  rel_heights = c(1, 1.2), 
+                  rel_heights = c(1, 1.3), 
                   labels = c('a', "b"))
 ###############################################################################
 #### Panel C
@@ -255,6 +258,6 @@ fig2_ab <- plot_grid(p_a, p_b, nrow = 2, align = "v", axis = "l",
                      rel_heights = c(1, 1.2), 
                      labels = c('a', "b"))
 
-fig2 <- plot_grid(fig2_ab, fig2_cde, nrow = 2, rel_heights = c(1.6, 1))
+fig2 <- plot_grid(legend, fig2_ab, fig2_cde, nrow = 3, rel_heights = c(0.2, 1.5, 1))
 
-ggsave("../04.figures/Figure_2.pdf", fig2, width = 10, height = 9)
+ggsave("../05.figures/Figure_2.pdf", fig2, width = 10, height = 9)

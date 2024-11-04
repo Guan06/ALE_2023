@@ -2,7 +2,7 @@ source("settings.R")
 
 ###############################################################################
 # read in all variants detected in ALE 1.0 and ALE 2.0 with AF > 0.5
-all <- readRDS("../03.results/20231023_all_05.rds")
+all <- readRDS("../04.results/20231023_all_05.rds")
 t1 <- all %>% group_by(POS) %>% summarise(Prevalence =
                                             length(unique(Sample_ID)),
                                           Average_AF = mean(Ratio))
@@ -45,4 +45,4 @@ p2 <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
 ###############################################################################
 #p <- plot_grid(p1, p2, nrow = 2, rel_heights = c(1, 1.25), 
 #               align = "v", axis = "lr", labels = c("a", "b"))
-ggsave("../04.figures/Figure_S6.pdf", p2, width = 8, height = 2.5)
+ggsave("../05.figures/Figure_S6.pdf", p2, width = 8, height = 2.5)

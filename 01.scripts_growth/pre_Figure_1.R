@@ -73,5 +73,5 @@ all_gc2 <- merge(all_gc2, well2)
 
 ############################ Add ALE 2.0 data
 all_dat <- rbind(all_dat, all_gc2)
-write.table(all_dat, "../03.results/Figure_1a_growth_curve.txt",
+write.table(all_dat, "../04.results/Figure_1_cd_growth_curve.txt",
             quote = F, sep = "\t", row.names = F)

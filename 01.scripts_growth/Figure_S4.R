@@ -1,7 +1,7 @@
 source("plot_settings.R")
-all_dat <- read.table("../03.results/Figure_1a_growth_curve.txt",
+all_dat <- read.table("../04.results/Figure_1a_growth_curve.txt",
                       header = T, sep = "\t")
-all_sig <- read.table("../03.results/Figure_1a_all_gc_cmp.txt", header = T,
+all_sig <- read.table("../04.results/Figure_1a_all_gc_cmp.txt", header = T,
                   sep = "\t")
 
 lma_lst <- c("Ezetimibe", "Rosuvastatin", "Simvastatin", "DMSO_control")
@@ -41,8 +41,8 @@ p_s4 <- ggplot(lma_dat, aes(interaction(Concentration,Compound, Plate, Passage),
          shape = guide_legend(order = 2)) +
   theme(legend.position = "top", axis.text.x = element_blank())
 
-ggsave("../04.figures/Figure_S4.pdf", p_s4, width = 8, height = 3)
+ggsave("../05.figures/Figure_S4.pdf", p_s4, width = 8, height = 3)
 
 lma_sig <- all_sig[all_sig$Compound %in% lma_lst, ]
-write.table(lma_sig, "../03.results/Figure_S4_sig.txt",
+write.table(lma_sig, "../04.results/Figure_S4_sig.txt",
             quote = F, row.names = F, sep = "\t")

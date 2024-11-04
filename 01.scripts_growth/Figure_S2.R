@@ -45,4 +45,4 @@ p_s2 <- ggplot(ra_occu, aes(RA_mean, Prevalence, color = Phylum)) +
   scale_color_manual(values = getOI(length(unique(ra_occu$Phylum)))) +
   guides(col = guide_legend(nrow = 3))
 
-ggsave("../04.figures/Figure_S2.pdf", p_s2, height = 6, width = 13)
+ggsave("../05.figures/Figure_S2.pdf", p_s2, height = 6, width = 13)

@@ -47,7 +47,7 @@ p1_2 <- ggplot(af_02, aes(POS)) +
 aligned_plots <- align_plots(p1_2, p1_1, align="hv", axis="tblr")
 p1 <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
 
-ggsave("../04.figures/Appendix_fig_01_parental_variants_AF.pdf", p1, 
+ggsave("../05.figures/Appendix_fig_01_parental_variants_AF.pdf", p1, 
        width = 7, height = 3)
 ###############################################################################
 parental_lst1 <- t1[(t1$Prevalence == 2) & (t1$Average_AF > 0.9), ]$Position
@@ -113,7 +113,7 @@ p2_b <- ggplot(depth, aes(interaction(Plate, Compound), Depth)) +
 p2 <- plot_grid(p2_a, p2_b, nrow = 2, rel_heights = c(2, 1), 
                 labels = c("a", "b"), align = "hv", axis = "lr")
 
-ggsave("../04.figures/Appendix_fig_02_parental_variants_in_ALE1.pdf", p2, 
+ggsave("../05.figures/Appendix_fig_02_parental_variants_in_ALE1.pdf", p2, 
        width = 12, height = 10)
 
 ###############################################################################
@@ -150,12 +150,12 @@ p3_2 <- ggplot(af_005, aes(POS)) +
 aligned_plots <- align_plots(p3_2, p3_1, align="hv", axis="tblr")
 p3 <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
 
-ggsave("../04.figures/Appendix_fig_03_common_variants_AF_ALE2.pdf", p3, 
+ggsave("../05.figures/Appendix_fig_03_common_variants_AF_ALE2.pdf", p3, 
        width = 7, height = 3)
 
 ###############################################################################
 com_lst <- t2[(t2$Prevalence == 12) & (t2$Average_AF > 0.9), ]$Position
 ale2_com <- ale2[ale2$POS %in% com_lst, ]
 write.table(ale2_com,
-            "../05.tables/Appendix_tab_01_common_variants_ALE2.txt",
+            "../06.tables/Appendix_tab_01_common_variants_ALE2.txt",
             quote = F, sep = "\t", row.names = F)
