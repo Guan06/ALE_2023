@@ -4,30 +4,6 @@
 source("plot_settings.R")
 source("function_get_sig.R")
 
-################ Number of compounds
-##############################################################################
-# lst <- read.table("../00.data/compound_category.txt", header = T, sep = "\t")
-# 
-# lst_stat <- lst %>% summarize(Number = n() , .by = Category) |> 
-#   mutate(Category = forcats::fct_reorder(stringr::str_to_title(Category), 
-#                                          -Number))
-# p <- ggplot(lst_stat, aes(Number, Category)) +
-#   geom_col(width = 1.1, fill = "deepskyblue1", alpha = 0.8) +
-#   facet_wrap(~ Category, ncol = 1, scales = "free_y") +
-#   scale_x_continuous(name = "Number of xenobiotics", expand = c(0, 0)) +
-#   scale_y_discrete(guide = "none", name = "",
-#                    expand = expansion(add = c(.8, .6))) +
-#   theme(strip.background = element_blank(),
-#         strip.text = element_text(
-#                       hjust = 0, margin = margin(1, 0, 1, 0), 
-#                       size = rel(1.1), face = "bold")) + 
-#   main_theme +
-#   geom_text(
-#     aes(label = Number, hjust = 2),
-#     size = 4, fontface = "bold") +
-#   scale_color_manual(values = c("black", "white"), guide = "none")
-##############################################################################
-
 ##############################################################################
 ################ Compare each compound vs control
 all_dat <- read.table("../04.results/Figure_1_cd_growth_curve.txt",
@@ -78,28 +54,29 @@ all_sig$Group <- paste0(all_sig$Compound, "_", all_sig$Concentration)
 all_sig$Passage <- as.integer(all_sig$Passage1)
 all_sig$Concentration <- as.character(all_sig$Concentration)
 
-all_sig_hit <- all_sig[(abs(all_sig$Fold_change) >= 0.20) &
-                         (all_sig$FDR < 0.05), ]
-sig_lst <- unique(all_sig_hit$Compound)
-
 ### not presenting ultra-high concentration PFAS here
 all_sig <- all_sig[all_sig$Concentration %in% c("25", "50"), ]
+all_sig_hit <- all_sig[(abs(all_sig$Fold_change) >= 0.20) &
+                          (all_sig$FDR < 0.05), ]
+sig_lst <- unique(all_sig_hit$Compound)
 
 p1_c <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) + 
+  annotate("rect", xmin=-Inf, xmax=Inf, ymin=-0.2, ymax=0.2, 
+           alpha=0.3, fill="gold") + 
   geom_point(aes(shape = FDR_sig), color = "gray74", size = 2.4, alpha = 0.6) +
   geom_point(data = all_sig[all_sig$Compound %in% sig_lst, ],
              aes(Passage, Fold_change, shape = FDR_sig, color = Compound),
              alpha = 0.9, size = 3.4) +
   scale_shape_manual(values = c(1, 16)) +
   geom_line(aes(linetype = Concentration), color = "gray", 
-            size = 1.1, alpha = 0.6) + 
+            linewidth = 1.1, alpha = 0.6) + 
   geom_line(data = all_sig[all_sig$Compound %in% sig_lst, ],
             aes(Passage, Fold_change, 
                 group = Group, color = Compound, linetype = Concentration),
-            alpha = 0.9, size = 1.1) +
+            alpha = 0.9, linewidth = 1.1) +
   scale_linetype_manual(values = c("dashed", "solid", "solid", "solid")) +
   geom_hline(yintercept = 0, linetype = "twodash", 
-             color = "gold", size = 0.8) +
+             color = "gold", linewidth = 0.8) +
   guides(colour = guide_legend(order = 1, ncol = 1), 
          shape = guide_legend("Significance (FDR)", order = 3, ncol = 1),
          linetype = guide_legend(order = 2, ncol = 1)) +

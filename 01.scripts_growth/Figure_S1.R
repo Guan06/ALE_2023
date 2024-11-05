@@ -69,4 +69,4 @@ p <- pheatmap(all_mat,
               na_col="white",
               border_color ="gray")
 
-ggsave("../05.figures/Figure_S1a.pdf", p, height = 8, width = 10.7)
+ggsave("../05.figures/Figure_S1.pdf", p, height = 8, width = 10.7)
