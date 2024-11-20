@@ -1,12 +1,12 @@
 ################ make sure to run pre_Figure_1.R before and have the output 
-################ generated as ../04.results/Figure_1a_growth_curve.txt
+################ generated as ../04.results/Figure_1cde_growth_curve.txt
 ## source("pre_Figure_1.R")
 source("plot_settings.R")
 source("function_get_sig.R")
 
 ##############################################################################
 ################ Compare each compound vs control
-all_dat <- read.table("../04.results/Figure_1_cd_growth_curve.txt",
+all_dat <- read.table("../04.results/Figure_1_cde_growth_curve.txt",
                       header = T, sep = "\t")
 all_sig <- c()
 all_comp_lst <- unique(all_dat$Compound)
@@ -49,15 +49,15 @@ write.table(all_sig, "../04.results/Figure_1c_all_gc_cmp.txt", quote = F,
 write.table(all_sig_hit, "../04.results/Figure_1c_hit_gc_cmp.txt", quote = F,
             sep = "\t", row.names = F)
 ###############################################################################
- 
+
 all_sig$Group <- paste0(all_sig$Compound, "_", all_sig$Concentration)
 all_sig$Passage <- as.integer(all_sig$Passage1)
 all_sig$Concentration <- as.character(all_sig$Concentration)
-
+################################################################################
 ### not presenting ultra-high concentration PFAS here
 all_sig <- all_sig[all_sig$Concentration %in% c("25", "50"), ]
 all_sig_hit <- all_sig[(abs(all_sig$Fold_change) >= 0.20) &
-                          (all_sig$FDR < 0.05), ]
+                         (all_sig$FDR < 0.05), ]
 sig_lst <- unique(all_sig_hit$Compound)
 
 p1_c <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) + 
@@ -85,9 +85,60 @@ p1_c <- ggplot(all_sig, aes(Passage, Fold_change, group = Group)) +
   main_theme + theme(legend.position = "right")
 
 ##############################################################################
+
+##############################################################################
+############### Compare lipid modification agents
+all_dat <- read.table("../04.results/Figure_1_cde_growth_curve.txt",
+                      header = T, sep = "\t")
+
+lma_lst <- c("Ezetimibe", "Rosuvastatin", "Simvastatin", "DMSO_control")
+lma_dat <- all_dat[all_dat$Compound %in% lma_lst, ]
+## only take DMSO_control from Plate_2 and Plate_3
+lma_dat <- lma_dat[lma_dat$Plate %in% c("Plate_2", "Plate_3"), ]
+
+lma_dat$Passage <- as.integer(lma_dat$Passage)
+lma_dat$Concentration <- as.character(lma_dat$Concentration)
+
+p1_d <- ggplot(lma_dat, aes(interaction(Concentration,Compound, Plate, Passage),
+                            auc_l, fill = Compound)) +
+  geom_boxplot(aes(color = Compound, alpha = Concentration),
+               outlier.shape = NA,
+               position = position_dodge2(preserve = "single")) + #,
+  #   show_guide = FALSE) +
+  #scale_x_discrete(labels = rep(c("0","4", "7", "10", "14", "17", "20"),
+  #                              each = 8)) +
+  geom_point(aes(shape = Plate, color = Compound),
+             position = position_jitterdodge()) +
+  main_theme +
+  scale_alpha_manual(values = c("0" = 0.5,
+                                "25" = 0.1,
+                                "50" = 0.6)) +
+  scale_color_manual(values = c("DMSO_control" = "#E69F00",
+                                "Ezetimibe"= "#39b87f",
+                                "Rosuvastatin" = "#b07aa1", 
+                                "Simvastatin"= "#ea8783")) +
+  scale_fill_manual(values = c("DMSO_control" = "#E69F00",
+                               "Ezetimibe"= "#39b87f",
+                               "Rosuvastatin" = "#b07aa1", 
+                               "Simvastatin"= "#ea8783"), guide = "none") +
+  scale_shape_manual(values = c(2, 3)) +
+  labs(y = "AUC of logistic curve", 
+       x = "Passage 0 -> 4 -> 7 -> 10 -> 14 -> 17 -> 20") +
+  guides(colour = guide_legend(order = 1), 
+         shape = guide_legend(order = 3),
+         alpha = guide_legend(order = 2)) +
+  theme(legend.position = "right", axis.text.x = element_blank())
+
+################################################################################
+lma_sig <- all_sig[all_sig$Compound %in% lma_lst, ]
+write.table(lma_sig, "../04.results/Figure_1d_sig.txt",
+            quote = F, row.names = F, sep = "\t")
+
+################################################################################
+
 ale1 <- read.table("../04.results/Figure_S3_growth_curve_24h_OD.txt",
                    header = T, sep = "\t")
-####################Read in OD and plate layout for ALE 2.0
+#################### Read in OD and plate layout for ALE 2.0
 ale2_raw <- read.table("../00.data/growth_curve_24h/ALE2_20230125_P0_P5_P10_P15_P20.txt",
                    header = T, sep = "\t")
 well2 <- read.table("../00.data/growth_plate_layout_20230125.txt",
@@ -117,16 +168,16 @@ ale12$Concentration <- as.character(ale12$Concentration)
 ### Passage 0, 10, 20
 ale12_main <- ale12[ale12$Passage %in% c(0, 10, 20), ]
 
-p1_d <- ggplot(ale12_main[ale12_main$Compound == "DMSO_control", ],
+p1_e <- ggplot(ale12_main[ale12_main$Compound == "DMSO_control", ],
                aes(Time, OD, group = ID)) +
   geom_line(aes(color = Compound), alpha = 0.6) +
   geom_point(aes(color = Compound, shape = Concentration),
-            alpha = 0.6, size = 2) +
+            alpha = 0.5, size = 2) +
   geom_line(data = ale12_main[ale12_main$Compound != "DMSO_control", ],
-            aes(color = Compound), alpha = 0.8) +
+            aes(color = Compound), alpha = 0.7) +
   geom_point(data = ale12_main[ale12_main$Compound != "DMSO_control", ],
              aes(color = Compound, shape = Concentration),
-             alpha = 0.8, size = 2) +
+             alpha = 0.7, size = 2) +
   scale_shape_manual(values = c("0" = 1, "25" = 10, "50" = 19,
                                 "250" = 2, "500" = 17)) +
   facet_wrap(~Passage, scales = "fixed", nrow = 1) +
@@ -139,8 +190,8 @@ p1_d <- ggplot(ale12_main[ale12_main$Compound == "DMSO_control", ],
         strip.text = element_text(hjust = 0, 
           size = rel(1.1), face = "bold")) 
 
-p1_cd <- plot_grid(p1_c, p1_d, nrow = 2, align = "v", axis = "lr",
-                   rel_heights = c(1, 1.1),
-                   labels = c("c", "d"))
+p1_cde <- plot_grid(p1_c, p1_d, p1_e, nrow = 3, align = "v", axis = "lr",
+                   rel_heights = c(1, 1, 1.1),
+                   labels = c("c", "d", "e"))
 
-ggsave("../05.figures/Figure_1_cd.pdf", p1_cd, width = 10, height = 6)
+ggsave("../05.figures/Figure_1_cde.pdf", p1_cde, width = 10, height = 9)

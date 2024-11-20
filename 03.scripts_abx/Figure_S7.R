@@ -1,11 +1,16 @@
 source("settings.R")
 
-od_pop <- read.table("../00.data/20240912_pop_OD_parental_and_XG.txt",
+#od_pop <- read.table("../00.data/20240912_pop_OD_parental_and_XG.txt",
+#                     header = T, sep = "\t")
+od_pop <- read.table("../00.data/20241120_pop_OD_all_Abx_parental_and_XG.txt",
                      header = T, sep = "\t")
 colnames(od_pop)[10] <- "Compound"
 od_pop$Group2 <- paste0(od_pop$Compound, od_pop$Compound_conc)
 
-ggplot(od_pop, aes((Concentration), OD)) +
+##Filter out negative control
+od_pop <- od_pop[od_pop$Antibiotic != "Negative_control", ]
+
+ggplot(od_pop, aes(log2(Concentration), OD)) +
   geom_point(aes(shape = Rep, color = Group2), alpha = 0.6) +
   scale_shape_manual(values = c(1, 2, 3)) +
   #scale_shape_manual(values = c(1, 1, 1, 2, rep(3, 6), 4, rep(9, 7))) +
@@ -21,4 +26,4 @@ ggplot(od_pop, aes((Concentration), OD)) +
   theme(axis.text.x = element_text(angle = 45, hjust=1),
         legend.position = "top")
 
-ggsave("../05.figures/Figure_S9.pdf", height = 6, width = 10)
+ggsave("../05.figures/Figure_S7.pdf", height = 6, width = 12)
