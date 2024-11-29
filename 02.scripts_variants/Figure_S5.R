@@ -1,73 +1,78 @@
-### Make sure to run/source pre_Figure_S5.R before this scripts
-### AF > 0.05
-tab1 <- read.table("../04.results/Figure_S5_variant_number_AF_005.txt",
-                  header = T, sep = "\t")
-avg_nt1 <- mean(tab1[tab1$Compound == "NT5002", ]$Number_of_variants)
-print(paste("Average number of variant (AF > 0.05) of parental strain: ",
-            avg_nt1))
-tab1$Group <- "AF > 0.05"
+## copy number of SusC across genomes
+## results in RDS
+## /rds-d6/user/rg684/hpc-work/ALE_20230811_batch2/03.MAGs/00.TonB
+library(forcats)
+source("settings.R")
 
-### AF > 0.5
-tab2 <- read.table("../04.results/Figure_S5_variant_number_AF_05.txt",
-                  header = T, sep = "\t")
-avg_nt2 <- mean(tab2[tab2$Compound == "NT5002", ]$Number_of_variants)
-print(paste("Average number of variant (AF > 0.5) of parental strain: ",
-            avg_nt2))
-tab2$Group <- "AF > 0.5"
+meta <- read.table("../00.data/Bacteroides_uniformis_metadata.tsv", header = T,
+                   sep = "\t")
+#############################################################
+## filter out 10 genomes without country/continent information
+meta <- meta[!is.na(meta$Continent), ]
+meta <- meta[meta$Continent != "not provided", ]
+# 5990 genomes left
 
-tab <- rbind(tab1, tab2)
-tab$Concentration <- as.character(tab$Concentration)
-tab$Plate <- as.character(tab$Plate)
+meta_count <- as.data.frame(meta %>% group_by(Genome_type, Country) %>% 
+                              summarise(Number = length(Genome)))
 
-df_avg <- data.frame(Group = unique((tab$Group)),
-                     Avg = c(avg_nt1, avg_nt2))
+## filter out countries with less than 5 genomes
+lst <- meta_count[meta_count$Number < 5, ]$Country
+meta <- meta[!(meta$Country %in% lst), ]
+# 5984, filtered out "Bangladesh" "Madagascar" "Singapore" 
 
-p_s5a <- ggplot(tab, aes(Compound,
-                         Number_of_variants)) + 
-  geom_boxplot(color = "gray47", outlier.shape = NA) + 
-  geom_point(aes(color = Concentration, shape = Plate),
-             alpha = 0.8,
-             position = "jitter") + 
-  facet_grid(rows = vars(Group), cols = vars(Plate),
-             scales = "free", space = "free_x") +
-  scale_color_manual(values = c("0" = "gray",
-                                "25" = "#a0cbe8", 
-                                "250" = "navyblue",
-                                "50" = "#1170aa", 
-                                "500" = "navyblue"))  +
-  scale_shape_manual(values = c(1, 2, 3, 5, 4)) + 
-  geom_abline(data = df_avg, aes(intercept = Avg, slope = 0),
-              linetype = "longdash", color = "salmon") +
-  main_theme +
-  labs(x = "", y = "Number of variants") + 
-  theme(legend.position = "top",
-        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+## Add copy number of SusC
+sus <- read.table("../00.data/copy_number_SusC.txt", header = T, sep = "\t")
+meta <- merge(meta, sus)
 
-################################################################################
-median_nt <- median(tab1[tab1$Compound != "NT5002", ]$Number_of_variants)
-p_s5b  <- ggplot(tab1, aes(Number_of_variants)) + 
-  geom_bar(fill = "gray") +  main_theme + 
-  geom_vline(xintercept = median_nt, linetype = "longdash", color = "salmon") +
-  labs(x = "Number of variants (AF > 0.05)", y = "Number of samples")
+meta$Country <- fct_reorder(meta$Country, .x = meta$Length,
+                            .fun = median, .desc = T)
 
-print(paste("Median of non-parental", median_nt))
+meta$Quality <- ifelse((meta$Completeness > 90 & meta$Contamination < 5), 
+                       "High", 
+                       ifelse((meta$Completeness >50 & meta$Contamination < 10),
+                              "Medium", low))
+## One MAG has size 7700188, filter out as completeness only 58.62
+meta <- meta[meta$Length < 7700188, ]
 
-################################################################################
-median_nt <- median(tab2[tab2$Compound != "NT5002", ]$Number_of_variants)
-p_s5c  <- ggplot(tab2, aes(Number_of_variants)) + 
-  geom_bar(fill = "gray") +  main_theme + 
-  geom_vline(xintercept = median_nt, linetype = "longdash", color = "salmon") +
-  labs(x = "Number of variants (AF > 0.5)", y = "Number of samples")
+p1 <- ggplot(meta, aes(Country, Length)) +
+#  geom_violin(aes(color = Continent)) +
+  geom_boxplot(width=0.2, color = "gray38", fill = "NA", outlier.shape = NA) +
+  geom_violin(aes(color = Continent, fill = Continent), alpha = 0.5) +
+  geom_jitter(aes(shape = Quality), color = "gray58", 
+              width = 0.2, size = 1, alpha = 0.6) +
+  scale_shape_manual(values = c(1, 3)) +
+  scale_color_manual(values = palette_OkabeIto[c(1:3, 7)]) +
+  scale_fill_manual(values = palette_OkabeIto[c(1:3, 7)]) +
+  geom_hline(yintercept = 4683603, linetype = "dashed", color = "gray") +
+  #facet_wrap(~Genome_type, ncol = 1, scales = "free_y") +
+  facet_grid(~Genome_type, scales = "free", space = "free") +
+  main_theme + ylab("Genome size") + xlab("") + 
+  theme(axis.text.x = element_blank())
 
-print(paste("Median of non-parental", median_nt))
+p2 <- ggplot(meta, aes(Country, Copy_number)) +
+  geom_violin(aes(color = Continent, fill = Continent), alpha = 0.5) +
+  geom_jitter(aes(shape = Quality), color = "gray58", 
+              width = 0.2, size = 1, alpha = 0.6) +
+  #geom_boxplot(width=0.2, color = "gray38", outlier.shape = NA) +
+  geom_hline(yintercept = 61, linetype = "dashed", color = "gray") +
+  scale_color_manual(values = palette_OkabeIto[c(1:3, 7)]) +
+  scale_fill_manual(values = palette_OkabeIto[c(1:3, 7)]) +
+  scale_shape_manual(values = c(1, 3)) +
+  #facet_wrap(~Genome_type, ncol = 1, scales = "free_y") +
+  facet_grid(~Genome_type, scales = "free", space = "free") +
+  main_theme + ylab("Copy number of susC") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
-################################################################################
-#p_s5_ab <- plot_grid(p_s5a, p_s5b, nrow = 2, rel_heights = c(1, 1.25),
-#                     labels = c('a', 'b'), align = "v", axis = "lr")
+#p2
+p <- plot_grid(p1, p2, nrow = 2, align = "hv", axis = "l", 
+               rel_heights = c(1, 1))
 
-p_s5_bc <- plot_grid(p_s5b, p_s5c, nrow = 1, labels = c('b', 'c'))
+ggsave("../05.figures/Figure_S5.pdf", width = 10, height = 8)
 
-p_s5 <- plot_grid(p_s5a, p_s5_bc, nrow = 2, rel_heights = c(2, 0.8),
-                  labels = c('a', ''), align = "v", axis = "r")
+summary(aov(Copy_number ~ Length * Contamination * Genome_type * Country,
+            meta))
 
-ggsave("../05.figures/Figure_S5.pdf", p_s5, width = 9, height = 8)
+ggplot(meta, aes(Length, Copy_number, color = Continent)) +
+  geom_point(shape = 1) + 
+  scale_color_manual(values = palette_OkabeIto[c(1:3, 7)]) +
+  geom_smooth(method = "lm")

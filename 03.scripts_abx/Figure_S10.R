@@ -1,59 +1,28 @@
 source("settings.R")
 
-#############################################  parental strain
-od_des <- read.table("../00.data/20240912_iso_OD_parental_and_XG.txt",
+od_iso <- read.table("../00.data//20240912_iso_OD_parental_and_XG.txt",
                      header = T, sep = "\t")
-od_des3 <- od_des[od_des$Population == "Parental", ]
-stat <- od_des3 %>% group_by(Row, Antibiotic, Concentration) %>% 
-  summarise(Mean_OD = mean(OD))
+od_iso$Date <- as.character(od_iso$Date)
 
-map_col <- data.frame(Column = 1:6,
-                      Antibiotic = c("Amoxicillin",
-                                     "Ampicillin",
-                                     "Chloramphenicol",
-                                     "Doxycycline",
-                                     "Erythromycin",
-                                     "Metronidazole"))
-map_row <- data.frame(Row_new = factor(1:8, levels = 8:1),
-                      Row = LETTERS[1:8])
+### Remove obvious outlier caused by experimental error? e.g. the last row 
+### (DMSO) was not inoculated, therefore no growth there
+od_iso<- od_iso[!(od_iso$Row == "H" & od_iso$OD < 0.4), ]
+od_iso <- od_iso[!(od_iso$Row == "D" & od_iso$OD > 0.4 & od_iso$Antibiotic == "Metronidazole"), ]
 
-stat <- merge(stat, map_col)
-stat <- merge(stat, map_row)
+p_b <- ggplot(od_iso, aes(log2(Concentration), OD)) +
+  geom_point(aes(shape = Date, color = Compound_conc2), alpha = 0.5) +
+  scale_shape_manual(values = c(1, 2, 3, 5, 8)) +
+  #scale_shape_manual(values = c(1, 1, 1, 2, rep(3, 6), 4, rep(9, 7))) +
+  geom_line(aes(group = Group, color = Compound_conc2), alpha = 0.3) +
+  facet_grid(cols = vars(Antibiotic), rows = vars(Compound), 
+             scales = "free") +
+  #facet_wrap(~Antibiotic * Evol_compound, scales = "free_x", nrow = 2) +
+  main_theme +
+  #scale_x_reverse() +
+  scale_color_manual(values = cc_color) +
+  geom_hline(yintercept = 1, color = "gray", linetype = "dashed") +
+  geom_hline(yintercept = 0.4, color = "gray", linetype = "dashed") +
+  theme(axis.text.x = element_text(angle = 45, hjust=1),
+        legend.position = "top")
 
-data_df <- stat[, c("Row_new", "Column", "Mean_OD", "Concentration")]
-
-# Create the plot
-p <- ggplot(data_df, aes(x = Column, y = Row_new)) +
-  geom_point(aes(fill = Mean_OD), size = 20, shape = 21,
-             color = "gray") +  
-  geom_text(aes(label = round(Concentration, 2)), color = "gray28",
-            vjust = 0.5, size = 4.6) + 
-  scale_fill_gradient("Avg.OD", low = "deepskyblue3", high = "orange", 
-                      limits = c(0.15, 1.05)) +
-  scale_size_identity()  +  # Ensure circles are of uniform size
-  theme_void() +  # Remove axes and background
-  scale_x_discrete(expand = expansion(mult = c(0.1, 0.1))) +  # Add padding to x-axis
-  scale_y_discrete(expand = expansion(mult = c(0.1, 0.1))) +  # Add padding to y-axis
-  theme(
-    panel.grid = element_blank(),  
-    legend.position = "right" 
-  )
-
-# Add column names (1 to 6)
-p <- p + geom_text(data = data.frame(Column = 1:6,
-                                     Row = 8.5), 
-                   aes(x = Column, y = Row, label = c("Amoxicillin",
-                                                      "Ampicillin",
-                                                      "Chloramphenicol",
-                                                      "Doxycycline",
-                                                      "Erythromycin",
-                                                      "Metronidazole")), 
-                   angle = 30, vjust = 0, hjust = 0, size = 5,
-                   inherit.aes = FALSE)
-
-# Add row names (A to H)
-p <- p + geom_text(data = data.frame(Row = 1:8, Column = 0.5), 
-                   aes(x = Column, y = 9 - Row, label = LETTERS[1:8]), 
-                   hjust = 1, size = 5, inherit.aes = FALSE)
-
-ggsave("../05.figures/Figure_S10.pdf", p, width = 6, height = 6)
+ggsave("../05.figures/Figure_S10.pdf", p_b, height = 6, width = 10)

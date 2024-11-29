@@ -1,7 +1,5 @@
 source("settings.R")
 
-#od_pop <- read.table("../00.data/20240912_pop_OD_parental_and_XG.txt",
-#                     header = T, sep = "\t")
 od_pop <- read.table("../00.data/20241120_pop_OD_all_Abx_parental_and_XG.txt",
                      header = T, sep = "\t")
 colnames(od_pop)[10] <- "Compound"
@@ -13,11 +11,9 @@ od_pop <- od_pop[od_pop$Antibiotic != "Negative_control", ]
 ggplot(od_pop, aes(log2(Concentration), OD)) +
   geom_point(aes(shape = Rep, color = Group2), alpha = 0.6) +
   scale_shape_manual(values = c(1, 2, 3)) +
-  #scale_shape_manual(values = c(1, 1, 1, 2, rep(3, 6), 4, rep(9, 7))) +
   geom_line(aes(group = Group, color = Group2), alpha = 0.5) +
   facet_grid(cols = vars(Antibiotic), rows = vars(Compound), 
              scales = "free") +
-  #facet_wrap(~Antibiotic * Evol_compound, scales = "free_x", nrow = 2) +
   main_theme +
   #scale_x_reverse() +
   scale_color_manual(values = cc_color) +
