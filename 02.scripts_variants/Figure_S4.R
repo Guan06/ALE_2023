@@ -25,7 +25,7 @@ df_avg <- data.frame(Group = unique((tab$Group)),
 p_s5a <- ggplot(tab, aes(Compound,
                          Number_of_variants)) + 
   geom_boxplot(color = "gray47", outlier.shape = NA) + 
-  geom_point(aes(color = Concentration, shape = Plate),
+  geom_point(aes(color = Concentration),
              alpha = 0.8,
              position = "jitter") + 
   facet_grid(rows = vars(Group), cols = vars(Plate),

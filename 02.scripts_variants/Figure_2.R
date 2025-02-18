@@ -129,6 +129,9 @@ p_c1 <- ggplot(region_gff, aes(xmin = start, xmax = end,
   theme_genes() +
   theme(legend.position = "none")
 
+region <- region[!(region$Sample_ID %in% c("Plate1B9",
+                                           "Plate1C9")), ]
+
 ##AF of each variants from each compounds
 p_c2 <- ggplot(region, aes(POS, Ratio)) +
   geom_point(aes(color = Concentration, shape = Effect_type), 
