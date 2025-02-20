@@ -1,8 +1,9 @@
 source("settings.R")
 
 ###############################################################################
-# read in all variants detected in ALE 1.0 and ALE 2.0 with AF > 0.05
+# read in all variants detected in ALE 1.0 with AF > 0.05
 all <- readRDS("../04.results/20231023_all_005.rds")
+all <- all[all$Exp == "ALE1", ]
 t1 <- all %>% group_by(POS) %>% summarise(Prevalence =
                                             length(unique(Sample_ID)),
                                           Average_AF = mean(Ratio))
@@ -51,8 +52,9 @@ p_a <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
 p_a <- plot_grid(legend, p_a, nrow = 2, rel_heights = c(0.2, 1))
 
 ###############################################################################
-# read in all variants detected in ALE 1.0 and ALE 2.0 with AF > 0.5
+# read in all variants detected in ALE 1.0 with AF > 0.5
 all_05 <- readRDS("../04.results/20231023_all_05.rds")
+all_05 <- all_05[all_05$Exp == "ALE1", ]
 t1 <- all_05 %>% group_by(POS) %>% summarise(Prevalence =
                                             length(unique(Sample_ID)),
                                           Average_AF = mean(Ratio))
@@ -160,60 +162,14 @@ fig2_abc <- plot_grid(p_a, p_b, p_c, nrow = 3, align = "v", axis = "lr",
                   labels = c('a', "b", "c"))
 
 ###############################################################################
-#### Panel D - RND efflux pump
+###############################################################################
 pos_gene <- read.table("../00.data/vcf_20231025_position_gene_map.txt",
                        header = F, sep = "\t")
 colnames(pos_gene) <- c("POS", "Type", "Gene")
 all <- merge(all, pos_gene)
 
-this_gene_ID <- c("peg.961", "peg.962", "peg.963")
-
-this_gene <- all[all$Gene %in% this_gene_ID, ]
-this_gene <- merge(this_gene, map)
-
-this_gff <- gff[gff$Gene_ID %in% this_gene_ID, ]
-
-## Get the coordinate of this gene
-this_start <- min(gff[gff$Gene_ID %in% this_gene_ID, ]$Start)
-this_end <- max(gff[gff$Gene_ID %in% this_gene_ID, ]$End)
-
-p1 <- ggplot(this_gene, aes(POS, Ratio)) +
-  geom_point(aes(color = Compound, shape = Effect_type, size = Concentration),
-             alpha = 0.9) + 
-  scale_size_manual(values = c("0" = 1,
-                               "25" = 1.8, 
-                               "250" = 3.6,
-                               "50" = 2.4, 
-                               "500" = 3.6)) +
-  scale_color_manual(values = c("PFNA" = "lightblue4",
-                                "PFOA" = "yellow4",
-                                "Others" = "gray")) +
-  labs(x = "Position", y = "AF") +
-  xlim(this_start, this_end) +
-  guides(color = guide_legend(nrow = 2), size = guide_legend(nrow = 2)) +
-  scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
-  theme(legend.position = "top") +
-  main_theme +
-  theme(#legend.key = element_rect(fill = "transparent"),
-        legend.background = element_blank())
-
-colnames(this_gff) <- c("start", "end", "strand", "gene", "protein")
-this_gff$orientation <- ifelse(this_gff$strand == "+", 1, 0)
-this_gff$molecule <- " "
-p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
-                           y = molecule, fill = protein, 
-                           forward = orientation)) +
-  geom_gene_arrow() + labs(y = "") +
-  scale_fill_brewer(palette = "Greens") +
-  theme_genes() +
-  theme(legend.position = "none")
-
-p_d <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
-                 rel_heights = c(4, 1))
-
-###############################################################################
-#### Panel E - AcrR 
-this_gene_ID <- c( "peg.1416", "peg.1417")
+#### Panel D - AcrR 
+this_gene_ID <- c("peg.1416", "peg.1417")
 
 this_gene <- all[all$Gene %in% this_gene_ID, ]
 this_gene <- merge(this_gene, map)
@@ -254,11 +210,11 @@ p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
         panel.background = element_blank(),
         plot.background = element_blank()) 
 
-p_e <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
+p_d <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
                  rel_heights = c(4, 1))
 
 ###############################################################################
-#### Panel F
+#### Panel E
 this_gene_ID <- c( "peg.1703", "peg.1704")
 
 this_gene <- all[all$Gene %in% this_gene_ID, ]
@@ -300,18 +256,35 @@ p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
         panel.background = element_blank(),
         plot.background = element_blank()) 
 
-p_f <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
+p_e <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
                  rel_heights = c(4, 1))
 
 ###############################################################################
 ####
-fig2_def <- plot_grid(p_d, p_e, p_f, nrow = 1, align = "h", axis = "b", 
-                   labels = c("d", "e", "f"))
+fig2_de <- plot_grid(p_d, p_e, nrow = 1, align = "h", axis = "b", 
+                   labels = c("d", "e"))
 
-fig2_ab <- plot_grid(p_a, p_b, nrow = 2, align = "v", axis = "l", 
-                     rel_heights = c(1, 1.2), 
-                     labels = c('a', "b"))
 
-fig2 <- plot_grid(fig2_abc, fig2_def, nrow = 2, rel_heights = c(2.4, 1))
+fig2 <- plot_grid(fig2_abc, fig2_de, nrow = 2, rel_heights = c(2.4, 1))
 
 ggsave("../05.figures/Figure_2.pdf", fig2, width = 10, height = 12)
+
+
+###############################################################################
+#### Numbers used in the paper
+all_noNT5002 <- all[all$Compound != "NT5002", ]
+dim(all_noNT5002)
+length(unique(all_noNT5002$POS))
+
+number_of_var <- all_noNT5002 %>% group_by(Sample_ID) %>% summarise(n = n())
+median(number_of_var$n)
+
+number_of_samples <- all_noNT5002 %>% 
+  group_by(Compound) %>% summarise(n = length(unique(Sample_ID)))
+
+all_05_noNT5002 <- all_05[all_05$Compound != "NT5002", ]
+dim(all_05_noNT5002)
+length(unique(all_05_noNT5002$POS))
+
+number_of_var_05 <- all_05_noNT5002 %>% group_by(Sample_ID) %>% summarise(n = n())
+median(number_of_var_05$n)

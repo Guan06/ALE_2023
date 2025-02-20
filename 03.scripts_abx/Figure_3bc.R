@@ -47,8 +47,17 @@ p_3b <- ggplot(t2, aes(y = interaction(Compound_conc2, Rep), x = MIC80,
         legend.position = "top") +
   labs(y = "Compound and concentration", x = "MIC")
 
-#ggsave("../05.figures/Figure_3b.pdf", width = 10, height = 6)
+###############################################################################
+## Amoxicillin
+amo <- t2[t2$Antibiotic == "Amoxicillin", ]
+amo_stat <- amo %>% group_by(Compound, Population, MIC80) %>% summarise(n = n())
+amo_stat2 <- amo_stat %>% pivot_wider(names_from = MIC80, values_from = n)
+print(amo_stat2)
 
+ery <- t2[t2$Antibiotic == "Erythromycin", ]
+ery_stat <- ery %>% group_by(Compound, Population, MIC80) %>% summarise(n = n())
+ery_stat2 <- ery_stat %>% pivot_wider(names_from = MIC80, values_from = n)
+print(ery_stat2)
 ###############################################################################
 library(pracma)
 auc<- od_iso %>% group_by(Group, Antibiotic, Date) %>% 

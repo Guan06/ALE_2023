@@ -135,63 +135,8 @@ write.table(lma_sig, "../04.results/Figure_1d_sig.txt",
             quote = F, row.names = F, sep = "\t")
 
 ################################################################################
+p1_cd <- plot_grid(p1_c, p1_d, nrow = 2, align = "v", axis = "lr",
+                   rel_heights = c(1, 1),
+                   labels = c("c", "d"))
 
-ale1 <- read.table("../04.results/Figure_S3_growth_curve_24h_OD.txt",
-                   header = T, sep = "\t")
-#################### Read in OD and plate layout for ALE 2.0
-ale2_raw <- read.table("../00.data/growth_curve_24h/ALE2_20230125_P0_P5_P10_P15_P20.txt",
-                   header = T, sep = "\t")
-well2 <- read.table("../00.data/growth_plate_layout_20230125.txt",
-                    header = T, sep = "\t")
-well2 <- well2[, c("Well", "Compound", "Concentration", "Solvent")]
-
-
-ale2 <- ale2_raw %>% pivot_longer(!c(Date, Passage, Time),
-                                  names_to = "Well",
-                                  values_to = "OD") 
-ale2 <- merge(ale2, well2)
-ale2$ID <- paste0("ALE2_", ale2$Well)
-
-###### Merge and plot PFOA, PFNA
-ale12 <- rbind(ale1[, c("ID", "Time", "OD", "Compound",
-                        "Passage", "Concentration")],
-               ale2[, c("ID", "Time", "OD", "Compound",
-                        "Passage", "Concentration")])
-ale12 <- ale12[ale12$Time < 24, ]
-ale12 <- ale12[ale12$Compound %in% c("PFNA", "PFOA", "DMSO_control"),]
-
-## remove the data with OD > 1 -> most possibly a mistake by machine
-ale12 <- ale12[ale12$OD < 1, ]
-ale12$Concentration <- as.character(ale12$Concentration)
-
-### Plot the passages that overlapped between ALE1 and ALE2 in main figures
-### Passage 0, 10, 20
-ale12_main <- ale12[ale12$Passage %in% c(0, 10, 20), ]
-
-p1_e <- ggplot(ale12_main[ale12_main$Compound == "DMSO_control", ],
-               aes(Time, OD, group = ID)) +
-  geom_line(aes(color = Compound), alpha = 0.6) +
-  geom_point(aes(color = Compound, shape = Concentration),
-            alpha = 0.5, size = 2) +
-  geom_line(data = ale12_main[ale12_main$Compound != "DMSO_control", ],
-            aes(color = Compound), alpha = 0.7) +
-  geom_point(data = ale12_main[ale12_main$Compound != "DMSO_control", ],
-             aes(color = Compound, shape = Concentration),
-             alpha = 0.7, size = 2) +
-  scale_shape_manual(values = c("0" = 1, "25" = 10, "50" = 19,
-                                "250" = 2, "500" = 17)) +
-  facet_wrap(~Passage, scales = "fixed", nrow = 1) +
-  main_theme +
-  labs(x = "Time / h") +
-  scale_color_manual(values = c("DMSO_control" = "#E69F00",
-                                 "PFNA" = "lightblue4",
-                                 "PFOA" = "yellow4"))  +
-  theme(strip.background = element_blank(),
-        strip.text = element_text(hjust = 0, 
-          size = rel(1.1), face = "bold")) 
-
-p1_cde <- plot_grid(p1_c, p1_d, p1_e, nrow = 3, align = "v", axis = "lr",
-                   rel_heights = c(1, 1, 1.1),
-                   labels = c("c", "d", "e"))
-
-ggsave("../05.figures/Figure_1_cde.pdf", p1_cde, width = 10, height = 9)
+ggsave("../05.figures/Figure_1_cd.pdf", p1_cd, width = 10, height = 6)
