@@ -233,7 +233,7 @@ p1 <- ggplot(this_gene, aes(POS, Ratio)) +
   scale_size_manual(values = c("0" = 1,
                                "25" = 1.8, 
                                "50" = 2.4), guide = F) +
-  scale_color_manual(values = c("Loperamide" = "#ba7e45",
+  scale_color_manual(values = c("Loperamide" = "#98dd94",
                                 "Others" = "gray")) +
   scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
   theme(legend.position = "top") +
@@ -250,7 +250,7 @@ p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
                            forward = orientation)) +
   xlim(this_start, this_end) +
   geom_gene_arrow() + labs(y = "") +
-  scale_fill_brewer(palette = "Oranges") +
+  scale_fill_manual(values = c("#98dd94", "#72a66f")) +
   theme_genes() +
   theme(legend.position = "none",
         panel.background = element_blank(),

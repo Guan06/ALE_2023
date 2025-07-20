@@ -1,4 +1,4 @@
-source("settings.R")
+source("../02.scripts_variants/settings.R")
 
 od_iso <- read.table("../00.data/20240912_iso_OD_parental_and_XG.txt",
                      header = T, sep = "\t")
@@ -93,7 +93,7 @@ p_a <- p_a + geom_text(data = data.frame(Row = 1:8, Column = 0.2),
 
 p_a <- p_a + expand_limits(x = c(0, 7.4), y = c(-1, 8))
 
-ggsave("../05.figures/Figure_S9.pdf", p_a, width = 7, height = 7)
+ggsave("../05.figures/Figure_EV7.pdf", p_a, width = 7, height = 7)
 
 ## Add significance test for each well
 od_iso_no_parental$Compare <- paste0(od_iso_no_parental$Row, "_",
@@ -106,19 +106,19 @@ for (cmp in unique(od_iso_no_parental$Compare)) {
   this_cmp1 <- this_cmp[this_cmp$Compound == "Water_control", ]
   this_cmp2 <- this_cmp[this_cmp$Compound == "Xanthan_gum", ]
   
-  median_1 <- median(this_cmp1$OD)
-  median_2 <- median(this_cmp2$OD)
+  mean_1 <- mean(this_cmp1$OD)
+  mean_2 <- mean(this_cmp2$OD)
   this_p <- wilcox.test(this_cmp1$OD, this_cmp2$OD)$p.value
   
-  all <- rbind(all, c(cmp, median_1, median_2, this_p))
+  all <- rbind(all, c(cmp, mean_1, mean_2, this_p))
 }
 
 colnames(all) <- c("Comparison", 
-                   "Median_OD_Water_control", "Median_OD_Xanthan_gum",
+                   "Mean_OD_Water_control", "Mean_OD_Xanthan_gum",
                    "P_value")
 
 all <- as.data.frame(all)
 all$P_adjust <- p.adjust(all$P_value, method = "bonferroni")
 all$Sig <- ifelse(all$P_adjust < 0.01, "Yes", "No")
-write.table(all, "../04.results/Figure_S9_sig.txt", quote = F, sep = "\t",
+write.table(all, "../04.results/Figure_EV7_sig.txt", quote = F, sep = "\t",
             row.names = F)

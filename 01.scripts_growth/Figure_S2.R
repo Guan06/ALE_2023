@@ -1,4 +1,4 @@
-library(curatedMetagenomicData)  # v3.8.0
+library(curatedMetagenomicData)  # v3.14.0
 library(dplyr)
 library(stringr)
 source("plot_settings.R")

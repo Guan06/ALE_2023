@@ -58,7 +58,7 @@ p_s3a <- ggplot(controls, aes(Group, FC, color = Compound)) +
     scale_color_manual(values = c("#E69F00", "#56B4E9")) +
     scale_shape_manual(values = c(1, 2, 3, 5)) +
     main_theme +
-    labs(y = "Fold change") +
+    labs(y = "Fold change", x = "") + #, x = "Passage 0 to 20") +
     geom_hline(yintercept = 1, color = "salmon", linetype = 2) +
     theme(axis.text.x = element_text(colour = "black", angle = 90,
               size = 6, hjust = 1))
@@ -104,7 +104,7 @@ write.table(all_dat_meta, "../04.results/Figure_S3_growth_curve_24h_OD.txt",
             quote = F, sep = "\t", row.names = F)
 
 ############################################################################
-## Plot the OD of water and DMSO control over passage
+## Plot the growth curve of water and DMSO control over passage
 control_24h <- all_dat_meta[all_dat_meta$Compound %in% c("Water_control",
                                                          "DMSO_control"), ]
 
@@ -118,21 +118,57 @@ control_24h <- control_24h[control_24h$Time < 24, ]
 p_s3b <- ggplot(control_24h, aes(Time, OD, group = ID)) +
   geom_line(aes(color = Compound), alpha = 0.7) +
   geom_point(aes(color = Compound, shape = Plate),
-             alpha = 0.5, size = 0.6) +
+             alpha = 0.5, size = 1.2) +
   facet_wrap(~Passage,
              scales = "free", nrow = 2) +
   main_theme +
   scale_color_manual(values = c("#E69F00", "#56B4E9")) +
   scale_shape_manual(values = c(1, 2, 3, 5)) 
 
-p_s3b_legend <- get_legend(p_s3b)
+#p_s3b_legend <- get_legend(p_s3b)
 
-p_s3a <- p_s3a + theme(legend.position = "none")
+############################################################################
+### Add the comparison of fitted AUC between water and DMSO control
+gc_data <-  read.table("../04.results/Figure_1_cde_growth_curve.txt",
+                       header = T, sep = "\t")
+gc_data <- gc_data[gc_data$Plate != "Plate_5", ]
+
+gc_ctr <- gc_data[gc_data$Compound %in% c("Water_control", "DMSO_control"), ]
+gc_ctr$Group <- paste0(gc_ctr$Passage, "_", gc_ctr$Compound)
+
+p_s3c <- ggplot(gc_ctr, aes(interaction(Compound, Passage), auc_l)) +
+  geom_boxplot(aes(color = Compound),
+               outlier.shape = NA, 
+               position = position_dodge2(preserve = "single")) + #,
+  geom_point(aes(shape = Plate, color = Compound),
+             position = position_jitterdodge()) +
+  main_theme +
+  scale_color_manual(values = c("#E69F00", "#56B4E9")) +
+  scale_shape_manual(values = c(1, 2, 3, 5)) +
+  labs(y = "AUC of logistic curve", 
+       x = "Passage 0 to 20") +
+  guides(colour = guide_legend(order = 1, nrow = 2), 
+         shape = guide_legend(order = 2, nrow = 2)) +
+  theme(legend.position = "top", 
+        #axis.text.x = element_text(colour = "black", angle = 90,
+        #                           size = 6, hjust = 1))
+        axis.text.x = element_blank())
+
+gc_ctr_sig <- get_sig_control(gc_ctr, "Group", "auc_l")
+write.table(gc_ctr_sig, "../04.results/Figure_S3c_sig.txt", quote = F,
+            row.names = F, sep = "\t")
+
+############################################################################
+## Merge panels
+#p_s3a <- p_s3a + theme(legend.position = "none")
 p_s3b <- p_s3b + theme(legend.position = "none")
+#p_s3c <- p_s3c + theme(legend.position = "none")
 
-p_s3 <- plot_grid(p_s3a, p_s3b, nrow = 2, rel_heights = c(1, 1.5),
-                  labels = c('a', 'b'))
+p_s3_bc <- plot_grid(p_s3b, p_s3c, nrow = 1, rel_widths = c(2.5, 1), 
+                     labels = c('b', 'c'), align = "b")
 
+p_s3 <- plot_grid(p_s3a, p_s3_bc, nrow = 2, rel_heights = c(1, 1.2),
+                  labels = c('a', ''))
+
+#p_s3
 ggsave("../05.figures/Figure_S3.pdf", p_s3, width = 10, height = 8)
-ggsave("../05.figures/Figure_S3_legend.pdf", p_s3b_legend,
-       width = 2, height = 3)
