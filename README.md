@@ -2,6 +2,9 @@
 
 Gut bacteria routinely encounter chemicals like drugs, pollutants, and food additives. Many of these xenobiotics are known to affect bacterial physiology suggesting that they can contribute to genetic adaptation. However, this is difficult to causally assess in vivo since the exposure cannot be controlled. Using a controlled laboratory evolution approach, we examined genetic changes in Bacteroides uniformis, a prevalent and abundant gut bacterium, in response to 37 common xenobiotics.  These include 24 drugs, six environmental contaminants, four food additives, and three natural food compounds. Genome sequences of the evolved populations revealed 306 variants, spanning 14 coordinates, with allele frequency >50%.  These coordinates indicate genomic regions with high evolvability or those involved in general response to xenobiotics.  Mutations were frequently observed in both the coding and upstream regulatory regions of tandem SusC/D genes, which are involved in cross-membrane transport. Further, xenobiotic-specific mutations affected genes encoding membrane transporters, such as efflux pumps, which play a role in antibiotic resistance. In accord, isolates evolved in the presence of xanthan gum, a common food additive, showed a four-to-eight-fold increase in resistance to erythromycin. Our data brings forward the central role of membrane transporters in gut bacterial adaptation to xenobiotics and in collateral resistance to antibiotics.
 
+# Graphical abstract
+<img width="4813" height="3456" alt="20250730_ALE_Synopsis" src="https://github.com/user-attachments/assets/9cfb2dac-25d5-428f-a8c9-c6cac3ee79f2" />
+
 # Data and code
 
 This repository contains raw growth data, vcf files generated after running _snippy_ pipeline, as well as scripts for data visulization.
