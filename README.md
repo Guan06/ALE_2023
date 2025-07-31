@@ -5,6 +5,14 @@ Gut bacteria routinely encounter chemicals like drugs, pollutants, and food addi
 # Graphical abstract
 <img width="4813" height="3456" alt="20250730_ALE_Synopsis" src="https://github.com/user-attachments/assets/9cfb2dac-25d5-428f-a8c9-c6cac3ee79f2" />
 
+# Synopsis
+Adaptive laboratory evolution of a prevalent human gut bacterium, Bacteroides uniformis, in the presence of 37 common xenobiotics uncovers the fundamental role of membrane transporters in bacterial response to xenobiotics.
+
+- Experimental evolution under 24 therapeutic drugs, 6 environmental contaminants, 4 food additives, and 3 natural food compounds
+- Mutations related to SusC/D, involved in polysaccharide utilization, are associated with general responses to xenobiotics
+- Resistance-nodulation-cell division (RND) efflux pump related mutations in evolved cells contribute to collateral sensitivity to antibiotics
+- Increased resistance to erythromycin is observed for isolates evolved in the presence of food additive xanthan gum
+
 # Data and code
 
 This repository contains raw growth data, vcf files generated after running _snippy_ pipeline, as well as scripts for data visulization.
