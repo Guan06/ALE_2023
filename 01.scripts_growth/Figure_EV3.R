@@ -68,7 +68,7 @@ p_s3a <- ggplot(controls, aes(Group, FC, color = Compound)) +
 source("function_get_sig.R")
 control_sig <- get_sig_control(controls, "Group", "OD_adjust")
 
-write.table(control_sig, "../04.results/Figure_S3a_sig.txt", quote = F,
+write.table(control_sig, "../04.results/Figure_EV3a_sig.txt", quote = F,
             row.names = F, sep = "\t")
 
 ############################################################################
@@ -100,7 +100,7 @@ well$ID <- paste0(well$Well, "_Plate_", well$Plate)
 well <- well[, c("ID", "Compound", "Concentration", "Solvent")]
 
 all_dat_meta <- merge(all_dat, well)
-write.table(all_dat_meta, "../04.results/Figure_S3_growth_curve_24h_OD.txt",
+write.table(all_dat_meta, "../04.results/Figure_EV3_growth_curve_24h_OD.txt",
             quote = F, sep = "\t", row.names = F)
 
 ############################################################################
@@ -125,8 +125,6 @@ p_s3b <- ggplot(control_24h, aes(Time, OD, group = ID)) +
   scale_color_manual(values = c("#E69F00", "#56B4E9")) +
   scale_shape_manual(values = c(1, 2, 3, 5)) 
 
-#p_s3b_legend <- get_legend(p_s3b)
-
 ############################################################################
 ### Add the comparison of fitted AUC between water and DMSO control
 gc_data <-  read.table("../04.results/Figure_1_cde_growth_curve.txt",
@@ -150,19 +148,16 @@ p_s3c <- ggplot(gc_ctr, aes(interaction(Compound, Passage), auc_l)) +
   guides(colour = guide_legend(order = 1, nrow = 2), 
          shape = guide_legend(order = 2, nrow = 2)) +
   theme(legend.position = "top", 
-        #axis.text.x = element_text(colour = "black", angle = 90,
-        #                           size = 6, hjust = 1))
         axis.text.x = element_blank())
 
 gc_ctr_sig <- get_sig_control(gc_ctr, "Group", "auc_l")
-write.table(gc_ctr_sig, "../04.results/Figure_S3c_sig.txt", quote = F,
+write.table(gc_ctr_sig, "../04.results/Figure_EV3c_sig.txt", quote = F,
             row.names = F, sep = "\t")
 
 ############################################################################
 ## Merge panels
-#p_s3a <- p_s3a + theme(legend.position = "none")
+
 p_s3b <- p_s3b + theme(legend.position = "none")
-#p_s3c <- p_s3c + theme(legend.position = "none")
 
 p_s3_bc <- plot_grid(p_s3b, p_s3c, nrow = 1, rel_widths = c(2.5, 1), 
                      labels = c('b', 'c'), align = "b")
@@ -170,5 +165,5 @@ p_s3_bc <- plot_grid(p_s3b, p_s3c, nrow = 1, rel_widths = c(2.5, 1),
 p_s3 <- plot_grid(p_s3a, p_s3_bc, nrow = 2, rel_heights = c(1, 1.2),
                   labels = c('a', ''))
 
-#p_s3
-ggsave("../05.figures/Figure_S3.pdf", p_s3, width = 10, height = 8)
+
+ggsave("../05.figures/Figure_EV3.pdf", p_s3, width = 10, height = 8)

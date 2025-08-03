@@ -1,4 +1,4 @@
-source("settings.R")
+source("../02.scripts_variants/settings.R")
 
 od_iso <- read.table("../00.data//20240912_iso_OD_parental_and_XG.txt",
                      header = T, sep = "\t")
@@ -14,7 +14,7 @@ p_b <- ggplot(od_iso, aes(log2(Concentration), OD)) +
   scale_shape_manual(values = c(1, 2, 3, 5, 8)) +
   #scale_shape_manual(values = c(1, 1, 1, 2, rep(3, 6), 4, rep(9, 7))) +
   geom_line(aes(group = Group, color = Compound_conc2), alpha = 0.3) +
-  facet_grid(cols = vars(Antibiotic), rows = vars(Compound), 
+  facet_grid(cols = vars(Antibiotic), rows = vars(Compound_conc2), 
              scales = "free") +
   #facet_wrap(~Antibiotic * Evol_compound, scales = "free_x", nrow = 2) +
   main_theme +
@@ -25,4 +25,4 @@ p_b <- ggplot(od_iso, aes(log2(Concentration), OD)) +
   theme(axis.text.x = element_text(angle = 45, hjust=1),
         legend.position = "top")
 
-ggsave("../05.figures/Figure_S10.pdf", p_b, height = 6, width = 10)
+ggsave("../05.figures/Figure_EV8.pdf", p_b, height = 6, width = 10)

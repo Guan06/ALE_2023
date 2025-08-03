@@ -1,4 +1,4 @@
-source("settings.R")
+source("../02.scripts_variants/settings.R")
 
 #############################################  parental strain
 od_des <- read.table("../00.data/20240912_iso_OD_parental_and_XG.txt",
@@ -56,4 +56,4 @@ p <- p + geom_text(data = data.frame(Row = 1:8, Column = 0.5),
                    aes(x = Column, y = 9 - Row, label = LETTERS[1:8]), 
                    hjust = 1, size = 5, inherit.aes = FALSE)
 
-ggsave("../05.figures/Figure_S8.pdf", p, width = 6, height = 6)
+ggsave("../05.figures/Figure_EV6.pdf", p, width = 6, height = 6)

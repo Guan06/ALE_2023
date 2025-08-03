@@ -66,7 +66,7 @@ tab <- merge(all_stat2, des)
 tab$Concentration <- as.character(tab$Concentration)
 tab$Plate <- as.character(tab$Plate)
 tab <- tab[tab$Number_of_variant > 0, ]
-write.table(tab, "../04.results/Figure_S4_variant_number_AF_005.txt",
+write.table(tab, "../04.results/Figure_EV4_variant_number_AF_005.txt",
             quote = F, sep = "\t", row.names = F)
 
 ###############################################################################
@@ -95,5 +95,5 @@ tab <- merge(all_stat2, des)
 tab$Concentration <- as.character(tab$Concentration)
 tab$Plate <- as.character(tab$Plate)
 #tab <- tab[tab$Number_of_variant > 0, ]
-write.table(tab, "../04.results/Figure_S4_variant_number_AF_05.txt",
+write.table(tab, "../04.results/Figure_EV4_variant_number_AF_05.txt",
             quote = F, sep = "\t", row.names = F)
