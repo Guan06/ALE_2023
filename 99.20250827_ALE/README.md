@@ -11,6 +11,5 @@ All the raw data and intermediate results are stored in:
 	Call variant with snippy pipeline combined with vcf re-filtering (re_filter_raw_vcf.sh)
 		--mincov10_C3_F001
         Each sample has an individual folder with all the intermediate files
-
 	--__03.merge_vcf__
 	Merge filtered vcf from all samples into one big file for downstream processing
