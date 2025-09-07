@@ -1,0 +1,33 @@
+#!/bin/bash
+#! sbatch directives begin here ###############################
+#! Name of the job:
+#SBATCH -J FASTP
+#! Which project should be charged:
+#SBATCH -A MRC-TOX-SL2-CPU
+#! How many whole nodes should be allocated?
+#SBATCH --nodes=1
+#! How many (MPI) tasks will there be in total? 
+#SBATCH --ntasks=10
+#! How much wallclock time will be required?
+#SBATCH --time=24:00:00
+#! What types of email messages do you wish to receive?
+#SBATCH --mail-type=NONE
+#! Uncomment this to prevent the job from being requeued (e.g. if
+#! interrupted by node failure or system downtime):
+##SBATCH --no-requeue
+
+#! cclake, 3420 Mb per CPU/task; cclake-himem, 6840 Mb per CPU/task; 56 CPUs
+#! icelake, 3380 Mb per CPU/task; icelake-himem, 6760 Mb per CPU/task; 76 CPUs
+#SBATCH -p sapphire
+
+#! Optionally modify the environment seen by the application
+#! (note that SLURM reproduces the environment at submission irrespective of ~/.bashrc):
+. /etc/profile.d/modules.sh                # Leave this line (enables the module command)
+module purge                               # Removes all modules still loaded
+module load rhel7/default-peta4            # REQUIRED - loads the basic environment
+
+#! Insert additional module load commands after this line if needed:
+
+
+#! Full path to application executable: 
+sh run_fastp_no_merge.sh
