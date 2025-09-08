@@ -1,0 +1,198 @@
+---
+title: "20250814_R1_vcf_filter"
+output: html_document
+date: "2025-08-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("settings.R")
+```
+
+## VCF filtering - Figure 2a,b
+
+In previous version, we have:
+
+>"In total, 10,041 variants, with an allele frequency (AF) higher than 0.05, were
+>identified at 6,097 different positions across all evolved populations (including
+>the solvent-control conditions), with a median of 28 variants (Figures 2a; EV4a, b)."
+
+According to our discussion last time (Simone, Sonja, Rui; 2025.08.06); we are 
+filtering variants that were appeared in both control and xenobiotic groups; as 
+those are highly likely to be _pre-exist_ variants.
+
+We have mentioned/discussed this in the past that __variants__ we identified includes:
+1) newly emerged mutations
+2) pre-exist genetic variants emerged / sequenced due to increased ratio in population
+
+One reason we have the above 2) is our parental strain __was not__ single colony.
+
+Now, with new filtering:
+
+1) Ref + Alt depth >= 20;
+2) Alt depth >= 5; __this filtered out the most of the variants__
+3) Positions with prevalence < 24 (i.e. max. appeared in 3 diff. xenobiotics)
+`this will be refined`
+
+```{r vcf_filter, message=FALSE, warning=FALSE, echo=FALSE, fig.width=9, fig.height=3}
+  all <- readRDS("../04.results/20231023_all_005.rds")
+  all <- all[all$Exp == "ALE1", ]
+  
+  all$Depth <- all$Ref_depth + all$Alt_depth
+  all <- all[all$Depth >= 20, ]
+  # 9978 
+  all <- all[all$Alt_depth >= 5, ]
+  #dim(all)
+  # 1776
+  
+  t1 <- all %>% group_by(POS) %>% summarise(Prevalence =
+                                              length(unique(Sample_ID)),
+                                            Average_AF = mean(Ratio))
+  t1_des <- unique(all[, c("POS", "FTYPE", "Effect")])
+  t1 <- merge(t1, t1_des)
+  
+  t1_filter <- t1[t1$Prevalence < 24, ]
+  all_filter <- all[all$POS %in% t1_filter$POS, ]
+  # 868 
+  
+  map <- read.table("../00.data/vcf_20231024_effect_map.txt", 
+                  header = T, sep = "\t")
+  map$Effect_type <- as.factor(map$Effect_type)
+
+  t1_filter <- merge(t1_filter, map)
+  
+  p1_1 <- ggplot(t1_filter, aes(POS, Prevalence)) +
+  annotate("rect", ymin=-Inf, ymax=Inf, xmin=1910551, xmax=1944637, 
+           alpha=0.3, fill="skyblue") + 
+  geom_point(aes(color = FTYPE, size = Average_AF, shape = Effect_type),
+             alpha = 0.7) + 
+  scale_shape_manual(limits = map$Effect_type,
+                     values = map$Shape) +
+  scale_color_manual(values = c("gold", "gray47")) +
+  xlim(c(0, 4.685e+06)) + xlab("") +
+  scale_size(range = c(0.25, 5), limits = c(0.05, 1)) +
+  theme_minimal_hgrid(color = "gray88", font_size = 10) +
+  guides(colour = guide_legend(order = 2, nrow = 1), 
+         size = guide_legend(order = 3, nrow = 1),
+         shape = guide_legend(order = 1, nrow = 1)) +
+  main_theme + theme(legend.position = "top")
+
+  legend <- get_plot_component(p1_1, 'guide-box-top', return_all = TRUE)
+  p1_1 <- p1_1 + theme(legend.position = "none")
+
+  p1_2 <- ggplot(all_filter, aes(POS)) + 
+    geom_density(aes(color = FTYPE, y = ..scaled..)) +
+    scale_color_manual(values = c("gold", "gray47")) +
+    scale_y_continuous(position = "right") +
+    xlab("") + ylab("Density of variants") +
+    xlim(c(0, 4.685e+06)) +
+    theme_minimal_hgrid(color = "gray88", font_size = 10) +
+    theme(legend.position = "none",
+          axis.text.x=element_blank()) +
+    main_theme
+  
+  aligned_plots <- align_plots(p1_2, p1_1, align="hv", axis="tblr")
+  p_a <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
+  p_a <- plot_grid(legend, p_a, nrow = 2, rel_heights = c(0.2, 1))
+  
+  p_a
+```
+
+After filtering, `r nrow(all_filter)` variants in `r length(unique(all_filter$POS))`
+positions were remained. As we can see, most of them appeared in one sample.
+
+```{r prevalence, echo = F, message=FALSE, warning=FALSE, fig.width= 4, fig.height=3}
+  ggplot(t1_filter, aes(Prevalence)) + geom_histogram(bins = 30) + theme_bw()
+```
+
+We here print out the positions with Prevalence > 10.
+
+```{r prevalent, echo = F, message=FALSE, warning=FALSE}
+  t1_filter_prevalent <- t1_filter[t1_filter$Prevalence >= 10, ]
+  rmarkdown::paged_table(t1_filter_prevalent)
+  
+  all_prevalent <- all_filter[all_filter$POS %in% t1_filter_prevalent$POS, ]
+  all_prevalent <- all_prevalent[order(all_prevalent$POS), ]
+  #rmarkdown::paged_table(all_prevalent)
+```
+
+## VCF filtering - Figure 2a,b
+
+Plot the prevalence of variants in SusC/D region
+
+```{r suscd, echo = F, message=FALSE, warning=FALSE, fig.width= 4, fig.height=3}
+library(gggenes) 
+all <- readRDS("../04.results/20231023_all_005.rds")
+all <- all[all$Exp == "ALE1", ]
+
+gff <-read.delim("../00.data/annot_RAST_simp.gff", header = F, sep = "\t")
+colnames(gff) <- c("Start", "End", "Strand", "Gene_ID", "Annotation")
+
+#t3 <- t1[t1$Prevalence < 10, ]
+#all_filter_3 <- all[all$POS %in% t3$POS, ]
+#region <- all_filter[(all_filter$POS > 1910551) & (all_filter$POS < 1944637), ]
+
+region <- all[(all$POS > 1910551) & (all$POS < 1944637), ]
+region <- merge(region, map)
+
+region_stat <- region %>% group_by(POS) %>% summarise(Prevalence =
+                                              length(unique(Sample_ID)),
+                                            Average_AF = mean(Ratio))
+ggplot(region_stat, aes(Prevalence)) + geom_histogram(bins = 30) + theme_bw()
+```
+
+As we can see,  most of the variants appeared in one sample, we will plot these only below:
+
+```{r singleton, echo = F, message=FALSE, warning=FALSE, fig.width= 9, fig.height=3}
+gene_lst <- paste0("peg.", seq(1535, 1563))
+region_gff <- gff[gff$Gene_ID %in% gene_lst, ]
+
+## Get the coordinate of this gene
+this_start <- min(region_gff$Start)
+this_end <- max(region_gff$End)
+
+colnames(region_gff) <- c("start", "end", "strand", "gene", "protein")
+
+region_gff$orientation <- ifelse(region_gff$strand == "+", 1, 0)
+region_gff$molecule <- ""
+
+p_c1 <- ggplot(region_gff, aes(xmin = start, xmax = end,
+                             y = molecule, fill = protein, 
+                             forward = orientation)) +
+  geom_gene_arrow() + labs(y = "") +
+  xlim(this_start, this_end) +
+  scale_fill_brewer(palette = "Set3") +
+  theme_genes() +
+  theme(legend.position = "none")
+
+region_stat_single <- region_stat[region_stat$Prevalence == 1, ]
+region_filter <- region[region$POS %in% region_stat_single$POS, ]
+region_filter <- region_filter[!(region_filter$Sample_ID %in% c("Plate1B9",
+                                           "Plate1C9")), ]
+
+
+
+##AF of each variants from each compounds
+p_c2 <- ggplot(region_filter, aes(POS, Ratio)) +
+  geom_point(aes(color = Concentration, shape = Effect_type), 
+             size = 3, alpha = 0.8) +
+  xlim(this_start, this_end) +
+  scale_shape_manual(limits = map$Effect_type,
+                     values = map$Shape, guide = F) +
+  scale_color_manual(values = c("0" = "gray",
+                                "25" = "#a0cbe8", 
+                                "50" = "#1170aa")) +
+  #scale_size(range = c(0.25, 5), guide = F) +
+  labs(x = "", y = "Allele Frequence (AF)") +
+  theme_bw() +
+  theme(legend.position = "top", 
+        legend.justification = c("left", "center")) +
+  #guides(shape = guide_legend(nrow = 1)) +
+  theme(legend.background = element_blank()) 
+
+p_c <- plot_grid(p_c2, p_c1, nrow = 2, rel_heights = c(4, 1),
+          align = "v", axis = "l")
+p_c
+```
+
+## Update 2025.08.27

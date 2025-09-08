@@ -1,4 +1,4 @@
-source("settings.R")
+source("../01.scripts_growth/settings.R")
 
 od_pop <- read.table("../00.data/20241120_pop_OD_all_Abx_parental_and_XG.txt",
                      header = T, sep = "\t")
@@ -12,7 +12,7 @@ ggplot(od_pop, aes(log2(Concentration), OD)) +
   geom_point(aes(shape = Rep, color = Group2), alpha = 0.6) +
   scale_shape_manual(values = c(1, 2, 3)) +
   geom_line(aes(group = Group, color = Group2), alpha = 0.5) +
-  facet_grid(cols = vars(Antibiotic), rows = vars(Compound), 
+  facet_grid(cols = vars(Antibiotic), rows = vars(Group2), 
              scales = "free") +
   main_theme +
   #scale_x_reverse() +
@@ -22,4 +22,4 @@ ggplot(od_pop, aes(log2(Concentration), OD)) +
   theme(axis.text.x = element_text(angle = 45, hjust=1),
         legend.position = "top")
 
-ggsave("../05.figures/Figure_S7.pdf", height = 6, width = 12)
+ggsave("../05.figures/Figure_EV5.pdf", height = 6, width = 12)

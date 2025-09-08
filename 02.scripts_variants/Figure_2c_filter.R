@@ -72,3 +72,5 @@ p_c <- plot_grid(p_c2, p_c1, nrow = 2, rel_heights = c(4, 1),
 
 ggsave("../05.figures/Figure_2c_filter.pdf", p_c, width = 10, height = 3)
 
+
+
