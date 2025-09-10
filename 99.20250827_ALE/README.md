@@ -16,5 +16,5 @@ __02.call_variant_snippy__
     └─ QUAL is retrieved from each samples' vcf file `retrieve_QUAL_from_vcf.sh`
        
 __03.merge_vcf__  
-    └─ Filtered VCFs from all samples were merged into a single file for downstream analyses
+    └─ Filtered VCFs from all samples were merged into a single file for downstream analyses  
     └─ Retrieved QUAL were added to the merged vcf file
