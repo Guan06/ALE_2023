@@ -18,6 +18,11 @@ for (s in samples){
     this_tab <- read.table(this_file, header = T, sep = "\t", quote = "", fill = FALSE)
 
     this_tab$Sample_ID <- s
+    
+    this_qual_file <- paste0("../02.call_variant_snippy/mincov10_C3_F001/", s, "/snps.vcf.qual")
+    this_qual <- read.table(this_qual_file, header = T, sep = "\t", quote = "")
+
+    this_tab <- merge(this_tab, this_qual)
 
     all <- rbind(this_tab, all)
 }
@@ -100,4 +105,6 @@ all$Concentration <- as.character(all$Concentration)
 ## Add the effect and group them
 all$Effect <- unlist(str_split_fixed(all$EFFECT, " ", 2))[, 1]
 ##saveRDS(all, "20230807_all_variants_addAF_updateRatio.rds")
-saveRDS(all, "20250907_all_variants_redo.rds")
+### 2025.09.10 add QUAL
+#saveRDS(all, "20250907_all_variants_redo.rds")
+saveRDS(all, "20250910_all_variants_redo_qual.rds")

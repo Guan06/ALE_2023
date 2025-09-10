@@ -1,0 +1,49 @@
+---
+title: "20250908_vcf_filter_redo"
+output: html_document
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+```
+
+## Compare the number of unfiltered variants in v2023 and v2025.
+
+To make sure the reproducibility, we re-processed all the samples from raw sequencing data to the final vcf with all intermediate files un-removed.
+
+All samples except one (Plate1E4) have the exact same number of variants. Details see the scripts `pre_01_no_of_variants_stat.R` in the same folder.
+
+In v2023, sample Plate1E4 (Aripiprazole, 50 µM) has only 360 variants while in v2025 in total 645 variants were called. [Log file](/rds-d6/user/rg684/hpc-work/ALE_20220823_sequencing_data_batch1/03.call_variant/20230714_vcf_80X_new_ref/04.snippy_all_fastq/mincov10_C3_F001/Plate1E4/snps.log) shows that bam file had I/O issues (this was not spot before due to the file was only partially corrupt).
+
+All following re-analysis are based on v2025 (and should be the same as v2023 for all samples except Plate1E4).
+
+```{r import, echo=FALSE}
+  v2025 <- readRDS("../03.merge_vcf/20250907_all_variants_redo.rds")
+  v2025$Evolved <- ifelse(v2025$Compound == "NT5002", "Parental", "Evolved")
+```
+
+## Allele Frequency (AF) destribution of all variants. 
+
+Below we show the distribution of allele frequency of all called variants (minimum coverage 10 ` --min-coverage 10`, minimum number of supporting observations 3 to consiver a variant `-C 3`, minimum allele frequency 0.01 `-F 0.01`, minimum mapping quality 30 `-q 30`, minimum )in parental populations (Sample_ID Plate1B9 and Plate1C9) and evolved populations. __Salmon line__ is showing the cutoff of AF 0.05, and __golden line__ is indicating AF 0.5.
+
+```{r AF, echo=FALSE, message=FALSE, error=FALSE, fig.width=8, fig.height=4}
+  ggplot(v2025, aes(log(Ratio))) +
+  geom_histogram(bins = 100) +
+  theme_bw() + labs(x = "Allele Frequency (log-transformed)",
+                    y = "Number of variants") +
+  facet_wrap(~Evolved, scales = "free") +
+  geom_vline(xintercept = log(0.05), color = "salmon", linetype = "dashed")+
+  geom_vline(xintercept = log(0.5), color = "gold", linetype = "dashed")
+```
+
+## Retrieve the QUAL information from vcf files 
+
+Since the _snps.tab_ files are simplified and reformatted "vcf" files, we went back to _snps.vcf_ file for each sample to retrieve the quality value (QUAL) of variant calling.
+
+QUAL estimates probability of being polymorphic; phred 20 means probability of polymorphism > 0.99.
+
+
+
