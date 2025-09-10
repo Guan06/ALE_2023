@@ -15,3 +15,6 @@ stat[stat$No_of_var_2023 != stat$No_of_var_2025, ]$Sample_ID
 
 des <- read.delim("../03.merge_vcf/20220916_design.txt", header = T, sep = "\t")
 des[des$Sample_ID == "Plate1E4", ]
+
+v2023_1E4 <- v2023[v2023$Sample_ID == "Plate1E4", ]
+rm(v2023)

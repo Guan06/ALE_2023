@@ -21,29 +21,142 @@ In v2023, sample Plate1E4 (Aripiprazole, 50 µM) has only 360 variants while in 
 All following re-analysis are based on v2025 (and should be the same as v2023 for all samples except Plate1E4).
 
 ```{r import, echo=FALSE}
-  v2025 <- readRDS("../03.merge_vcf/20250907_all_variants_redo.rds")
+  #v2025 <- readRDS("../03.merge_vcf/20250907_all_variants_redo.rds")
+  v2025 <- readRDS("../03.merge_vcf/20250910_all_variants_redo_qual.rds")
   v2025$Evolved <- ifelse(v2025$Compound == "NT5002", "Parental", "Evolved")
 ```
 
 ## Allele Frequency (AF) destribution of all variants. 
 
-Below we show the distribution of allele frequency of all called variants (minimum coverage 10 ` --min-coverage 10`, minimum number of supporting observations 3 to consiver a variant `-C 3`, minimum allele frequency 0.01 `-F 0.01`, minimum mapping quality 30 `-q 30`, minimum )in parental populations (Sample_ID Plate1B9 and Plate1C9) and evolved populations. __Salmon line__ is showing the cutoff of AF 0.05, and __golden line__ is indicating AF 0.5.
+Below we show the distribution of allele frequency of all called variants (minimum coverage 10 ` --min-coverage 10`, minimum number of supporting observations 3 to consider a variant `-C 3`, minimum allele frequency 0.01 `-F 0.01`, minimum base quality 30 `-q 30`, minimum mapping quality 60 `-m 60` ) in parental populations (Sample_ID Plate1B9 and Plate1C9) and evolved populations. __Salmon line__ is showing the cutoff of AF 0.05, and __golden line__ is indicating AF 0.5.
 
 ```{r AF, echo=FALSE, message=FALSE, error=FALSE, fig.width=8, fig.height=4}
   ggplot(v2025, aes(log(Ratio))) +
-  geom_histogram(bins = 100) +
-  theme_bw() + labs(x = "Allele Frequency (log-transformed)",
-                    y = "Number of variants") +
-  facet_wrap(~Evolved, scales = "free") +
-  geom_vline(xintercept = log(0.05), color = "salmon", linetype = "dashed")+
-  geom_vline(xintercept = log(0.5), color = "gold", linetype = "dashed")
+    geom_histogram(bins = 100) +
+    theme_bw() + labs(x = "Allele Frequency (log-transformed)",
+                      y = "Number of variants") +
+    facet_wrap(~Evolved, scales = "free") +
+    geom_vline(xintercept = log(0.05), color = "salmon", linetype = "dashed")+
+    geom_vline(xintercept = log(0.5), color = "gold", linetype = "dashed")
 ```
 
 ## Retrieve the QUAL information from vcf files 
 
 Since the _snps.tab_ files are simplified and reformatted "vcf" files, we went back to _snps.vcf_ file for each sample to retrieve the quality value (QUAL) of variant calling.
 
-QUAL estimates probability of being polymorphic; phred 20 means probability of polymorphism > 0.99.
+QUAL estimates probability of being polymorphic:
+- phred 10 means probabilty of polymorphism > 0.9.
+- phred 20 means probability of polymorphism > 0.99.
+- phred 30 means probability of polymorphism > 0.999.
+
+Below we show the distribution of quality of all variants.
+
+```{r qual_stat, echo=FALSE, message=FALSE, error=FALSE}
+  v2025$QUAL_bi <- ifelse(v2025$QUAL == 0, "= 0", 
+                          ifelse(v2025$QUAL <= 10, "0-10",
+                                 ifelse(v2025$QUAL <= 20, "10-20",
+                                        ifelse(v2025$QUAL <= 30, "20-30", ">30"))))  
+
+  stat1 <- v2025 %>% group_by(QUAL_bi, Evolved) %>%
+    summarise(No_of_variant = n())
+  
+  stat1$QUAL_bi <- factor(stat1$QUAL_bi, levels = c("= 0",
+                                                    "0-10",
+                                                    "10-20",
+                                                    "20-30",
+                                                    ">30"))
+  stat1 <- stat1[order(stat1$QUAL_bi), ]
+  knitr::kable(stat1)
+```
+
+We will filter out the variants with `QUAL == 0` before plotting the distribution.
+
+```{r qual, echo=FALSE, message=FALSE, error=FALSE, fig.width=8, fig.height=4}
+  v2025_filter <- v2025[v2025$QUAL > 10, ]
+
+  ggplot(v2025_filter, aes(log(QUAL))) +
+    geom_histogram() +
+    theme_bw() + labs(x = "Variant quality (log-transformed)",
+                      y = "Number of variants") +
+    facet_wrap(~Evolved, scales = "free") +
+    geom_vline(xintercept = log(10), color = "salmon", linetype = "dashed") +
+    geom_vline(xintercept = log(20), color =  "salmon", linetype = "dashed") +
+    geom_vline(xintercept = log(30), color =  "salmon", linetype = "dashed")
+    
+```
+
+Three dashed lines are indicating Q10, Q20 and Q30 (from left to right). We filter the variants with QUAL < 30.
+
+```{r qual_filter, echo=FALSE, message=FALSE, error=FALSE, fig.width=4, fig.height=4}
+  v2025_filter2 <- v2025[v2025$QUAL >= 30, ]
+# 
+#   knitr::kable(v2025_filter2 %>% group_by(Compound) %>% summarise(No_of_variants = n()),
+#                longtable = TRUE)
+  filter2_stat <- v2025_filter2 %>% filter(Compound != "NT5002") %>%
+    group_by(Compound) %>% summarise(No_of_variants = n())
+  
+  ggplot(filter2_stat, aes(No_of_variants)) +
+    geom_histogram(binwidth = 1) +
+    theme_bw() + labs(x = "Number of variant in each population with Q >= 30", y = "Number of evolved popultion")
+  
+```
+
+As shown in the table, parental strain (`Compound == "NT5002"`) has 12 variants that passed the filter. We examined the AF as well as Ref and Alt depth of these variants.
+
+```{r parental, echo=FALSE, message=FALSE, error=FALSE, fig.width=8, fig.height=4}
+  parental <- v2025_filter2[v2025_filter2$Compound == "NT5002", ]
+
+  knitr::kable(parental[, c("Sample_ID", "POS", "QUAL", "Ref_depth", "Alt_depth",
+                            "EFFECT", "PRODUCT")])
+```
+
+As we can see, most of the variants here are detected in both sequenced samples (two technical replicates), except for two positions. 
+
+```{r parental_stat, echo=FALSE, message=FALSE, error=FALSE, fig.width=8, fig.height=4}
+  knitr::kable(parental %>% group_by(POS) %>% summarise(Count = n(), Avg_AF = mean(Ratio)))
+```
+
+Previously, we defined:
+
+>For the variant that appeared in both parental short-reads sequenced samples and with average AF higher than 90%, we identify those >as “parental variants” (including variants at the positions: 1166763, 1681625, 1702756, 3356587) that are highly possible false >positive due to mis-assembly. 
+
+After manually check the mapping results (`snps.report.txt` files), all positions but _1914986_ have solid mapping results, so we will update the "parental variants" list: 
+
+- previous ones 1166763, 1681625, 1702756, 3356587 
+- potentially: plus newly added after releasing filtering & manual check: 1931428, 3256546 (Note: these two only detected in one of the samples)
+
+__Discuss__: should we add those two as "parental variants"?
+
+## Filter out parental variants from evolved populations
+
+We then filter out the parental variants from evolved populations. 
+
+```{r filter_parental, echo=FALSE, message=FALSE, error=FALSE, fig.width=8, fig.height=4}
+  parental_lst <- c("1166763", "1681625", "1702756", 
+                    "1931428", "3256546", "3356587")
+
+  evolved_var <- v2025_filter2[v2025_filter2$Compound != "NT5002", ]
+  ## 1353 30
+  evolved_var <- evolved_var[!(evolved_var$POS %in% parental_lst), ]
+  ## 128 30
+  
+  evolved_var_stat <- evolved_var %>% group_by(Sample_ID, Compound, Concentration) %>%
+    summarise(No_of_variants = n())
+ 
+  ggplot(evolved_var_stat, aes(Compound, No_of_variants)) +
+    #geom_boxplot() +
+    geom_jitter(aes(color = Concentration)) +
+    theme_bw() + labs(x = "Evolved populations",
+                      y = "Number of variants") +
+    scale_color_manual(values = c("gray", "deepskyblue", "deepskyblue4")) +
+    theme(legend.position = "top",
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
+```
+
+Using the new filter (QUAL > 30), we dramatically decreased the false positive; but meanwhile the false negative is hugely increased.
+See details about this in next session (Figure 2d-e).
+
+## Xanthan gum related mutations 
 
 
 
