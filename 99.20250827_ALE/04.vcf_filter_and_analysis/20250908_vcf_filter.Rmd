@@ -18,7 +18,7 @@ library(gggenes)
 library(cowplot)
 ```
 
-## Compare the number of unfiltered variants in v2023 and v2025.
+## Compare the number of unfiltered variants in v2023 and v2025
 
 To make sure the reproducibility, we re-processed all the samples from raw sequencing data to the final vcf with all intermediate files un-removed.
 
@@ -34,7 +34,7 @@ All following re-analysis are based on v2025 (and should be the same as v2023 fo
   v2025$Evolved <- ifelse(v2025$Compound == "NT5002", "Parental", "Evolved")
 ```
 
-## Allele Frequency (AF) destribution of all variants. 
+## Allele Frequency (AF) destribution of all variants 
 
 Below we show the distribution of allele frequency of all called variants (minimum coverage 10 ` --min-coverage 10`, minimum number of supporting observations 3 to consider a variant `-C 3`, minimum allele frequency 0.01 `-F 0.01`, minimum base quality 30 `-q 30`, minimum mapping quality 60 `-m 60` ) in parental populations (Sample_ID Plate1B9 and Plate1C9) and evolved populations. __Salmon line__ is showing the cutoff of AF 0.05, and __golden line__ is indicating AF 0.5.
 
@@ -52,10 +52,10 @@ Below we show the distribution of allele frequency of all called variants (minim
 
 Since the _snps.tab_ files are simplified and reformatted "vcf" files, we went back to _snps.vcf_ file for each sample to retrieve the quality value (QUAL) of variant calling.
 
-QUAL estimates probability of being polymorphic:
-- phred 10 means probabilty of polymorphism > 0.9.
-- phred 20 means probability of polymorphism > 0.99.
-- phred 30 means probability of polymorphism > 0.999.
+QUAL estimates probability of being polymorphic:  
+- phred 10 means probabilty of polymorphism > 0.9.  
+- phred 20 means probability of polymorphism > 0.99.  
+- phred 30 means probability of polymorphism > 0.999.  
 
 Below we show the distribution of quality of all variants.
 
@@ -186,16 +186,16 @@ To __conclude__: the _re-filter-1_ we tried here
 ```
 
 Using the new filter (QUAL > 30, `r nrow(v2025_filter2)` variants remained; `r nrow(evolved_var)` variants remained after removing parental 6 variants), we dramatically decreased the false positive; but meanwhile the false negative is hugely increased.
-See details about this in next session (__Figure 2d-e__).
+See details about this in next session (__Figure 2d__).
 
 ## Xanthan gum related mutations 
 
 We here show the mapping of genetic variants detected in populations evolved with
 xanthan gum, as we reported in __Figure 2d__ in current version manuscript.
 
-Using previous filtering:
+Using current filtering:
 
-```{r filter_0, echo=FALSE, message=FALSE, error=FALSE, fig.width=5, fig.height=2}
+```{r filter_0, echo=FALSE, message=FALSE, error=FALSE, fig.width=6, fig.height=2}
   mermaid("
   graph LR;
       A[All variants] --> B[Allele frequency > 0.05];
@@ -205,7 +205,7 @@ Using previous filtering:
 
 We showed that multiple samples with the variants detected at the same position.
 
-```{r figure2d, echo=FALSE, message=FALSE, error=FALSE, fig.width=4, fig.height=3}
+```{r figure2d, echo=FALSE, message=FALSE, error=FALSE, warning = FALSE, fig.width=4, fig.height=4}
     pos_gene <- read.table("../../00.data/vcf_20231025_position_gene_map.txt",
                            header = F, sep = "\t")
     colnames(pos_gene) <- c("POS", "Type", "Gene")
@@ -230,6 +230,8 @@ We showed that multiple samples with the variants detected at the same position.
     this_start <- min(this_gff$End)
     this_end <- max(this_gff$End)
     
+    this_gene <- this_gene[this_gene$POS > this_start, ]
+    
     p1 <- ggplot(this_gene, aes(POS, Ratio)) +
       geom_point(aes(color = Compound, shape = Effect_type, size = Concentration),
                  alpha = 0.9) + 
@@ -237,10 +239,10 @@ We showed that multiple samples with the variants detected at the same position.
       labs(x = "", y = "AF") +
       scale_size_manual(values = c("0" = 1,
                                    "25" = 1.8, 
-                                   "50" = 2.4), guide = F) +
+                                   "50" = 2.4), guide = "none") +
       scale_color_manual(values = c("Xanthan_gum" = "slateblue3",
                                     "Others" = "gray")) +
-      scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
+      scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = "none") +
       theme_bw() +
       theme(legend.position = "top") +
       guides(color = guide_legend(nrow = 2)) +
@@ -270,6 +272,219 @@ The detailed information about these variants are shown below:
 ```{r figure2d_tab, echo=FALSE, message=FALSE, error=FALSE}
   kbl(this_gene[, c("Sample_ID", "POS", "QUAL", "Ref_depth", "Alt_depth", "Ratio",
                     "Compound", "Concentration",
-                            "EFFECT", "PRODUCT")]) %>%
+                            "EFFECT", "PRODUCT", "QUAL_bi")]) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+In total, `r length(this_gene$POS)` variants at `r length(unique(this_gene$POS))`
+positions were shown here. From the table above, we can see that not all have good
+quality.
+
+```{r figure2d_tab_stat, echo=FALSE, message=FALSE, error=FALSE}
+  f2d_stat <- this_gene %>% group_by(POS) %>% summarise(Prevalence = n())
+  kbl(f2d_stat) %>% 
     kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
 ```
+
+We will use the IGV_2.19.6 to visualize these variants (in xanthan gum evolved populations) one by one.
+
+At the position __1,771,774__, we saw variants in four samples. Two of them (A -> C/T in Plate4E4   
+and A -> G in Plate4B4) are high quality and the other two are low quality (A -> T in Plate4A4 and Plate4C4). From the
+IGV mapping, we could see another sample in Plate4F4 have variant (A -> T) but not reported in
+vcf file. 
+
+![Mapping view at 1,771,774](1771774.png "Title")
+
+```{r v1, echo=FALSE, message=FALSE, error=FALSE}
+ kbl(this_gene %>% filter(POS == 1771774) %>% select(Sample_ID, EVIDENCE, QUAL)) %>%
+      kable_styling(full_width = F)
+```
+
+Next we are looking at the position __1,771,795__ with only one sample (Plate4G4) has good quality.
+
+![Mapping view at 1,771,795](1771795.png "Title")
+
+```{r v2, echo=FALSE, message=FALSE, error=FALSE}
+ kbl(this_gene %>% filter(POS == 1771795) %>% select(Sample_ID, EVIDENCE, QUAL)) %>%
+      kable_styling(full_width = F)
+```
+
+The third variant we are looking at the position __1,771,875__ with only one sample annotated (not xanthan gum, QUAL == 0).
+The evidence show 4 reads supporting A->G but the mapping shows they are all at the end of the reads. So this likely to
+be a false positive variant. 
+
+```{r v3, echo=FALSE, message=FALSE, error=FALSE}
+ kbl(this_gene %>% filter(POS == 1771875) %>% select(Sample_ID, EVIDENCE, QUAL)) %>%
+      kable_styling(full_width = F)
+```
+
+![Mapping view at 1,771,875](1771875.png "Title")
+
+Lastly we are looking at the position __1,771,795__ that appeared in five (four are xanthan gum evolved) samples.
+![Mapping view at 1,772,187](1772187.png "Title")
+
+
+```{r v4, echo=FALSE, message=FALSE, error=FALSE}
+ kbl(this_gene %>% filter(POS == 1772187) %>% select(Sample_ID, EVIDENCE, QUAL)) %>%
+      kable_styling(full_width = F)
+```
+
+As we shown above, if we filter out variants with QUAL < 1, we will have the following variants remain:
+
+```{r filter_q, echo=FALSE, message=FALSE, error=FALSE}
+ kbl(this_gene %>% filter(QUAL > 1) %>% select(Sample_ID, POS, EVIDENCE, QUAL, EFFECT,
+                                               Compound, Concentration)) %>%
+      kable_styling(full_width = F)
+```
+
+Alternatively, we could choose to filter out the variants that have < 5 reads support:
+
+```{r filter_depth, echo=FALSE, message=FALSE, error=FALSE}
+ kbl(this_gene %>% filter(Alt_depth > 4) %>% select(Sample_ID, POS, EVIDENCE, QUAL, EFFECT,
+                                               Compound, Concentration)) %>%
+      kable_styling(full_width = F)
+```
+
+## Alternative supporting reads number (Alt_depth)
+
+Since filter by QUAL introduced false negative, we tried another filtering, will be referred 
+as _re-filter-2_.
+
+```{r filter_by_alt_depth, echo=FALSE, message=FALSE, error=FALSE, fig.width=6, fig.height=2}
+  mermaid("
+  graph LR;
+      A[All variants] --> B[Alt_depth >= 5];
+      B --> C[Allele frequency > 0.05];
+      C --> D[Filter out 6 parental variants]
+  ")
+```
+
+### Alt_depth filtering (> 5)
+
+We firstly checked the distribution of `Alt_depth` of all variants. __Salmon line__ is showing the cutoff of 3 reads, and __golden line__ is indicating 5 reads. As we can see, most of the variants are in the range of < 5 supporting reads. 
+
+```{r alt_depth_dis, echo=FALSE, message=FALSE, error=FALSE, fig.width=5, fig.height=2}
+  #dim(v2025)
+  ggplot(v2025, aes(log(Alt_depth))) + geom_density() + theme_bw() +
+    geom_vline(xintercept = log(3), color = "salmon", linetype = "dashed")+
+    geom_vline(xintercept = log(5), color = "gold", linetype = "dashed") +
+    labs(x = "Log-transformed supporting reads number", y = "Density")
+    
+```
+
+Below we show the number of variants in table:
+
+```{r alt_depth_stat, echo=FALSE, message=FALSE, warning=FALSE, fig.width=7, fig.height=3}
+  v2025$Alt_depth_stat <- ifelse(v2025$Alt_depth <= 3, "= 3", 
+                          ifelse(v2025$Alt_depth <= 5, "(3, 5]",
+                                 ifelse(v2025$Alt_depth <= 10, "(5, 10]",
+                                        ifelse(v2025$Alt_depth <= 20, "(10, 20]", ">20"))))  
+
+  stat2 <- v2025 %>% group_by(Alt_depth_stat, Evolved) %>%
+    summarise(No_of_variant = n())
+  
+  stat2$Alt_depth_stat <- factor(stat2$Alt_depth_stat, levels = c("= 3",
+                                                    "(3, 5]",
+                                                    "(5, 10]",
+                                                    "(10, 20]",
+                                                    ">20"))
+  stat2 <- stat2[order(stat2$Alt_depth_stat), ]
+  kbl(stat2) %>% kable_styling(full_width = F)
+  ggplot(stat2, aes(Alt_depth_stat, No_of_variant)) +
+    geom_histogram(stat = 'identity', position = "dodge") +
+    facet_wrap(~Evolved, scales = "free") + theme_bw()
+```
+
+We filtered out the variants called with no more than 5 supporting reads and then 
+examined the quality of those passed the filtering. 
+
+```{r filter_by_alt_depth_Q, echo=FALSE, message=FALSE, error=FALSE, fig.width=6, fig.height=2}
+  v2025_filter4 <- v2025[v2025$Alt_depth >=5, ]
+  kbl(v2025_filter4 %>% group_by(Evolved, QUAL_bi) %>% summarise(Quality_stat = n())) %>%
+    kable_styling(full_width = F)
+```
+
+As we can see, after filtering by supporting reads number (Alt_depth), there are 
+still many low quality variants in both parental and evolved strains. 
+
+### Allele frequency filtering (> 0.05)
+
+Below we also plot the allele frequency distribution of this intermediate filtering results.
+The __salmon__ dash line indicates AF == 0.05.
+
+```{r filter_by_alt_depth_AF_dis, echo=FALSE, message=FALSE, error=FALSE, fig.width=6, fig.height=3}
+  ggplot(v2025_filter4, aes(Ratio)) + geom_density(aes(color = Evolved)) + theme_bw() +
+    scale_color_manual(values = c("deepskyblue", "gray")) +
+     geom_vline(xintercept = 0.05, color = "salmon", linetype = "dashed") +
+    labs(x = "AF", y = "Density") +
+    theme(legend.position = "right")
+```
+
+We then checked the quality of variants that has allele frequency < 0.05 and show that
+all variants have quality 0. Therefore, we could apply the filter we used before (to keep AF > 0.05).
+
+```{r filter_by_alt_depth_AF, echo=FALSE, message=FALSE, error=FALSE, fig.width=4, fig.height=3}
+  # v2025_filter5 <- v2025_filter4[v2025_filter4$Ratio >= 0.05, ]
+  # 
+  # kbl(v2025_filter5 %>% group_by(QUAL_bi, Evolved) %>% summarise(Quality_stat = n()))
+  # 
+  
+  v2025_filter4$AF <- ifelse(v2025_filter4$Ratio > 0.05, "> 0.05", "<= 0.05")
+  
+  ggplot(v2025_filter4, aes(QUAL, AF)) + geom_point(aes(color = AF), alpha = 0.8) +
+    theme_bw() + theme(legend.position = "none") + labs(x = "Quality of the variants")
+  
+```
+
+Re-check the quality after filtering with `Alt_depth > 5` and `Ratio > 0.05`.
+
+```{r filter_by_alt_depth_and_AF, echo=FALSE, message=FALSE, error=FALSE}
+  v2025_filter5 <- v2025[(v2025$Alt_depth >5) & (v2025$Ratio > 0.05), ]
+  kbl(v2025_filter5 %>% group_by(Evolved, QUAL_bi) %>% summarise(Quality_stat = n())) %>%
+    kable_styling(full_width = F)
+```
+
+### Idnetify parental variants
+
+We then plot the variant quality vs allele frequency to decide which variants to be defined as parental variants.
+
+```{r parantal_variants_update, echo=FALSE, message=FALSE, error=FALSE, fig.width=5, fig.height=3}
+  v2025_filter5_parental <- v2025_filter5[v2025_filter5$Compound == "NT5002", ]
+  
+  ggplot(v2025_filter5_parental, aes(Sample_ID, Ratio, size = log(QUAL+1))) +
+    geom_point(aes(color = Sample_ID), position = "jitter", shape = 1) + 
+    theme_bw() + labs(y = "AF")
+```
+
+
+!!make this more strict!!
+
+
+
+
+
+As we can see, variants with low AF also have very bad quality. So we will filter out variants with AF > 0.5 as the cutoff for parental variants here (namely at the following positions `r unique(v2025_filter5_parental[v2025_filter5_parental$Ratio > 0.5, ]$POS)`.
+
+This gives the same list of variants (except for _1914986_ which doesn't have good mapping results) as before, so same __six__ parental variants. 
+
+### Remove parental variants
+
+We then remove the parental variants from the evolved populations and plotted the
+quality vs allele frequency. As we can see from below, there's a clear cutoff of
+quality at allele frequency 0.5. 
+
+```{r filter5_evolved, echo=FALSE, message=FALSE, error=FALSE, fig.width=5, fig.height=3}
+  v2025_filter5_evolved <- v2025_filter5[v2025_filter5$Compound != "NT5002", ]
+  
+  v2025_filter5_evolved <- v2025_filter5_evolved[!(v2025_filter5_evolved$POS %in% parental_lst), ]
+# 
+#   ggplot(v2025_filter5_evolved, aes(Sample_ID, Ratio, size = log(QUAL+1))) +
+#     geom_point(aes(color = Sample_ID), position = "jitter", shape = 1) + 
+#     theme_bw() + labs(y = "AF") + theme(legend.position = "none")
+  
+  ggplot(v2025_filter5_evolved, aes(log(QUAL + 1), Ratio)) +
+    geom_point(aes(color = Sample_ID), position = "jitter", shape = 1) + 
+    theme_bw() + labs(x = "Log-transformed quality", y = "AF") + theme(legend.position = "none")
+```
+
+We will check the compound prevalence of variants, i.e. how many different compound ()
