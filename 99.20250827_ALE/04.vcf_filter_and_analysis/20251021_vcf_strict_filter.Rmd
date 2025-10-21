@@ -1,0 +1,255 @@
+---
+title: "20251021_vcf_filter_strict"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggplot2)
+library(DiagrammeR)
+library(kableExtra)
+library(gggenes)
+library(cowplot)
+source("../../02.scripts_variants/settings.R")
+```
+
+## Compare the number of unfiltered / raw variants in v2023 and v2025
+
+To make sure the reproducibility, we re-processed all the samples from raw sequencing data to the final vcf with all intermediate files un-removed.
+
+All samples except one (Plate1E4) have the exact same number of variants. Details see the scripts `pre_01_no_of_variants_stat.R` in the same folder.
+
+In v2023, sample Plate1E4 (Aripiprazole, 50 µM) has only 360 variants while in v2025 in total 645 variants were called. [Log file](/rds-d6/user/rg684/hpc-work/ALE_20220823_sequencing_data_batch1/03.call_variant/20230714_vcf_80X_new_ref/04.snippy_all_fastq/mincov10_C3_F001/Plate1E4/snps.log) shows that bam file had I/O issues (this was not spot before due to the file was only partially corrupt).
+
+All following re-analysis are based on v2025 (and should be the same as v2023 for all samples except Plate1E4).
+
+```{r import, echo=FALSE}
+  #v2025 <- readRDS("../03.merge_vcf/20250907_all_variants_redo.rds")
+  v2025 <- readRDS("../03.merge_vcf/20250910_all_variants_redo_qual.rds")
+  v2025$Evolved <- ifelse(v2025$Compound == "NT5002", "Parental", "Evolved")
+```
+
+Later on, after filtering, no variant was kept for sample Plate1E4.
+
+## Add the QUAL information from vcf files 
+
+Since the _snps.tab_ files (previously used for Figure 2) are simplified and reformatted "vcf" files, we went back to _snps.vcf_ file for each sample to retrieve the quality value (QUAL) of variant calling.
+
+QUAL estimates probability of being polymorphic:  
+- phred 10 means probabilty of polymorphism > 0.9.  
+- phred 20 means probability of polymorphism > 0.99.  
+- phred 30 means probability of polymorphism > 0.999.  
+
+## Filter raw vcf files 
+
+Below we show a summarized workflow of the whole process. Details of number and distribution can be find in [20250908_vcf_filter.html](20250908_vcf_filter.html).
+
+```{r filter_by_alt_depth, echo=FALSE, message=FALSE, error=FALSE, fig.width=12, fig.height=2}
+  mermaid("
+  graph LR;
+      A[All variants] --> |486155|B[Alt_depth >= 5];
+      B --> |23885|C[Allele frequency > 0.05];
+      C --> |2115|D[Identify parental variants N = 15];
+      D --> E[Remove parental variants];
+      E --> |686|F[Evolved variants];
+      F --> |199|G[Keep variants found in <= 3 compounds]
+  ")
+```
+
+Below we summarize the distribution of quality (QUAL) of filtered variants.
+
+```{r filtered_qual,  warning=FALSE, echo=FALSE, message=FALSE}
+  filtered_vcf <- readRDS("20251021_filtered_vcf_199.rds")
+  kbl(filtered_vcf %>% group_by(QUAL_bi) %>% summarise(No. = n())) %>%
+    kable_styling(bootstrap_options = c("striped", "hover"), full_width = F)
+```
+
+As we can see, if we want to add the QUAL filtering (QUAL > 30, Filter option 1 in [20250908_vcf_filter.html](20250908_vcf_filter.html)), only 8 variants at 6 different
+positions will be kept. 
+
+We therefore, instead of filtering by quality, use IGV to manually check each variants shown in Figure 2 panels related to Xanthan gum and Loperamide.
+
+## Update Figure 2 with new filtering
+
+We then re-plotted figure 2 with the new filtering strategy. Since only `r length((filtered_vcf$POS))` variants at `r length(unique(filtered_vcf$POS))` are kept, we would not need two panels (previous Figure 2a and 2b) to show the landscape of variants. 
+
+Since the enrichment of SusC/D was filtered out, we will remove the previous panel c.
+
+The new figure layout looks:  
+- __a__ variant landscape over the genome that pass the strict filtering, with Xanthan gum and Loperamide related gene region highlighted   
+- __b__ Xanthan gum evolved strains' variants associated to _acrR_ gene  
+- __c__ Loperamide evolved strains' variants associated to _trkH_ and _trkA_ genes.
+
+
+```{r figure_2abc, warning=FALSE, echo=FALSE, message=FALSE}
+  all <- filtered_vcf
+  t1 <- all %>% group_by(POS) %>% summarise(Prevalence =
+                                              length(unique(Sample_ID)),
+                                            Average_AF = mean(Ratio))
+  t1_des <- unique(all[, c("POS", "FTYPE", "Effect")])
+  t1 <- merge(t1, t1_des)
+  
+  map <- read.table("../../00.data/vcf_20251021_effect_map.txt", 
+                    header = T, sep = "\t")
+  map$Effect_type <- as.factor(map$Effect_type)
+  #map$Shape <- as.factor(map$Shape)
+  
+  t1 <- merge(t1, map)
+  
+  p1_1 <- ggplot(t1, aes(POS, Prevalence)) +
+    annotate("rect", ymin=-Inf, ymax=Inf, xmin=1771711, xmax=1772529, 
+             alpha=0.8, fill="slateblue3") + 
+    annotate("rect", ymin=-Inf, ymax=Inf, xmin=2104963, xmax=2107776, 
+             alpha=0.8, fill="#98dd94") + 
+    geom_point(aes(color = FTYPE, size = Average_AF, shape = Effect_type),
+               alpha = 0.8) + 
+    scale_shape_manual(limits = map$Effect_type,
+                       values = map$Shape) +
+    scale_color_manual(values = c("gold", "gray47")) +
+    xlim(c(0, 4.685e+06)) + xlab("") +
+    scale_size(range = c(0.25, 5), limits = c(0.05, 1)) +
+    theme_minimal_hgrid(color = "gray88", font_size = 10) +
+    guides(colour = guide_legend(order = 2, nrow = 1), 
+           size = guide_legend(order = 3, nrow = 1),
+           shape = guide_legend(order = 1, nrow = 1)) +
+    main_theme + theme(legend.position = "top")
+  
+  legend <- get_plot_component(p1_1, 'guide-box-top', return_all = TRUE)
+  p1_1 <- p1_1 + theme(legend.position = "none")
+  
+  p1_2 <- ggplot(all, aes(POS)) + 
+    geom_density(aes(color = FTYPE, y = ..scaled..)) +
+    scale_color_manual(values = c("gold", "gray47")) +
+    scale_y_continuous(position = "right") +
+    xlab("") + ylab("Density of variants") +
+    xlim(c(0, 4.685e+06)) +
+    theme_minimal_hgrid(color = "gray88", font_size = 10) +
+    theme(legend.position = "none",
+          axis.text.x=element_blank()) +
+    main_theme
+  
+  aligned_plots <- align_plots(p1_2, p1_1, align="hv", axis="tblr")
+  p_a <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
+  p_a <- plot_grid(legend, p_a, nrow = 2, rel_heights = c(0.2, 1))
+```
+
+
+```{r figure_2de_filter2, warning=FALSE, echo=FALSE, message=FALSE, fig.height=6, fig.width=7}
+  library(gggenes) 
+  
+  gff <-read.delim("../../00.data/annot_RAST_simp.gff", header = F, sep = "\t")
+  colnames(gff) <- c("Start", "End", "Strand", "Gene_ID", "Annotation")
+  
+  pos_gene <- read.table("../../00.data/vcf_20231025_position_gene_map.txt",
+                         header = F, sep = "\t")
+  colnames(pos_gene) <- c("POS", "Type", "Gene")
+  all <- merge(all, pos_gene)
+  
+  #### Panel D - AcrR 
+  this_gene_ID <- c("peg.1416", "peg.1417")
+  
+  this_gene <- all[all$Gene %in% this_gene_ID, ]
+  this_gene <- merge(this_gene, map)
+  
+  ## Get the coordinate of this gene
+  this_gff <- gff[gff$Gene_ID %in% this_gene$Gene, ]
+  this_start <- min(this_gff$End)
+  this_end <- max(this_gff$End)
+  
+  p1 <- ggplot(this_gene, aes(POS, Ratio)) +
+    geom_point(aes(color = Compound, shape = Effect_type, size = Concentration),
+               alpha = 0.9) + 
+    xlim(this_start, this_end) +
+    labs(x = "", y = "AF") +
+    scale_size_manual(values = c("0" = 1,
+                                 "25" = 1.8, 
+                                 "50" = 2.4), guide = F) +
+    scale_color_manual(values = c("Xanthan_gum" = "slateblue3",
+                                  "Others" = "gray")) +
+    scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
+    theme(legend.position = "top") +
+    guides(color = guide_legend(nrow = 2)) +
+    main_theme +
+    theme(legend.background = element_blank())
+  
+  colnames(this_gff) <- c("start", "end", "strand", "gene", "protein")
+  this_gff$orientation <- ifelse(this_gff$strand == "+", 1, 0)
+  this_gff$molecule <- " "
+  
+  p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
+                             y = molecule, fill = protein, 
+                             forward = orientation)) +
+    xlim(this_start, this_end) +
+    geom_gene_arrow() + labs(y = "") +
+    scale_fill_brewer(palette = "Purples") +
+    theme_genes() +
+    theme(legend.position = "none",
+          panel.background = element_blank(),
+          plot.background = element_blank()) 
+  
+  p_b <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
+                   rel_heights = c(4, 1))
+  
+  ###############################################################################
+  #### Panel E
+  this_gene_ID <- c( "peg.1703", "peg.1704")
+  
+  this_gene <- all[all$Gene %in% this_gene_ID, ]
+  this_gene <- merge(this_gene, map)
+  
+  ## Get the coordinate of this gene
+  this_gff <- gff[gff$Gene_ID %in% this_gene$Gene, ]
+  this_start <- min(this_gff$Start)
+  this_end <- max(this_gff$End)
+  
+  p1 <- ggplot(this_gene, aes(POS, Ratio)) +
+    geom_point(aes(color = Compound, shape = Effect_type, size = Concentration),
+               alpha = 0.9) + 
+    xlim(this_start, this_end) +
+    labs(x = "", y = "AF") +
+    scale_size_manual(values = c("0" = 1,
+                                 "25" = 1.8, 
+                                 "50" = 2.4), guide = F) +
+    scale_color_manual(values = c("Loperamide" = "#98dd94",
+                                  "Others" = "gray")) +
+    scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
+    theme(legend.position = "top") +
+    guides(color = guide_legend(nrow = 2)) +
+    main_theme +
+    theme(legend.background = element_blank())
+  
+  colnames(this_gff) <- c("start", "end", "strand", "gene", "protein")
+  this_gff$orientation <- ifelse(this_gff$strand == "+", 1, 0)
+  this_gff$molecule <- " "
+  
+  p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
+                             y = molecule, fill = protein, 
+                             forward = orientation)) +
+    xlim(this_start, this_end) +
+    geom_gene_arrow() + labs(y = "") +
+    scale_fill_manual(values = c("#98dd94", "#72a66f")) +
+    theme_genes() +
+    theme(legend.position = "none",
+          panel.background = element_blank(),
+          plot.background = element_blank()) 
+  
+  p_c <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
+                   rel_heights = c(4, 1))
+  
+  ###############################################################################
+  ####
+  p_bc <- plot_grid(p_b, p_c, nrow = 1, align = "h", axis = "b", 
+                     labels = c("b", "c"))
+  
+  fig2 <- plot_grid(p_a, p_bc, nrow = 2, align="v", axis="lr", labels = c("a", ""),
+                    rel_heights = c(1, 1.2))
+  
+  fig2
+```
+
