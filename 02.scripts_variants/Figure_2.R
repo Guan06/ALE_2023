@@ -1,27 +1,112 @@
 source("settings.R")
 
 ###############################################################################
-# read in all variants detected in ALE 1.0 with AF > 0.05
-all <- readRDS("../04.results/20231023_all_005.rds")
-all <- all[all$Exp == "ALE1", ]
-t1 <- all %>% group_by(POS) %>% summarise(Prevalence =
+# read in all variants called by freebayes
+all <- readRDS("../04.results/20250910_all_variants_redo_qual.rds")
+
+### Assign Plate as 2 for Metformin, as its DNA was added in different plates for sequencing, 
+### during ALE experiment it was in plate 2, same for DMSO controls in column 9 and well A7
+
+all[all$Compound == "Metformin", ]$Plate <- 2
+all[(all$Compound == "DMSO_control" & all$Column == 9), ]$Plate <- 2
+all[(all$Compound == "DMSO_control" & all$Well == "A7"), ]$Plate <- 2
+
+
+#### Filter the variants with supporting reads < 5
+all <- all[all$Alt_depth >= 5, ]
+#### Filter the variants detected in parental samples 
+all <- all[all$Ratio >= 0.05, ]
+
+#### Identify parental variants 
+parental <- all[all$Compound == "NT5002", ]
+
+stat_prevalence <- parental %>% group_by(POS) %>% 
+  summarise(Prevalence = length(unique(Sample_ID)))  
+
+parental <- merge(parental, stat_prevalence)
+
+parental$Prevalence <- as.character(parental$Prevalence)
+
+ggplot(parental, aes(Sample_ID, Ratio, size = log(QUAL+1))) +
+  geom_point(aes(color = Sample_ID, shape = Prevalence), position = "jitter") + 
+  theme_bw() + labs(y = "AF") + scale_shape_manual(values = c(1, 2))
+
+### For the identification of parental genetic variants, we applied following rules
+### after manually check the mapping with IGV:
+# - all variants with AF > 0.5. 
+# - variants with prevalence == 2 (in triangle in the plot above). 
+# - variants with prevalence == 1 BUT good quality (Q > 10). 
+# - few exceptions confirmed that should be an existing variant but does not fulfill
+# above criteria but we "see" them: 1,939,963; 4,229,448; and 4,452,307   
+
+parental_vars <- parental[(parental$Ratio >= 0.5) | 
+                            (parental$Prevalence == "2") | 
+                            ((parental$Prevalence == "1") & (parental$QUAL >= 10)) |
+                            (parental$POS %in% c(1939963, 4229448, 4452307)), ]
+
+parental_vars <- unique(parental_vars$POS)
+parental_vars
+# cat(parental_vars, sep = ", ")
+### 16 positions were identified as parental variants
+
+### Remove parental variants from evolved populations
+evol_pop <- all[all$Compound != "NT5002", ]
+evol_pop <- evol_pop[!(evol_pop$POS %in% parental_vars), ]
+## 1173
+
+### Filter out positions detected in > 3 compounds
+evol_stat <- evol_pop %>% group_by(POS) %>% 
+  summarise(Comp_Prevalence = n_distinct(Compound))
+
+evol_stat_multi <- unique(evol_stat[evol_stat$Comp_Prevalence >= 3, ]$POS)
+#evol_stat_multi
+
+evol_pop <- evol_pop[!(evol_pop$POS %in% evol_stat_multi), ]
+
+#### Numbers used in the paper
+print("Number of mutation")
+print(dim(evol_pop)[1])
+
+print("Number of unique mutation positions")
+print(length(unique(evol_pop$POS)))
+
+print("Median number of mutation")
+print(median((evol_pop %>% group_by(Sample_ID) %>% summarise(n = n_distinct(POS)))$n))
+
+saveRDS(evol_pop, "../04.results/20250910_evolved_population_variants_final.rds")
+write.table(evol_pop, "../04.results/20250910_evolved_population_variants_final.txt",
+            sep = "\t", row.names = F, quote = F)
+
+## Distribution of AF in all mutations
+ggplot(evol_pop, aes(Ratio)) + 
+  geom_histogram(binwidth = 0.01, fill = NA, color = "gray57") + theme_bw()
+## 7 variants with AF > 0.5; 5 of them are Xanthan gum - AcrR related variants
+
+ggplot(evol_pop, aes(log(QUAL))) + 
+  geom_histogram(binwidth = 1, fill = NA, color = "gray57") + theme_bw() #+
+  # geom_vline(xintercept = log(10), color = "salmon", linetype = "dashed") +
+  # geom_vline(xintercept = log(20), color =  "salmon", linetype = "dashed") +
+  # geom_vline(xintercept = log(30), color =  "salmon", linetype = "dashed")
+###############################################################################
+### Figure 2a 
+t1 <- evol_pop %>% group_by(POS) %>% summarise(Prevalence =
                                             length(unique(Sample_ID)),
                                           Average_AF = mean(Ratio))
-t1_des <- unique(all[, c("POS", "FTYPE", "Effect")])
+t1_des <- unique(evol_pop[, c("POS", "FTYPE", "Effect")])
 t1 <- merge(t1, t1_des)
 
-map <- read.table("../00.data/vcf_20231024_effect_map.txt", 
+map <- read.table("../00.data/vcf_20251021_effect_map.txt", 
                   header = T, sep = "\t")
 map$Effect_type <- as.factor(map$Effect_type)
-#map$Shape <- as.factor(map$Shape)
-
 t1 <- merge(t1, map)
 
 p1_1 <- ggplot(t1, aes(POS, Prevalence)) +
-  annotate("rect", ymin=-Inf, ymax=Inf, xmin=1910551, xmax=1944637, 
-           alpha=0.3, fill="skyblue") + 
+  annotate("rect", ymin=-Inf, ymax=Inf, xmin=1771711, xmax=1772529, 
+           alpha=0.8, fill="slateblue3") + 
+  annotate("rect", ymin=-Inf, ymax=Inf, xmin=2104963, xmax=2107776, 
+           alpha=0.8, fill="#98dd94") + 
   geom_point(aes(color = FTYPE, size = Average_AF, shape = Effect_type),
-             alpha = 0.7) + 
+             alpha = 0.8) + 
   scale_shape_manual(limits = map$Effect_type,
                      values = map$Shape) +
   scale_color_manual(values = c("gold", "gray47")) +
@@ -36,8 +121,10 @@ p1_1 <- ggplot(t1, aes(POS, Prevalence)) +
 legend <- get_plot_component(p1_1, 'guide-box-top', return_all = TRUE)
 p1_1 <- p1_1 + theme(legend.position = "none")
 
-p1_2 <- ggplot(all, aes(POS)) + 
-  geom_density(aes(color = FTYPE, y = ..scaled..)) +
+p1_2 <- ggplot(evol_pop, aes(POS)) + 
+  geom_density(aes(color = FTYPE, 
+                   y = (..scaled..))) + 
+                   #y = after_stat(scaled))) +
   scale_color_manual(values = c("gold", "gray47")) +
   scale_y_continuous(position = "right") +
   xlab("") + ylab("Density of variants") +
@@ -51,127 +138,22 @@ aligned_plots <- align_plots(p1_2, p1_1, align="hv", axis="tblr")
 p_a <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
 p_a <- plot_grid(legend, p_a, nrow = 2, rel_heights = c(0.2, 1))
 
-###############################################################################
-# read in all variants detected in ALE 1.0 with AF > 0.5
-all_05 <- readRDS("../04.results/20231023_all_05.rds")
-all_05 <- all_05[all_05$Exp == "ALE1", ]
-t1 <- all_05 %>% group_by(POS) %>% summarise(Prevalence =
-                                            length(unique(Sample_ID)),
-                                          Average_AF = mean(Ratio))
-t1_des <- unique(all_05[, c("POS", "FTYPE", "Effect")])
-t1 <- merge(t1, t1_des)
-t1 <- merge(t1, map)
+p_a
 
-p2_1 <- ggplot(t1, aes(POS, Prevalence)) +
-  annotate("rect", ymin=-Inf, ymax=Inf, xmin=1910551, xmax=1944637, 
-           alpha=0.3, fill="skyblue") + 
-  geom_point(aes(color = FTYPE, size = Average_AF, shape = Effect_type),
-             alpha = 0.7) + 
-  scale_color_manual(values = c("gold", "gray47")) +
-  xlab("Position") +
-  scale_shape_manual(limits = map$Effect_type,
-                     values = map$Shape) + 
-  theme_minimal_hgrid(color = "gray88", font_size = 10) +
-  scale_size(range = c(0.25, 5), limits = c(0.05, 1)) +
-  xlim(c(0, 4.685e+06)) +
-  guides(colour = guide_legend(order = 1, nrow = 1), 
-         size = guide_legend(order = 2, nrow = 1),
-         shape = guide_legend(order = 3, nrow = 1)) +
-  theme(legend.position = "bottom",
-        legend.justification = c("left", "center")) +
-  main_theme 
-
-legend <- get_plot_component(p2_1, 'guide-box-bottom', return_all = TRUE)
-p2_1 <- p2_1 + theme(legend.position = "none")
-
-p2_2 <- ggplot(all_05, aes(POS)) + 
-  geom_density(aes(color = FTYPE, y = ..scaled..)) +
-  scale_color_manual(values = c("gold", "gray47")) +
-  scale_y_continuous(position = "right") +
-  xlab("") + ylab("Density of variants") +
-  xlim(c(0, 4.685e+06)) +
-  theme_minimal_hgrid(color = "gray88", font_size = 10) +
-  theme(legend.position = "none",
-        axis.text.x=element_blank()) +
-  main_theme
-
-aligned_plots <- align_plots(p2_2, p2_1, align="hv", axis="tblr")
-p2 <- ggdraw(aligned_plots[[2]]) + draw_plot(aligned_plots[[1]])
-p_b <- plot_grid(legend, p2, nrow = 2, rel_heights = c(0.2, 1))
-
-###############################################################################
-#### Panel C, variants between 1912 - 1945 Kb
-### get region from peg.1535 to peg.1563
 library(gggenes) 
 
 gff <-read.delim("../00.data/annot_RAST_simp.gff", header = F, sep = "\t")
 colnames(gff) <- c("Start", "End", "Strand", "Gene_ID", "Annotation")
 
-region <- all[(all$POS > 1910551) & (all$POS < 1944637), ]
-region <- merge(region, map)
-
-gene_lst <- paste0("peg.", seq(1535, 1563))
-region_gff <- gff[gff$Gene_ID %in% gene_lst, ]
-
-## Get the coordinate of this gene
-this_start <- min(region_gff$Start)
-this_end <- max(region_gff$End)
-
-colnames(region_gff) <- c("start", "end", "strand", "gene", "protein")
-
-region_gff$orientation <- ifelse(region_gff$strand == "+", 1, 0)
-region_gff$molecule <- ""
-
-p_c1 <- ggplot(region_gff, aes(xmin = start, xmax = end,
-                             y = molecule, fill = protein, 
-                             forward = orientation)) +
-  geom_gene_arrow() + labs(y = "") +
-  xlim(this_start, this_end) +
-  scale_fill_brewer(palette = "Set3") +
-  theme_genes() +
-  theme(legend.position = "none")
-
-region <- region[!(region$Sample_ID %in% c("Plate1B9",
-                                           "Plate1C9")), ]
-
-##AF of each variants from each compounds
-p_c2 <- ggplot(region, aes(POS, Ratio)) +
-  geom_point(aes(color = Concentration, shape = Effect_type), 
-             size = 3, alpha = 0.8) +
-  xlim(this_start, this_end) +
-  scale_shape_manual(limits = map$Effect_type,
-                     values = map$Shape, guide = F) +
-  scale_color_manual(values = c("0" = "gray",
-                                "25" = "#a0cbe8", 
-                                "250" = "navyblue",
-                                "50" = "#1170aa", 
-                                "500" = "navyblue")) +
-  #scale_size(range = c(0.25, 5), guide = F) +
-  labs(x = "", y = "Allele Frequence (AF)") +
-  theme_bw() +
-  theme(legend.position = "top", 
-        legend.justification = c("left", "center")) +
-  #guides(shape = guide_legend(nrow = 1)) +
-  theme(legend.background = element_blank()) 
-
-p_c <- plot_grid(p_c2, p_c1, nrow = 2, rel_heights = c(4, 1),
-          align = "v", axis = "l")
-
-fig2_abc <- plot_grid(p_a, p_b, p_c, nrow = 3, align = "v", axis = "lr", 
-                  rel_heights = c(1, 1, 1.3), 
-                  labels = c('a', "b", "c"))
-
-###############################################################################
-###############################################################################
 pos_gene <- read.table("../00.data/vcf_20231025_position_gene_map.txt",
                        header = F, sep = "\t")
 colnames(pos_gene) <- c("POS", "Type", "Gene")
-all <- merge(all, pos_gene)
+evol_pop <- merge(evol_pop, pos_gene, by = "POS", all.x = T)
 
-#### Panel D - AcrR 
+#### Panel B - AcrR 
 this_gene_ID <- c("peg.1416", "peg.1417")
 
-this_gene <- all[all$Gene %in% this_gene_ID, ]
+this_gene <- evol_pop[evol_pop$Gene %in% this_gene_ID, ]
 this_gene <- merge(this_gene, map)
 
 ## Get the coordinate of this gene
@@ -189,7 +171,7 @@ p1 <- ggplot(this_gene, aes(POS, Ratio)) +
                                "50" = 2.4), guide = F) +
   scale_color_manual(values = c("Xanthan_gum" = "slateblue3",
                                 "Others" = "gray")) +
-  scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = F) +
+  scale_shape_manual(limits = map$Effect_type, values = map$Shape, guide = "none") +
   theme(legend.position = "top") +
   guides(color = guide_legend(nrow = 2)) +
   main_theme +
@@ -210,14 +192,14 @@ p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
         panel.background = element_blank(),
         plot.background = element_blank()) 
 
-p_d <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
+p_b <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
                  rel_heights = c(4, 1))
 
 ###############################################################################
-#### Panel E
+#### Panel C
 this_gene_ID <- c( "peg.1703", "peg.1704")
 
-this_gene <- all[all$Gene %in% this_gene_ID, ]
+this_gene <- evol_pop[evol_pop$Gene %in% this_gene_ID, ]
 this_gene <- merge(this_gene, map)
 
 ## Get the coordinate of this gene
@@ -256,35 +238,17 @@ p2 <- ggplot(this_gff, aes(xmin = start, xmax = end,
         panel.background = element_blank(),
         plot.background = element_blank()) 
 
-p_e <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
+p_c <- plot_grid(p1, p2, nrow = 2, align = "v",  axis = "l", 
                  rel_heights = c(4, 1))
-
+p_c
 ###############################################################################
 ####
-fig2_de <- plot_grid(p_d, p_e, nrow = 1, align = "h", axis = "b", 
-                   labels = c("d", "e"))
+p_bc <- plot_grid(p_b, p_c, nrow = 1, align = "h", axis = "b", 
+                  labels = c("b", "c"))
 
+fig2 <- plot_grid(p_a, p_bc, nrow = 2, align="v", axis="lr", labels = c("a", ""),
+                  rel_heights = c(1, 1.2))
 
-fig2 <- plot_grid(fig2_abc, fig2_de, nrow = 2, rel_heights = c(2.4, 1))
+fig2
 
-ggsave("../05.figures/Figure_2.pdf", fig2, width = 10, height = 12)
-
-
-###############################################################################
-#### Numbers used in the paper
-all_noNT5002 <- all[all$Compound != "NT5002", ]
-dim(all_noNT5002)
-length(unique(all_noNT5002$POS))
-
-number_of_var <- all_noNT5002 %>% group_by(Sample_ID) %>% summarise(n = n())
-median(number_of_var$n)
-
-number_of_samples <- all_noNT5002 %>% 
-  group_by(Compound) %>% summarise(n = length(unique(Sample_ID)))
-
-all_05_noNT5002 <- all_05[all_05$Compound != "NT5002", ]
-dim(all_05_noNT5002)
-length(unique(all_05_noNT5002$POS))
-
-number_of_var_05 <- all_05_noNT5002 %>% group_by(Sample_ID) %>% summarise(n = n())
-median(number_of_var_05$n)
+ggsave("../05.figures/Figure_2.pdf", fig2, width = 7, height = 6)
